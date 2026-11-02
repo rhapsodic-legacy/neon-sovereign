@@ -1,0 +1,149 @@
+# PROLOGUE — "Soundcheck", part 2: the alley behind the Pink Wyvern.
+
+@scene prologue.the_letter
+# PLOT: Establish the Cyrano letters, Rex's secret (he can't read), and his "only I bully Adder" code.
+# CHARACTER: Rex's ego and his buried decency; Eddar's talent and dry wit; the barrel as a running gag.
+@bgm alley_rex
+@cam focus rex
+NARRATOR: The alley smells like fryer oil and sea salt. Rex Valor is leaning on the dumpster like it owes him rent.
+REX [smug]: Adder. My man. My scribe. My little pencil.
+EDDAR: Rex. You're in the alley. Voluntarily.
+REX: Rex goes where Rex is needed. And tonight Rex needs a letter.
+GRUBB: Rex needs a letter!
+REX: Thank you, Grubb.
+REX [smug]: Princess Lyra. Solara. Sky city. Hair like a sunset on a Tuesday. She's going to be at the Hero's Gala, and when the Rubric says my name tonight, she's going to have a letter from me in her hand.
+EDDAR: You don't know they're saying your name.
+REX: Adder. Look at me.
+NARRATOR: He flexes. One pauldron catches the neon and throws a little gold light across the bricks.
+REX: Who else would they say?
+LEDGER: Entry #2,207: He's got a point, and I hate it.
+REX: Okay. Pencil out. "Dear Princess. You're hot."
+EDDAR: Inspiring. Can I make one tiny suggestion?
+REX: Is it "but in poetry"? Because Rex was getting there.
+? Write it beautifully. -> beautiful {harmony:+1}
+? Write it beautifully, with one tiny joke at Rex's expense. -> joke {bond_rex:-1}
+? Write exactly what he said. -> literal {bond_rex:-2}
+* literal
+EDDAR: "Dear Princess. You're hot." Period. Signed, Rex.
+REX: Read it back.
+EDDAR: "Dear Princess. You're hot."
+REX: ...
+REX [hurt]: Adder. I pay you three tokens a letter because I'm a GENEROUS LEGEND, not because I want to sound like Grubb.
+GRUBB: Hey.
+REX: Do it right.
+@goto beautiful
+* joke
+@flag p.joke
+EDDAR: Writing. "...and though I am but a humble jouster, with hair no mortal comb has ever tamed..."
+REX [smile]: Ha! That's good. That's true. Keep that.
+@goto beautiful
+* beautiful
+NARRATOR: Eddar writes. It comes out the way it always does when he isn't writing for himself: easy, and true, and a little sad.
+EDDAR: "Princess. They tell me the sky over Solara never really goes dark, that the city holds the last of the sunset in its towers."
+EDDAR: "I've never seen it. But I think I know what that's like. Some people walk into a room and it stops being night."
+GRUBB: ...Whoa.
+REX [hurt]: ...
+REX: Yeah. Yeah, that's what Rex meant.
+EDDAR: Want me to read the rest?
+REX: No. No, Rex's eyes are tired. Rex trusts you. Seal it.
+LEDGER: Entry #2,208: Fourteen letters to a princess. Not one of them from the guy who wrote them.
+@sfx coins
+REX: Three tokens. Plus one, because Rex is in a giving mood and destiny is in the air.
+@set tokens += 4
+@set bond_rex += 1
+EDDAR: Thanks, Rex.
+REX [smug]: Don't thank me yet.
+@sfx barrel
+@cam shake
+NARRATOR: Rex picks him up by the jacket, one-handed, and drops him into the trash barrel like he's posting a letter.
+EDDAR: ...There it is.
+REX: Tradition, Adder. Can't break tradition on Proclamation Night. Bad luck.
+VINNIE: HA! Look at the mop kid! In the BIN! Where he LIVES!
+@cam focus rex
+NARRATOR: A dock-worker named Vinnie is in the alley mouth, pointing and laughing. Rex turns very slowly.
+REX: Hey.
+REX: Hey.
+REX [angry]: Nobody pushes Adder around but me.
+@sfx punch
+@cam shake
+NARRATOR: Vinnie is suddenly lying down, in a different part of the alley, rethinking several life choices.
+REX [smug]: You're welcome, dweeb.
+GRUBB: You're welcome, dweeb!
+REX: Grubb.
+GRUBB: Sorry.
+? "...Thanks, Rex." -> thanks {bond_rex:+1}
+? "You know that's not how protecting someone works, right?" -> works {harmony:+1}
+* thanks
+LEDGER: Entry #2,209: I thanked him. From inside the barrel. I need to stop doing that.
+@goto exit
+* works
+REX: Course it is. You're still in one piece, aren't you? That's protecting.
+REX: Mostly one piece. One and a bit.
+@goto exit
+* exit
+REX: C'mon, Grubb. Big night. The Rubric's gonna say my name and Rex wants to be holding a drink when they do.
+@cmd exit_npc rex
+@cmd exit_npc grubb
+@flag p.letter_done
+@objective Climb out of the barrel. Then dump the trash. With dignity.
+@end
+
+@scene prologue.vinnie
+@if p.letter_done
+VINNIE: Ugh. Is the sky supposed to be spinning?
+EDDAR: Only on Proclamation Night. Stay down, Vinnie.
+@end
+@endif
+VINNIE: What're you lookin' at, mop kid?
+@end
+
+@scene prologue.dumpster
+# PLOT: End-of-build hook: Sable's first glimpse. CHARACTER: she looks at him, not at the Hero.
+@if !p.letter_done
+EDDAR: The dumpster. I should probably deal with Rex first. Or rather, Rex will probably deal with me.
+@end
+@endif
+@if p.sable_seen
+EDDAR: Trash is out. Dignity is negotiable.
+@end
+@endif
+@sfx trash
+EDDAR: Trash: out. Dignity: also out, but in a separate bag.
+@sfx engine
+@cam focus street
+NARRATOR: Something goes past the mouth of the alley, low and fast and almost silent. A black light-cycle, trailing violet light.
+NARRATOR: It stops. The rider is a woman in black wraps and a black visor, silver hair cropped short. The visor turns, past the Wyvern, past the crowds heading to the Cathedral.
+NARRATOR: It stops on Eddar.
+EDDAR: ...Hi?
+NARRATOR: She looks for one second longer than a stranger should. Then the light-cycle is gone, and the alley is just an alley again.
+LEDGER: Entry #2,210: A beautiful stranger looked at me on purpose. Logging it in case it never happens again.
+@flag p.sable_seen
+@bgm alley_night
+@card END OF BUILD 0.1 — PROCLAMATION NIGHT CONTINUES IN THE NEXT BUILD
+@objective Head to the Cathedral for the Proclamation. (Coming in the next build.)
+@end
+
+@scene prologue.barrel
+@if p.letter_done
+EDDAR: My barrel. We've been through a lot together. More than I've been through with most people.
+@end
+@endif
+EDDAR: A trash barrel. Clean, as far as trash barrels go. Rex has standards.
+@end
+
+@scene prologue.cat
+EDDAR: The alley cat. Mama Dee calls her Encore, because she always comes back.
+EDDAR: She judges me less than everyone inside. I bring her fish.
+@end
+
+@scene prologue.exit_sign
+EDDAR: A neon EXIT sign, buzzing pink. Every night it tells me there's a way out. Every night I go back inside.
+@end
+
+@scene prologue.alley_mouth
+@if !p.sable_seen
+EDDAR: Out there it's all Proclamation crowds and Rubric banners. I should finish the trash first. Mama Dee would find me. She always finds me.
+@end
+@endif
+EDDAR: The Cathedral bells are starting. The next part of this night isn't built yet. (End of build 0.1.)
+@end

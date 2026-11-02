@@ -1,0 +1,27 @@
+{
+  "name": "neon-sovereign",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Neon Sovereign — an 80s neon tech-fantasy JRPG where music is magic.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint:scenes": "vite-node scripts/lint-scenes.ts",
+    "play:headless": "vite-node scripts/headless-play.ts"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/three": "0.180.0",
+    "typescript": "5.9.3",
+    "vite": "6.4.5",
+    "vite-node": "^3.2.4",
+    "vitest": "3.2.7"
+  }
+}

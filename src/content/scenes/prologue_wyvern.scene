@@ -1,0 +1,214 @@
+# PROLOGUE — "Soundcheck", part 1: the Pink Wyvern.
+# Canon: docs/STORY.md (Prologue). Tone: PG-13, funny first, true second.
+
+@scene prologue.intro
+# PLOT: Open the game on Proclamation Night; set the first objective.
+# CHARACTER: Eddar is smart, funny, overlooked, and fine with it (mostly). The Ledger device starts.
+@bgm wyvern_soundcheck
+@card SOLACE BAY — PROCLAMATION NIGHT
+NARRATOR: Tonight the Rubric names the Hero of Legend. Every bar in Solace Bay is open late.
+NARRATOR: Every bar needs someone to mop it.
+@cam focus eddar
+EDDAR: Three cola puddles, one mop, forty minutes to doors.
+EDDAR: And somewhere, a prophecy deciding whose life matters. Spoiler: not the guy holding the mop.
+LEDGER: Entry #2,204: Mopped the stage at 6. Band spilled cola on the stage at 6:05. Mopped it at 6:10. Band asked why the stage was wet.
+@objective Mop the three cola puddles before soundcheck.
+@flag p.intro
+@end
+
+@scene prologue.puddle_1
+# PLOT: Tutorial interaction. CHARACTER: Eddar's observational wit.
+@sfx mop
+EDDAR: Cola, lime, and something that glows. Spike's been mixing "tour drinks" again.
+@flag p.puddle_1
+@set puddles += 1
+@if puddles>=3
+EDDAR: Done. The floor is clean, the band is dirty, the universe is balanced.
+@objective Find out why Roxy's amp keeps buzzing.
+@endif
+@end
+
+@scene prologue.puddle_2
+@sfx mop
+EDDAR: This one's shaped like Rex's face. I'll take my time.
+EDDAR: ...Okay, that was cathartic.
+@flag p.puddle_2
+@set puddles += 1
+@if puddles>=3
+EDDAR: Done. The floor is clean, the band is dirty, the universe is balanced.
+@objective Find out why Roxy's amp keeps buzzing.
+@endif
+@end
+
+@scene prologue.puddle_3
+@sfx mop
+EDDAR: Somebody tracked roller-skate wax through the cola. On purpose. Into a spiral.
+EDDAR: That's not a spill. That's a signature.
+LULU: Love you, Eddar!
+@flag p.puddle_3
+@set puddles += 1
+@if puddles>=3
+EDDAR: Done. The floor is clean, the band is dirty, the universe is balanced.
+@objective Find out why Roxy's amp keeps buzzing.
+@endif
+@end
+
+@scene prologue.roxy
+# PLOT: Introduce Roxy and the amp problem. CHARACTER: her fuse, her ambition, her family; Eddar's crush.
+@if p.amp_fixed
+ROXY [smile]: Listen to that. Clean as a church bell. You're a wizard, Eddar.
+EDDAR: I'm a guy who reads amp manuals for fun.
+ROXY: Same thing in this town.
+@end
+@endif
+@if p.amp_checked
+ROXY [angry]: Well? Is she dying? Tell me she's not dying. I can't afford a new one. I can barely afford this ponytail.
+EDDAR: Give me a second with it.
+@end
+@endif
+@cam focus roxy
+@sfx amp_buzz
+ROXY [angry]: Do you hear that? That BZZZ? That's the sound of my career getting electrocuted.
+EDDAR: It's a sixty-cycle hum. It's probably not personal.
+ROXY [angry]: Everything is personal, Eddar. There's a booker from Amplitude in the crowd tonight. AMPLITUDE. If this thing buzzes through my solo, I'm going to set it on fire. And then the stage. And then myself.
+@emote roxy fire
+SPIKE: Her hair's doing the thing again.
+ROXY [angry]: My hair is FINE.
+? Offer to look at the amp. -> look
+? Tell her the hair is a fire hazard. -> hazard {bond_roxy:-1}
+? Ask about the booker. -> booker {bond_roxy:+1}
+* booker
+ROXY [smile]: Lady named Velvet Kane. Books the Grand Stadium. One good set and the Wildfires play Amplitude.
+ROXY: Which means real money. Which means my brothers get shoes that fit before the next growth spurt.
+EDDAR: Then the amp doesn't buzz tonight.
+@goto look
+* hazard
+EDDAR: Respectfully, your hair is a fire hazard.
+ROXY [angry]: Respectfully, so is your mouth. FIX. THE. AMP.
+@goto look
+* look
+EDDAR: Let me look at it. Two minutes.
+ROXY [smile]: You're my lucky charm, you know that?
+LEDGER: Entry #2,205: "Lucky charm." Not "boyfriend material." Not "date." Charm. Like a rabbit's foot. Something you keep in your pocket and forget about.
+@flag p.amp_checked
+@objective Examine Roxy's amp, stage right.
+@end
+
+@scene prologue.amp
+# PLOT: Small puzzle; Eddar's ear for the Resonance (foreshadows his power). CHARACTER: competence.
+@if !p.amp_checked
+EDDAR: Roxy's amp. "Property of Roxy Vega. Touch it and die." Fair enough. I'll ask first.
+@end
+@endif
+@if p.amp_fixed
+EDDAR: Purring like a cat that's eaten a smaller, louder cat.
+@end
+@endif
+@sfx amp_buzz
+EDDAR: Tubes glowing. Cables seated. The buzz is coming from... everywhere and nowhere.
+NARRATOR: Eddar closes his eyes. Under the buzz there's a second sound, faint and low, like the room itself humming.
+EDDAR: There. The hum isn't in the amp. It's in the ground. The stage lights and the amp are fighting over the same wire.
+? Flip the ground-lift switch. -> lift {harmony:+1}
+? Replace the power tube. -> tube
+? Hit it. Percussive maintenance. -> hit
+* tube
+@sfx clunk
+EDDAR: New tube. Same buzz. Two tokens' worth of glass, and the universe laughs at me.
+@set tokens -= 2
+EDDAR: Okay. Think. It's not the amp.
+@goto retry
+* hit
+@sfx thump
+EDDAR: ...
+SPIKE: Did you just punch Roxy's amp?
+EDDAR: No.
+SPIKE: I'm telling her.
+EDDAR: It was a diagnostic tap.
+@goto retry
+* retry
+? Flip the ground-lift switch. -> lift {harmony:+1}
+? Hit it again, but with feeling. -> hit2
+* hit2
+@sfx thump
+NARRATOR: It still buzzes. Spike is writing something down.
+@goto retry2
+* retry2
+? Flip the ground-lift switch. -> lift {harmony:+1}
+* lift
+@sfx switch
+@bgm wyvern_live
+NARRATOR: Click. The buzz dies. The room exhales.
+EDDAR: Ground loop. Never personal. Always the ground.
+@flag p.amp_fixed
+@cam focus roxy
+ROXY [smile]: Is that — oh, that's CLEAN. Listen to her!
+@sfx guitar_riff
+NARRATOR: Roxy hits one chord and the neon over the stage flares a little brighter, the way it does when someone in Solace Bay plays like they mean it.
+ROXY [smile]: C'mere, lucky charm.
+@emote roxy kiss
+NARRATOR: She kisses him on the forehead.
+LEDGER: Entry #2,206: Forehead. Again.
+MAMA DEE: Eddar! Trash. Alley. Now. Before the doors open and the whole Bay smells my kitchen.
+@objective Take the trash out the back door.
+@end
+
+@scene prologue.mama_dee
+# CHARACTER: Mama Dee — owner, gravel voice, secretly the only adult who looks out for Eddar.
+@if p.amp_fixed
+MAMA DEE: Trash, sugar. Back door. And if Rex Valor's out there, you walk past him like he's weather.
+EDDAR: Weather doesn't usually stuff me in a barrel.
+MAMA DEE: Then you ain't seen weather in Solace Bay.
+@end
+@endif
+MAMA DEE: You know what tonight is, Eddar? The Rubric reads out a name and some lucky fool becomes a legend.
+EDDAR: Any chance it's the guy who mops?
+MAMA DEE: Honey, prophecy don't mop. That's why it needs us.
+@if puddles<3
+MAMA DEE: Floor. Cola. Go.
+@endif
+@end
+
+@scene prologue.spike
+@if p.amp_fixed
+SPIKE: I didn't tell her you punched the amp. I want that on the record. I'm holding it over you for life.
+@end
+@endif
+SPIKE: Bass player life: nobody hears you, everybody would notice if you stopped. Kind of like you, mop guy.
+EDDAR: That's the nicest thing you've ever said to me.
+SPIKE: Don't get used to it.
+@end
+
+@scene prologue.lulu
+@if p.amp_fixed
+LULU: Roxy's playing like the building owes her money. Good job, Eddar.
+@end
+@endif
+LULU: I'm warming up. Don't talk to me. Actually, talk to me. Did you see the Proclamation scroll? They say the ink glows red when it picks the Hero.
+EDDAR: I've read the Canticle. Twice. The Hero verse doesn't even scan.
+LULU: You've READ it? The whole thing? On purpose?
+EDDAR: I clean the Hall of Records at night. It was that or talk to the ghosts.
+@end
+
+@scene prologue.gil
+# CHARACTER: barfly with a micro-story. Plants Sable's arrival.
+GIL: Saw a woman ride in on a black light-cycle this afternoon. Visor. Silver hair. Didn't stop at the Proclamation tent.
+GIL: Didn't stop anywhere. Just looked at every face on the boardwalk like she was reading a list.
+EDDAR: Looking for someone?
+GIL: Kid, everybody's looking for someone. Most of us are just looking for the bathroom.
+@end
+
+@scene prologue.jukebox
+@if p.amp_fixed
+EDDAR: Someone queued "Valor Forever (Demo)" four times. Rex has been here.
+@end
+@endif
+EDDAR: Mama Dee's jukebox. Every record is from before I was born, except for the one I fixed. I won't say which one. It knows.
+@end
+
+@scene prologue.front_door
+EDDAR: Front door's locked until doors. Mama Dee's rule: nobody in until the floor's clean, and nobody out until the trash is.
+@end
+
+@scene prologue.back_door_locked
+EDDAR: The alley can wait. Soundcheck first, says the woman who signs my paychecks.
+@end
