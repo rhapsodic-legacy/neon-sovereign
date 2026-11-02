@@ -45,6 +45,7 @@ export const wyvern: MapDef = {
       pos: { x: -7.2, z: 2.4 },
       facing: Math.PI / 2,
       talk: 'prologue.mama_dee',
+      reach: 0.9, // talks across the bar counter
     },
     { id: 'gil', model: 'gil', name: 'Old Gil', pos: { x: -5.0, z: 3.9 }, facing: Math.PI / 2, talk: 'prologue.gil' },
   ],
@@ -57,7 +58,12 @@ export const wyvern: MapDef = {
   ],
   exits: [
     { id: 'front_door', name: 'Front door', pos: { x: 0, z: 5.9 }, to: 'wyvern', spawn: 'start', cond: 'never', locked: 'prologue.front_door' },
-    { id: 'back_door', name: 'Back door', pos: { x: 7.7, z: -2.6 }, to: 'alley', spawn: 'from_wyvern', cond: 'p.amp_fixed', locked: 'prologue.back_door_locked' },
+    { id: 'back_door', name: 'Back door', pos: { x: 7.7, z: -2.6 }, to: 'alley', spawn: 'from_wyvern', cond: 'p.amp_fixed & puddles>=3', locked: 'prologue.back_door_locked' },
+  ],
+  sounds: [
+    // Roxy's band rehearsing on stage: faint from the door, full in front of the stage.
+    { id: 'band', preset: 'band_rehearsal', pos: { x: 0, z: -4.5 }, cond: '!p.amp_fixed', radius: 11, maxGain: 0.9, minGain: 0.12 },
+    { id: 'band', preset: 'band_live', pos: { x: 0, z: -4.5 }, cond: 'p.amp_fixed', radius: 12, maxGain: 1.0, minGain: 0.2 },
   ],
   triggers: [{ cond: '!p.intro', scene: 'prologue.intro' }],
 };
@@ -94,6 +100,10 @@ export const alley: MapDef = {
   exits: [
     { id: 'back_door', name: 'Back door', pos: { x: 2.7, z: 4.8 }, to: 'wyvern', spawn: 'from_alley' },
     { id: 'alley_mouth', name: 'Alley mouth', pos: { x: 0, z: -9.7 }, to: 'alley', spawn: 'from_wyvern', cond: 'never', locked: 'prologue.alley_mouth' },
+  ],
+  sounds: [
+    // The band through the Wyvern's back door: muffled, and louder by the door.
+    { id: 'band', preset: 'band_live', pos: { x: 2.7, z: 5.2 }, radius: 10, maxGain: 0.55, minGain: 0.08, muffled: true },
   ],
   triggers: [{ cond: '!p.letter_done', scene: 'prologue.the_letter' }],
 };

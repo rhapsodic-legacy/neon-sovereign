@@ -29,6 +29,7 @@ export class FieldRenderer {
   private camTarget = new THREE.Vector3();
   private camFocus: string | null = null;
   private shake = 0;
+  private effects: Effect[] = [];
   private t = 0;
   private lastPlayerPos: Vec2 = { x: 0, z: 0 };
 
@@ -86,7 +87,50 @@ export class FieldRenderer {
       case 'scene_end':
         this.camFocus = null;
         break;
+      case 'fx':
+        if (e.id === 'violet') this.violetFlare(e.target);
+        break;
     }
+  }
+
+  /** Eddar's power leaking out (DESIGN T4): a brief violet flash and a puff of sparks. Nobody in the scene notices. */
+  private violetFlare(target: string): void {
+    const at = target === 'eddar' ? this.player.root.position : this.actors.get(target)?.rig.root.position;
+    if (!at) return;
+    const g = new THREE.Group();
+    g.position.set(at.x, 1.1, at.z);
+    const light = new THREE.PointLight(0x9b4dff, 30, 7, 1.6);
+    g.add(light);
+    const mat = new THREE.MeshBasicMaterial({ color: 0xc58cff, transparent: true, toneMapped: false });
+    const sparks: { m: THREE.Mesh; v: THREE.Vector3 }[] = [];
+    for (let i = 0; i < 26; i++) {
+      const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.035 + Math.random() * 0.03), mat);
+      const a = Math.random() * Math.PI * 2;
+      const up = Math.random() * 1.6 - 0.3;
+      sparks.push({ m, v: new THREE.Vector3(Math.cos(a) * (1 + Math.random() * 1.6), up, Math.sin(a) * (1 + Math.random() * 1.6)) });
+      g.add(m);
+    }
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.3, 32), new THREE.MeshBasicMaterial({ color: 0xb06bff, transparent: true, side: THREE.DoubleSide, toneMapped: false }));
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = -1.08;
+    g.add(ring);
+    this.world.add(g);
+    this.effects.push((dt, age) => {
+      const k = Math.max(0, 1 - age / 0.9);
+      light.intensity = 30 * k * k;
+      mat.opacity = k;
+      for (const s of sparks) {
+        s.m.position.addScaledVector(s.v, dt);
+        s.v.y -= dt * 2.5;
+      }
+      ring.scale.setScalar(1 + age * 9);
+      (ring.material as THREE.MeshBasicMaterial).opacity = k * 0.8;
+      if (k <= 0) {
+        this.world.remove(g);
+        return false;
+      }
+      return true;
+    });
   }
 
   private loadMap(): void {
@@ -113,6 +157,13 @@ export class FieldRenderer {
       this.world.add(m);
       this.markers.set(h.id, m);
     }
+    for (const ex of map.exits) {
+      if (ex.cond === 'never') continue;
+      const m = makeExitMarker(ex.pos, map.walk);
+      this.world.add(m);
+      this.markers.set(`exit:${ex.id}`, m);
+    }
+    this.effects = [];
     const p = this.game.state.player.pos;
     this.camTarget.set(p.x, 0, p.z);
     this.snapCamera();
@@ -179,6 +230,20 @@ export class FieldRenderer {
       m.userData.update?.(this.t);
     }
 
+    // exit markers: cyan chevrons when you can leave, dim pink when the door is still locked
+    for (const ex of map.exits) {
+      const m = this.markers.get(`exit:${ex.id}`);
+      if (!m) continue;
+      const open = evalCond(st, ex.cond);
+      m.userData.update?.(this.t, open);
+    }
+
+    // one-shot effects
+    this.effects = this.effects.filter((fx) => {
+      fx.age = (fx.age ?? 0) + dt;
+      return fx(dt, fx.age);
+    });
+
     this.set.update(dt, this.t);
 
     // camera
@@ -206,6 +271,44 @@ export class FieldRenderer {
 
     this.composer.render(dt);
   }
+}
+
+type Effect = ((dt: number, age: number) => boolean) & { age?: number };
+
+/** A floor chevron just inside the walkable area, pointing at the exit. */
+function makeExitMarker(pos: { x: number; z: number }, walk: { x: number; z: number }[]): THREE.Object3D {
+  let cx = 0;
+  let cz = 0;
+  for (const v of walk) {
+    cx += v.x / walk.length;
+    cz += v.z / walk.length;
+  }
+  const dir = new THREE.Vector2(pos.x - cx, pos.z - cz).normalize();
+  const g = new THREE.Group();
+  g.position.set(pos.x - dir.x * 0.9, 0.02, pos.z - dir.y * 0.9);
+  g.rotation.y = Math.atan2(dir.x, dir.y);
+  const shape = new THREE.Shape();
+  shape.moveTo(-0.32, -0.12);
+  shape.lineTo(0, 0.2);
+  shape.lineTo(0.32, -0.12);
+  shape.lineTo(0.32, -0.26);
+  shape.lineTo(0, 0.06);
+  shape.lineTo(-0.32, -0.26);
+  const mat = new THREE.MeshBasicMaterial({ color: 0x33e0ff, transparent: true, toneMapped: false, side: THREE.DoubleSide });
+  const chevrons: THREE.Mesh[] = [];
+  for (let i = 0; i < 2; i++) {
+    const m = new THREE.Mesh(new THREE.ShapeGeometry(shape), mat);
+    m.rotation.x = Math.PI / 2; // shape +y -> local +z (toward the exit)
+    m.position.z = i * 0.3;
+    g.add(m);
+    chevrons.push(m);
+  }
+  g.userData.update = (t: number, open: boolean) => {
+    mat.color.setHex(open ? 0x33e0ff : 0xff2bd6);
+    mat.opacity = open ? 0.55 + Math.sin(t * 4) * 0.35 : 0.22;
+    chevrons.forEach((c, i) => (c.position.z = i * 0.3 + (open ? ((t * 0.6) % 0.3) : 0)));
+  };
+  return g;
 }
 
 function makeMarker(kind?: string): THREE.Object3D | null {

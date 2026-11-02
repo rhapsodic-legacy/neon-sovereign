@@ -1,7 +1,7 @@
 import type { Content } from '../content/index';
 import { evalCond, GameState, newGameState } from './state';
 import { Interactable, interactables, INTERACT_RANGE, MapDef, movePlayer, resolveScene } from './map';
-import { SceneCommand, SceneRunner, SceneView } from './scene/runner';
+import { interpolate, SceneCommand, SceneRunner, SceneView } from './scene/runner';
 import { Rng } from './rng';
 
 export type Mode = 'field' | 'scene';
@@ -15,6 +15,7 @@ export type GameEvent =
   | { type: 'sfx'; id: string }
   | { type: 'cam'; args: string[] }
   | { type: 'emote'; who: string; what: string }
+  | { type: 'fx'; id: string; target: string }
   | { type: 'npc_exit'; id: string }
   | { type: 'objective'; text: string }
   | { type: 'toast'; text: string }
@@ -53,7 +54,7 @@ export class Game {
   start(): void {
     this.emit({ type: 'map', mapId: this.state.mapId });
     this.emit({ type: 'bgm', id: this.state.bgm || this.map.bgm });
-    if (this.state.objective) this.emit({ type: 'objective', text: this.state.objective });
+    this.refreshObjective(true);
     this.checkTriggers();
   }
 
@@ -177,8 +178,30 @@ export class Game {
       const id = this.runner.scene.id;
       this.runner = null;
       this.mode = 'field';
+      // Times each scene has finished: lets follow-up talks branch on `seen.<scene id>>=1` (DESIGN §4 rule 7).
+      const key = `seen.${id}`;
+      this.state.vars[key] = (this.state.vars[key] ?? 0) + 1;
       this.emit({ type: 'scene_end', id });
+      this.refreshObjective();
       this.checkTriggers();
+    }
+  }
+
+  /**
+   * Objectives are derived from state by content rules (first match wins), so the player can do
+   * chores in any order and the objective always names what is actually left to do.
+   */
+  refreshObjective(force = false): void {
+    const rules = this.content.objectives;
+    if (!rules) {
+      if (force && this.state.objective) this.emit({ type: 'objective', text: this.state.objective });
+      return;
+    }
+    const rule = rules.find((r) => evalCond(this.state, r.cond));
+    const text = rule ? interpolate(rule.text, this.state) : '';
+    if (force || text !== this.state.objective) {
+      this.state.objective = text;
+      this.emit({ type: 'objective', text });
     }
   }
 
@@ -203,6 +226,8 @@ export class Game {
         this.emit({ type: 'sfx', id: c.args[0] });
         break;
       case 'objective':
+        // Content with objective rules derives the objective from state; @objective is for content without rules.
+        if (this.content.objectives) break;
         this.state.objective = c.args[0];
         this.emit({ type: 'objective', text: c.args[0] });
         break;
@@ -214,6 +239,9 @@ export class Game {
         break;
       case 'emote':
         this.emit({ type: 'emote', who: c.args[0], what: c.args[1] });
+        break;
+      case 'fx':
+        this.emit({ type: 'fx', id: c.args[0], target: c.args[1] ?? 'eddar' });
         break;
       case 'cmd':
         if (c.args[0] === 'exit_npc') this.emit({ type: 'npc_exit', id: c.args[1] });

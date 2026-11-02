@@ -2,12 +2,15 @@ import type { MapDef } from '../core/map';
 import { parseScenes } from '../core/scene/parser';
 import type { Scene } from '../core/scene/types';
 import { alley, wyvern } from './maps/prologue';
+import { OBJECTIVES } from './objectives';
 
 export interface Content {
   maps: Record<string, MapDef>;
   scenes: Record<string, Scene>;
   /** Display info per speaker key used in scenes. */
   speakers: Record<string, { name: string; color: string }>;
+  /** Objective rules, first match wins (see objectives.ts). */
+  objectives?: { cond: string; text: string }[];
 }
 
 const sceneFiles = import.meta.glob('./scenes/*.scene', { query: '?raw', import: 'default', eager: true }) as Record<
@@ -27,6 +30,7 @@ export function loadContent(): Content {
     maps: { wyvern, alley },
     scenes,
     speakers: SPEAKERS,
+    objectives: OBJECTIVES,
   };
 }
 

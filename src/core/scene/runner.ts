@@ -125,6 +125,6 @@ export class SceneRunner {
 }
 
 /** Replace {var} with numeric state vars (e.g. "{tokens} tokens"). */
-function interpolate(text: string, state: GameState): string {
+export function interpolate(text: string, state: GameState): string {
   return text.replace(/\{(\w+)\}/g, (_, k) => String(state.vars[k] ?? 0));
 }

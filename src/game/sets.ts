@@ -167,6 +167,19 @@ export function buildWyvern(): SetPiece {
     g.add(box(0.9, 0.05, 0.9, std(0x222222, { metalness: 0.6, roughness: 0.2 }), x, 0.78, z));
     g.add(box(0.08, 0.76, 0.08, std(0x777777, { metalness: 1 }), x, 0.38, z));
   }
+  // back door (stage right) to the alley, under a pink EXIT sign
+  g.add(box(0.12, 2.3, 1.3, std(0x5a1030, { metalness: 0.4, roughness: 0.5 }), 8.02, 1.15, -2.6));
+  g.add(box(0.14, 0.05, 0.6, std(0xbbbbbb, { metalness: 1, roughness: 0.2 }), 7.94, 1.05, -2.25)); // push bar
+  const doorFrame = neonMat(0xff2bd6, 1.6);
+  g.add(box(0.06, 2.4, 0.06, doorFrame, 7.98, 1.2, -3.28), box(0.06, 2.4, 0.06, doorFrame, 7.98, 1.2, -1.92), box(0.06, 0.06, 1.42, doorFrame, 7.98, 2.4, -2.6));
+  const backExit = neonText('EXIT', '#ff2bd6', { font: 'bold 180px "Courier New", monospace', scale: 1.3 });
+  backExit.mesh.position.set(7.96, 2.85, -2.6);
+  backExit.mesh.rotation.y = -Math.PI / 2;
+  g.add(backExit.mesh);
+  const doorGlow = new THREE.PointLight(0xff2bd6, 2.2, 4, 1.8);
+  doorGlow.position.set(7.4, 2.6, -2.6);
+  g.add(doorGlow);
+
   // jukebox
   const jb = box(0.9, 1.6, 0.6, std(0x3a1a0a, { roughness: 0.4 }), 7.6, 0.8, 2.4);
   g.add(jb);

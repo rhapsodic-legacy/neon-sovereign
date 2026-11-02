@@ -98,6 +98,8 @@ He's not lucky. He's the end of the world.
 4. **The Unfairness Ledger** — Eddar's numbered notebook entries pop up as handwritten notes on screen. Rules: funny first, true second; numbered (starting ~#2,206 in prologue); they trend from complaint → wonder → love → silence (none in late Act V until the epilogue's final entry).
 5. Banned: "We need to talk." "I have a bad feeling about this." "Let's do this." Quest-giver blandness. Saying the theme aloud. Explicit sexual content (innuendo OK for Rex).
 6. NPC lines are 1–3-line vignettes; they react to Rex's fame and, later, fear of Eddar.
+7. **Never repeat a conversation verbatim.** Talking to someone again gives a follow-up that reflects what was already said. Every talk scene has at least one follow-up branch (`@if seen.<scene id>>=1`; the engine counts every scene played), and the last one may loop.
+8. **The Ledger is literary.** Eddar writes beautifully: Elizabethan cadence, Victorian flourish, the odd Latin tag, mixed with his dry modern wit. When the Cyrano letters are revealed, the player should already know he's the best writer in Halcyon.
 
 **Tone samples (keep the bar):**
 > **LEDGER:** *Entry #2,206: Forehead. Again.*
@@ -145,7 +147,15 @@ He's not lucky. He's the end of the world.
 - **Resonance alignment** (Harmony ↔ Dissonance, −100..+100): battle skill use + dialogue choices + mercy choices. Affects Eddar's look, NPC reactions, party barks, epilogue slides. (Act V forces a Dissonance surge by story regardless.)
 - **Bonds** (Sable, Roxy, Rex, Thunderhorn, Lyra; 0–5): camp scenes, choices, duets.
 - **World choices**: which districts/towns you save (timed rescues), which Rubric sisters you spare, Roxy's band decisions, Jack Cutlass's fate, Thunderhorn's comeback show.
+- **Romance tension (Jesse, 2026-11-02):** besides the Sable slow burn, the player can pursue Roxy and Lyra up to a kiss (STORY.md "Romance paths"). It must not be obvious that Sable is the endgame. Eddar and Sable's **first kiss is the Last Dance** in Act IV. Before that they only get near-misses, with no kiss in Act II. The Roxy and Lyra kisses are flags (`kissed_roxy`, `kissed_lyra`) that change Sable's Act III line, the Last Dance glances, Rex's goodbye (if told) and the epilogue slides.
 - **Main beats are fixed** (Jesse's ending is canonical); choices shape texture and the epilogue slides.
+
+### 5.3 Know-How dialogue options (Shadowrun-style)
+- Each party member specializes in one field of knowledge, their **Know-How**: Eddar **Lore** (he's read everything, the Canticle included), Rex **Swagger** (sports, crowds, intimidation and being famous), Sable **Discipline** (Rubric secrets, martial arts, bluntness), Roxy **Street** (bars, bands, hustles, temper), Thunderhorn **Showbiz** (music history, legends, backstage), Lyra **Court** (politics, etiquette, money).
+- In dialogue, a Know-How option shows a tag like `[LORE]` or `[SWAGGER]`. It's selectable only if that character is in the party, or present in the scene. Otherwise it's shown **greyed out with the tag**, so players know what they're missing (replay value).
+- Most give lore, humour, something spicy, or a small perk (tokens, an item, a bond point). A few have greater impact: an alternative quest resolution, a skipped fight, a unique item, or a different side-quest ending. **Never the main story.**
+- DSL: `? [LORE] Quote the Canticle back at him -> lore_path {need:eddar}`. The UI greys options whose `need` isn't met, and WIRE reports them as `available:false`.
+- Implementation target: M4 (Act I), when the party grows past Eddar.
 
 ---
 
@@ -279,6 +289,7 @@ Implementation: Web Audio; vertical layering; ducking under voice; tempo-synced 
 ### 9.4 Living Soundtrack (music = mood, shaped by choices)
 - **Every town theme has stems** (base, band, festive, Dirge). State drives the mix: a town you saved gets its festive layer and a live band in the square; a town you failed decays toward the Dirge; a town mid-attack audibly *loses instruments* as the Hush advance.
 - **Choices change music:** which band plays at Solace Bay's festival (Roxy's choices), whether the Wildfires make it, whether Rex's Anthem becomes the joust stadium's walk-on music, Eddar's alignment (Dissonance adds detuned violet undertones to his theme and the field music around him in Acts IV–V).
+- **Proximity music (built in 0.2):** in-world bands are positional layers. In the Pink Wyvern, Roxy's band practicing is faint at the door and louder near the stage. In the alley it's muffled through the wall (low-pass filtered). Sources are map data (`MapDef.sounds`), so the same system works for buskers, jukeboxes, the Cathedral organ, and the Dirge spreading through a town.
 - **Comedy through music:** jukeboxes, buskers who play requests (badly), NPCs humming Rex's Anthem after the Joust, Thunderhorn's napkin lyrics as collectibles.
 - **Implementation:** Web Audio stem mixer with per-area state; crossfades on state changes; all stems from the same AI-generated master, split with a stem-separation tool if the music service doesn't export stems.
 
@@ -376,6 +387,7 @@ Working rules: read §0, §15 and the current milestone first. Never ship placeh
 ## 15. Status Log
 | Date | What changed | Next |
 |---|---|---|
+| 2026-11-02 | **M1 build 0.2** (Jesse's playtest): NPCs never repeat (`seen.<scene>` counter + follow-up lines for everyone); objectives derived from flags so chores work in any order; back door needs floor + amp and says which is missing; visible back door with EXIT sign and floor chevrons; amp redesign (ground lift holds three bars, hum returns, Roxy ignites, Eddar punches the transformer, unnoticed violet flare via `@fx violet`); Ledger rewritten in the literary voice; proximity band layer (louder at the stage, muffled in the alley); grid path-finding for WIRE auto-walk; Mama Dee reachable across the bar. 13 tests. | Jesse playtest 0.2; keys; Know-How options (M4); M2 battle core. |
 | 2026-11-02 | **M1 build 0.1** in repo `rhapsodic-legacy/neon-sovereign` (branch `m1-engine-skeleton`): TS/Vite/Three.js, headless core, scene DSL (docs/SCENES.md), field movement, save/load, WIRE AI API (docs/WIRE.md), dialogue + Ledger UI, title, placeholder procedural sets/characters/synth music. Playable: Pink Wyvern opening → Rex's letter → Sable glimpse. 11 tests incl. full headless playthrough. | Jesse playtest; keys for fal/Tripo/ElevenLabs; M2 battle core. |
 | 2026-11-02 | Jesse approved v3 ("everything else is mint"). Added: Thunderhorn's last-ballad quest "One Word" (missing word = love), the Last Dance cutscene to an AI vocal track, the Hush as a low Dirge (not silence), Living Soundtrack (choices change music), Rex's terrible Anthem with in-battle buff. | Repo + keys; M1. |
 | 2026-11-02 | Concept #1 (noir) rejected. Neon Sovereign v1 (Percy) partly rejected. v3 rebuilt on Jesse's outline: Eddar Soipon protagonist, Rex as Hero of Legend, Rubric/Canticle, Act IV Revan reveal, Act V dark turn + Da Capo sacrifice + final fight without Eddar. STORY.md + this bible rewritten. | Jesse feedback; repo + keys; M1. |

@@ -1,6 +1,7 @@
 import './ui/styles.css';
 import { loadContent } from './content';
 import { Game, GameEvent, SaveData } from './core/game';
+import { soundGains } from './core/map';
 import * as wire from './core/wire';
 import { AudioEngine } from './game/audio';
 import { FieldRenderer } from './game/renderer';
@@ -149,6 +150,7 @@ function loop(now: number): void {
   last = now;
   if (!ui.titleOpen && !ui.menuOpen) game.tick(dt, game.mode === 'field' ? moveVector() : undefined);
   renderer.frame(dt);
+  if (!ui.titleOpen) audio.setLayers(soundGains(game.state, game.map));
   const f = !ui.titleOpen && game.mode === 'field' ? game.focus() : undefined;
   const pos = f ? renderer.project(f.pos.x, 2.3, f.pos.z) : null;
   const verb = f ? (f.kind === 'npc' ? 'Talk' : f.kind === 'exit' ? 'Go' : 'Examine') : '';

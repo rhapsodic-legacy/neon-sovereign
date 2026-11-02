@@ -30,12 +30,12 @@ const g = new Game(loadContent()); g.start();
 | `advance` | none | Continue past a line or card |
 | `choose` | `index` | Pick from `observe().scene.options` |
 | `interact` | `target?` | Interactable id from `observe().interactables`; auto-walks into range |
-| `move_to` | `target` or `x`,`z` | Walk with simple steering |
+| `move_to` | `target` or `x`,`z` | Walk there along a grid path around furniture and people |
 | `walk` | `dx`,`dz`,`seconds` | Raw movement |
 | `wait` | `seconds` | Let time pass |
 
 ## Observation (field mode)
-`mode`, `map`, `objective`, `player {x,z}`, `party`, `tokens`, `inventory`, `ledger_latest`, `interactables[] {id, kind, name, x, z, distance, in_range}`, `legal[]`.
+`mode`, `map`, `objective`, `player {x,z}`, `party`, `tokens`, `inventory`, `ledger_latest`, `interactables[] {id, kind, name, x, z, distance, in_range}` (distance already allows for reach, e.g. Mama Dee talks across the bar), `legal[]`.
 In scene mode, `scene` is one of `{kind:'line', speaker, text}`, `{kind:'card', text}` or `{kind:'choice', options[]}`.
 
 The battle API (turn order, enemy Tells, legal skills with previews) arrives with the battle system (milestone M2).

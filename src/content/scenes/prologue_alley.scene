@@ -1,4 +1,5 @@
 # PROLOGUE — "Soundcheck", part 2: the alley behind the Pink Wyvern.
+# Objectives come from src/content/objectives.ts; repeat examines branch on seen.<scene id>.
 
 @scene prologue.the_letter
 # PLOT: Establish the Cyrano letters, Rex's secret (he can't read), and his "only I bully Adder" code.
@@ -16,7 +17,7 @@ EDDAR: You don't know they're saying your name.
 REX: Adder. Look at me.
 NARRATOR: He flexes. One pauldron catches the neon and throws a little gold light across the bricks.
 REX: Who else would they say?
-LEDGER: Entry #2,207: He's got a point, and I hate it.
+LEDGER: Entry #2,208: He has a point. It is the only point he has ever had, and he wields it like a lance. I hate it with my whole and considerable heart.
 REX: Okay. Pencil out. "Dear Princess. You're hot."
 EDDAR: Inspiring. Can I make one tiny suggestion?
 REX: Is it "but in poetry"? Because Rex was getting there.
@@ -46,7 +47,7 @@ REX [hurt]: ...
 REX: Yeah. Yeah, that's what Rex meant.
 EDDAR: Want me to read the rest?
 REX: No. No, Rex's eyes are tired. Rex trusts you. Seal it.
-LEDGER: Entry #2,208: Fourteen letters to a princess. Not one of them from the guy who wrote them.
+LEDGER: Entry #2,209: Fourteen letters to a princess I have never seen, each signed by a man who has never read them. Somewhere in a sky city, a girl is falling in love with a ghost. I hope she's happy. I hope the ghost is, too.
 @sfx coins
 REX: Three tokens. Plus one, because Rex is in a giving mood and destiny is in the air.
 @set tokens += 4
@@ -74,7 +75,7 @@ GRUBB: Sorry.
 ? "...Thanks, Rex." -> thanks {bond_rex:+1}
 ? "You know that's not how protecting someone works, right?" -> works {harmony:+1}
 * thanks
-LEDGER: Entry #2,209: I thanked him. From inside the barrel. I need to stop doing that.
+LEDGER: Entry #2,210: Thanked my assailant for his gallantry toward me against a lesser assailant, from inside the receptacle into which he had assailed me. Let the record show I was raised with manners, if not a spine.
 @goto exit
 * works
 REX: Course it is. You're still in one piece, aren't you? That's protecting.
@@ -85,11 +86,22 @@ REX: C'mon, Grubb. Big night. The Rubric's gonna say my name and Rex wants to be
 @cmd exit_npc rex
 @cmd exit_npc grubb
 @flag p.letter_done
-@objective Climb out of the barrel. Then dump the trash. With dignity.
 @end
 
 @scene prologue.vinnie
+# CHARACTER: a bully's bully, now horizontal. Eddar is kind to him anyway.
 @if p.letter_done
+@if seen.prologue.vinnie>=2
+VINNIE: Zzz. ...Five more minutes, Ma.
+EDDAR: Sure thing, Vinnie. I'll tell the dumpster you're resting.
+@end
+@endif
+@if seen.prologue.vinnie>=1
+VINNIE: Hey. Mop kid. Was that Rex Valor who hit me? THE Rex Valor?
+EDDAR: The very same.
+VINNIE: ...Nice. Gonna tell my kids about this. If I can remember having kids.
+@end
+@endif
 VINNIE: Ugh. Is the sky supposed to be spinning?
 EDDAR: Only on Proclamation Night. Stay down, Vinnie.
 @end
@@ -116,15 +128,19 @@ NARRATOR: It stops. The rider is a woman in black wraps and a black visor, silve
 NARRATOR: It stops on Eddar.
 EDDAR: ...Hi?
 NARRATOR: She looks for one second longer than a stranger should. Then the light-cycle is gone, and the alley is just an alley again.
-LEDGER: Entry #2,210: A beautiful stranger looked at me on purpose. Logging it in case it never happens again.
+LEDGER: Entry #2,211: Tonight a stranger on a black machine looked at me as though I were a word she had been trying to remember. One second, no more. I have been looked at before, chiefly by Rex, and chiefly before impact. This was different. Logging it in case it never happens again.
 @flag p.sable_seen
 @bgm alley_night
 @card END OF BUILD 0.1 — PROCLAMATION NIGHT CONTINUES IN THE NEXT BUILD
-@objective Head to the Cathedral for the Proclamation. (Coming in the next build.)
 @end
 
 @scene prologue.barrel
+# CHARACTER: running gag; Eddar's grace under humiliation.
 @if p.letter_done
+@if seen.prologue.barrel>=2
+EDDAR: Some men have a family crest. I have a barrel. Same thing, structurally.
+@end
+@endif
 EDDAR: My barrel. We've been through a lot together. More than I've been through with most people.
 @end
 @endif
@@ -132,15 +148,26 @@ EDDAR: A trash barrel. Clean, as far as trash barrels go. Rex has standards.
 @end
 
 @scene prologue.cat
+# CHARACTER: Eddar's gentleness. Encore will matter later (she always comes back).
+@if seen.prologue.cat>=1
+EDDAR: Encore blinks at me, slowly. In cat, that's either "I love you" or "you are furniture." I'll take either.
+@end
+@endif
 EDDAR: The alley cat. Mama Dee calls her Encore, because she always comes back.
 EDDAR: She judges me less than everyone inside. I bring her fish.
 @end
 
 @scene prologue.exit_sign
+# CHARACTER: the quiet ache under the jokes.
+@if seen.prologue.exit_sign>=1
+EDDAR: It flickers on the X. EIT. Even the way out isn't sure of itself tonight.
+@end
+@endif
 EDDAR: A neon EXIT sign, buzzing pink. Every night it tells me there's a way out. Every night I go back inside.
 @end
 
 @scene prologue.alley_mouth
+# PLOT: soft wall at the end of the build.
 @if !p.sable_seen
 EDDAR: Out there it's all Proclamation crowds and Rubric banners. I should finish the trash first. Mama Dee would find me. She always finds me.
 @end

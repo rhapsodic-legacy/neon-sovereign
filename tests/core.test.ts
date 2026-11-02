@@ -113,16 +113,19 @@ describe('content', () => {
 });
 
 describe('field + WIRE headless playthrough', () => {
-  it('an AI policy can finish build 0.1 end to end', () => {
-    const g = new Game(loadContent());
-    g.start();
-    const plan = ['puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'back_door', 'dumpster'];
+  /** Drive a Game through WIRE: a plan of targets to interact with, and a choice policy that never repeats a dead end. */
+  function play(g: Game, plan: string[], done: () => boolean) {
+    const tried = new Map<string, number>();
     let steps = 0;
-    while (!g.state.flags['p.sable_seen'] && steps++ < 2000) {
+    while (!done() && steps++ < 3000) {
       if (g.mode === 'scene') {
         const v = g.view!;
-        if (v.kind === 'choice') act(g, { type: 'choose', index: v.options.length - 1 });
-        else act(g, { type: 'advance' });
+        if (v.kind === 'choice') {
+          const key = `${g.runner!.scene.id}:${v.options.map((o) => o.text).join('|')}`;
+          const n = tried.get(key) ?? 0;
+          tried.set(key, n + 1);
+          act(g, { type: 'choose', index: v.options.length - 1 - (n % v.options.length) });
+        } else act(g, { type: 'advance' });
         continue;
       }
       const target = plan.shift();
@@ -131,11 +134,52 @@ describe('field + WIRE headless playthrough', () => {
       expect(r.ok, `${target}: ${r.message}\n${wireDescribe(g)}`).toBe(true);
     }
     while (inScene(g)) g.advance();
+  }
+
+  it('an AI policy can finish build 0.2 end to end', () => {
+    const g = new Game(loadContent());
+    g.start();
+    play(g, ['puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door', 'dumpster'], () => !!g.state.flags['p.sable_seen']);
     expect(g.state.flags['p.amp_fixed']).toBe(true);
     expect(g.state.flags['p.letter_done']).toBe(true);
     expect(g.state.flags['p.sable_seen']).toBe(true);
-    expect(g.state.ledger.length).toBeGreaterThanOrEqual(5);
+    expect(g.state.ledger.length).toBeGreaterThanOrEqual(7);
     expect(observe(g).mode).toBe('field');
+  });
+
+  it('chores work in any order, and the back door waits for both', () => {
+    const g = new Game(loadContent());
+    g.start();
+    play(g, ['amp', 'roxy', 'amp', 'amp'], () => !!g.state.flags['p.amp_fixed']);
+    expect(g.state.flags['p.amp_fixed']).toBe(true);
+    expect(g.state.objective).toContain('0/3');
+    // Floor not mopped: the back door is still locked and says why.
+    act(g, { type: 'interact', target: 'back_door' });
+    expect(inScene(g)).toBe(true);
+    expect(g.view).toMatchObject({ speaker: 'MAMA DEE' });
+    while (inScene(g)) g.advance();
+    expect(g.state.mapId).toBe('wyvern');
+    play(g, ['puddle_1', 'puddle_2', 'puddle_3'], () => (g.state.vars.puddles ?? 0) >= 3);
+    expect(g.state.objective).toContain('back door');
+    play(g, ['back_door'], () => !!g.state.flags['p.letter_done']);
+    expect(g.state.mapId).toBe('alley');
+  });
+
+  it('NPCs remember earlier conversations and never repeat on the next talk', () => {
+    const g = new Game(loadContent());
+    g.start();
+    while (inScene(g)) g.advance();
+    for (const npc of ['spike', 'lulu', 'gil', 'mama_dee']) {
+      const firsts: string[] = [];
+      for (let k = 0; k < 3; k++) {
+        act(g, { type: 'interact', target: npc });
+        const v = g.view!;
+        firsts.push(v.kind === 'line' ? v.text : v.kind);
+        while (inScene(g)) g.advance();
+      }
+      expect(new Set(firsts).size, `${npc}: ${firsts.join(' / ')}`).toBe(3);
+      expect(g.state.vars[`seen.prologue.${npc}`]).toBe(3);
+    }
   });
 
   it('save/load round-trips state', () => {

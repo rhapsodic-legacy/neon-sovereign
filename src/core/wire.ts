@@ -1,5 +1,5 @@
 import { Game, WALK_SPEED } from './game';
-import { INTERACT_RANGE } from './map';
+import { findPath, INTERACT_RANGE } from './map';
 
 /**
  * THE WIRE — the AI-player interface. An LLM (or any bot) can play the whole game through
@@ -83,7 +83,7 @@ export function act(game: Game, a: WireAction): WireResult {
         const t = game.nearby().find((n) => n.id === a.target);
         if (!t) return fail(`no interactable "${a.target}" here`);
         if (t.distance > INTERACT_RANGE) {
-          const r = walkTo(game, t.pos.x, t.pos.z, INTERACT_RANGE * 0.8);
+          const r = walkTo(game, t.pos.x, t.pos.z, INTERACT_RANGE * 0.95 + t.reach);
           if (!r.ok) return r;
         }
       }
@@ -94,7 +94,7 @@ export function act(game: Game, a: WireAction): WireResult {
       if ('target' in a) {
         const t = game.nearby().find((n) => n.id === a.target);
         if (!t) return fail(`no interactable "${a.target}" here`);
-        return walkTo(game, t.pos.x, t.pos.z, INTERACT_RANGE * 0.8);
+        return walkTo(game, t.pos.x, t.pos.z, INTERACT_RANGE * 0.95 + t.reach);
       }
       return walkTo(game, a.x, a.z, 0.2);
     }
@@ -112,36 +112,31 @@ export function act(game: Game, a: WireAction): WireResult {
   }
 }
 
-/** Walk toward a point with simple steering around obstacles. Headless-friendly. */
+/** Walk to within stopDist of a point, following a grid path around obstacles. Headless-friendly. */
 function walkTo(game: Game, tx: number, tz: number, stopDist: number): WireResult {
   const dt = 1 / 30;
-  const maxSteps = 30 * 30;
+  const start = game.state.player.pos;
+  if (Math.hypot(tx - start.x, tz - start.z) <= stopDist) return ok('arrived');
+  const path = findPath(game.state, game.map, start, { x: tx, z: tz }, stopDist);
+  if (!path) return fail(`no path to (${round(tx)}, ${round(tz)})`);
   let stuck = 0;
-  for (let i = 0; i < maxSteps; i++) {
-    if (game.mode !== 'field') return ok('interrupted by a scene');
-    const p = game.state.player.pos;
-    const dx = tx - p.x;
-    const dz = tz - p.z;
-    const d = Math.hypot(dx, dz);
-    if (d <= stopDist) return ok('arrived');
-    let moved = game.tick(dt, { x: dx / d, z: dz / d });
-    if (!moved) {
-      // try sidestepping left/right of the direct line
-      for (const ang of [Math.PI / 2, -Math.PI / 2, Math.PI / 4, -Math.PI / 4]) {
-        const c = Math.cos(ang);
-        const s = Math.sin(ang);
-        const sx = (dx * c - dz * s) / d;
-        const sz = (dx * s + dz * c) / d;
-        if (game.tick(dt, { x: sx, z: sz })) {
-          moved = true;
-          break;
-        }
-      }
+  for (const wp of path) {
+    for (let i = 0; i < 120; i++) {
+      if (game.mode !== 'field') return ok('interrupted by a scene');
+      const p = game.state.player.pos;
+      const dx = wp.x - p.x;
+      const dz = wp.z - p.z;
+      const d = Math.hypot(dx, dz);
+      if (d < 0.08) break;
+      const k = Math.min(1, d / (WALK_SPEED * dt));
+      const moved = game.tick(dt, { x: (dx / d) * k, z: (dz / d) * k });
+      stuck = moved ? 0 : stuck + 1;
+      if (stuck > 10) return fail(`blocked at (${round(p.x)}, ${round(p.z)})`);
     }
-    stuck = moved ? 0 : stuck + 1;
-    if (stuck > 10) return fail(`blocked at (${round(p.x)}, ${round(p.z)}), ${round(d)}m short`);
+    const p = game.state.player.pos;
+    if (Math.hypot(tx - p.x, tz - p.z) <= stopDist) return ok('arrived');
   }
-  return fail('took too long');
+  return ok('arrived');
 }
 
 /** A plain-English description of the current situation, for LLM players. */
