@@ -6,6 +6,7 @@ import * as wire from './core/wire';
 import { AudioEngine } from './game/audio';
 import { FieldRenderer } from './game/renderer';
 import { UI } from './ui/ui';
+import { BattleUI } from './ui/battle-ui';
 
 const SAVE_KEY = 'neon-sovereign.save.1';
 const content = loadContent();
@@ -15,6 +16,7 @@ const audio = new AudioEngine();
 let game = new Game(content);
 let unsub: (() => void) | null = null;
 const renderer = new FieldRenderer(app, game);
+const battleUI = new BattleUI(app, renderer, audio);
 
 const readSave = (): SaveData | null => {
   try {
@@ -52,6 +54,8 @@ const ui = new UI(app, null, audio, {
 
 function begin(g: Game): void {
   unsub?.();
+  battleUI.stop();
+  ui.setVision(false);
   game = g;
   renderer.bind(game);
   ui.bind(game);
@@ -78,6 +82,21 @@ function onEvent(e: GameEvent): void {
     case 'map':
       ui.showToast(game.map.name);
       break;
+    case 'fx':
+      if (e.id === 'vision') ui.setVision(e.target === 'on');
+      break;
+    case 'battle_start':
+      renderer.startBattle(game.battle!);
+      battleUI.start(game);
+      ui.setBattle(true);
+      break;
+    case 'battle_end':
+      if (e.result !== 'defeat') {
+        battleUI.stop();
+        renderer.endBattle();
+        ui.setBattle(false);
+      }
+      break;
   }
 }
 
@@ -88,6 +107,7 @@ window.addEventListener('keydown', (ev) => {
   const k = ev.key.toLowerCase();
   if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k)) ev.preventDefault();
   if (ev.repeat && !['arrowup', 'arrowdown', 'w', 's'].includes(k)) return;
+  if (k === 'backspace') ev.preventDefault();
   held.add(k);
 
   if (ui.titleOpen) {
@@ -104,7 +124,7 @@ window.addEventListener('keydown', (ev) => {
     ui.showToast(audio.muted ? 'Sound off' : 'Sound on');
     return;
   }
-  if (k === 'escape' || k === 'tab') {
+  if ((k === 'escape' || k === 'tab') && !(game.mode === 'battle' && k === 'escape')) {
     ev.preventDefault();
     ui.toggleMenu();
     return;
@@ -113,6 +133,10 @@ window.addEventListener('keydown', (ev) => {
     if (k === 'arrowup' || k === 'w') ui.menuMove(-1);
     if (k === 'arrowdown' || k === 's') ui.menuMove(1);
     if (k === 'enter' || k === ' ' || k === 'e') ui.menuConfirm();
+    return;
+  }
+  if (game.mode === 'battle') {
+    battleUI.key(k);
     return;
   }
   const confirm = k === 'enter' || k === ' ' || k === 'e';
@@ -150,6 +174,7 @@ function loop(now: number): void {
   last = now;
   if (!ui.titleOpen && !ui.menuOpen) game.tick(dt, game.mode === 'field' ? moveVector() : undefined);
   renderer.frame(dt);
+  battleUI.update(dt);
   if (!ui.titleOpen) audio.setLayers(soundGains(game.state, game.map));
   const f = !ui.titleOpen && game.mode === 'field' ? game.focus() : undefined;
   const pos = f ? renderer.project(f.pos.x, 2.3, f.pos.z) : null;

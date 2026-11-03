@@ -118,6 +118,11 @@ describe('field + WIRE headless playthrough', () => {
     const tried = new Map<string, number>();
     let steps = 0;
     while (!done() && steps++ < 3000) {
+      if (g.mode === 'battle') {
+        const r = act(g, { type: 'auto_battle' });
+        expect(r.ok, r.message).toBe(true);
+        continue;
+      }
       if (g.mode === 'scene') {
         const v = g.view!;
         if (v.kind === 'choice') {
@@ -136,15 +141,32 @@ describe('field + WIRE headless playthrough', () => {
     while (inScene(g)) g.advance();
   }
 
-  it('an AI policy can finish build 0.2 end to end', () => {
+  it('an AI policy can play the whole opening, inception to Bellshell, through both fights', () => {
     const g = new Game(loadContent());
     g.start();
-    play(g, ['puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door', 'dumpster'], () => !!g.state.flags['p.sable_seen']);
-    expect(g.state.flags['p.amp_fixed']).toBe(true);
-    expect(g.state.flags['p.letter_done']).toBe(true);
-    expect(g.state.flags['p.sable_seen']).toBe(true);
-    expect(g.state.ledger.length).toBeGreaterThanOrEqual(7);
+    const seen = new Set<string>();
+    g.on((e) => {
+      if (e.type === 'scene_start') seen.add(e.id);
+      if (e.type === 'battle_start') seen.add(`battle:${e.id}`);
+    });
+    play(g, ['leagues', 'leagues', 'leagues', 'puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door'], () => !!g.state.flags['p.bellshell_done'] && g.mode === 'field');
+    for (const id of ['prologue.trash_call', 'prologue.the_letter', 'battle:dock_crew', 'prologue.after_dock_fight', 'prologue.champion', 'prologue.screams', 'battle:bellshell', 'prologue.bellshell_mercy'])
+      expect(seen.has(id), id).toBe(true);
+    expect(g.state.flags['p.dock_fight_won']).toBe(true);
+    expect(g.state.mapId).toBe('wyvern');
+    // Ledger #2,204 to #2,209, in order
+    const nums = g.state.ledger.map((l) => /#2,(\d+)/.exec(l.text)?.[1]);
+    expect(nums).toEqual(['204', '205', '206', '207', '208', '209']);
+    // talked to the stranger three times: he said it twice, and the Ledger noticed
+    expect(g.state.ledger.length).toBe(6);
     expect(observe(g).mode).toBe('field');
+    expect(g.state.objective).toMatch(/Main Drag/);
+  });
+
+  it('nobody in the prologue mentions the Hush or Nocturne', () => {
+    const c = loadContent();
+    for (const s of Object.values(c.scenes))
+      for (const i of s.instrs) if (i.op === 'line') expect(i.text, s.id).not.toMatch(/\bHush\b|Nocturne/);
   });
 
   it('chores work in any order, and the back door waits for both', () => {
@@ -163,6 +185,7 @@ describe('field + WIRE headless playthrough', () => {
     expect(g.state.objective).toContain('back door');
     play(g, ['back_door'], () => !!g.state.flags['p.letter_done']);
     expect(g.state.mapId).toBe('alley');
+    expect(g.mode).toBe('battle');
   });
 
   it('NPCs remember earlier conversations and never repeat on the next talk', () => {

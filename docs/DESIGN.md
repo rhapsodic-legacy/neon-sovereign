@@ -122,7 +122,7 @@ He's not lucky. He's the end of the world.
 
 | Part | Title | Hours | Key bosses |
 |---|---|---|---|
-| Prologue | Soundcheck | 1.5 | Hush Vanguard (tutorial) |
+| Prologue | Soundcheck | 1.5 | Dock Crew (tutorial), Bellshell (maddened monster) |
 | Act I | Overture | 6 | Nitro Nan, Jackpot Silencer, Hush Commander |
 | Act II | Crescendo | 7 | Reef Leviathan, Jack Cutlass, Speedway Juggernaut, **Nocturne #1** (Frostline) |
 | Act III | Bridge | 7 | Siege of Solara set-piece, Hush Twins, Fortress-Ship Warden |
@@ -293,6 +293,8 @@ Implementation: Web Audio; vertical layering; ducking under voice; tempo-synced 
 - **Comedy through music:** jukeboxes, buskers who play requests (badly), NPCs humming Rex's Anthem after the Joust, Thunderhorn's napkin lyrics as collectibles.
 - **Implementation:** Web Audio stem mixer with per-area state; crossfades on state changes; all stems from the same AI-generated master, split with a stem-separation tool if the music service doesn't export stems.
 
+- **Lamp Moths (prologue onward):** maddened moths circle each area's neon. They're harmless and can't be fought. Roxy's music calms them, Rex's does nothing, and Eddar's maddens them again. That's an unnoticed hint of his Dissonance. Calming every moth in an area flips its music to a Roxy-inspired theme, Calming them all unlocks a jukebox song. Much later, on the party's return, areas with the friendly music unlock new civilian lines. This is the player's first lesson that they can change the world's mood.
+
 ### 9.2 SFX
 ElevenLabs SFX API or synth + curated CC0. Signatures: coin insert (save), cassette click (battle start), VHS glitch (encounter), the **Hush** (music sucked down into the low Dirge drone — reverse-reverb into a funeral note), pencil scratch (Ledger), guitar-spell stings, light-cycle whine.
 
@@ -363,7 +365,7 @@ Keys go in a cloud environment (Project settings → Cloud environment → Add c
 | M0 | Bible & pitch | Jesse greenlights story v3 |
 | M1 | Engine skeleton | Walk, talk (scene DSL + Ledger UI), save; headless core test; WIRE stubs |
 | M2 | Battle core | CTB + preview; kits for Eddar (early), Rex, Roxy, Sable; Break, statuses, Tells; VFX v1; autoplay & speed; Cartridges; balance sim green for 3 test fights |
-| M3 | Vertical slice: Prologue | Solace Bay, Pink Wyvern, Proclamation, Hush attack; first Tripo models & painted BGs; real music incl. a Wildfires song; voiced opening; Jesse plays 60–90 min |
+| M3 | Vertical slice: Prologue | Solace Bay, Pink Wyvern, SAVE THE WORLD night, Leagues names the Champion, monster attack (no Hush, no Nocturne); first Tripo models & painted BGs; real music incl. a Wildfires song; voiced opening; Jesse plays 60–90 min |
 | M4 | Act I | ~7.5 h playable |
 | M5 | Act II | Encore airship, Thunderhorn, Verses, Nocturne #1; ~14.5 h |
 | M6 | Act III | Rex's betrayal, Siege of Solara, Lyra joins; ~21.5 h |
@@ -387,6 +389,7 @@ Working rules: read §0, §15 and the current milestone first. Never ship placeh
 ## 15. Status Log
 | Date | What changed | Next |
 |---|---|---|
+| 2026-11-03 | **Build 0.3: the opening, inception to Bellshell**, from the approved storyboard v2. Scenes rewritten: cold open, the stranger (Leagues, "Piss off" twice, then a refrain), Roxy's hum, the punch, trash call, Rex's letter in the Zuko voice, the dock crew, the Champion reveal, "Burn Forever" with the Canticle vision (Verse 1 of 2), the screams, Sable, the Bellshell and its mercy ending. Ledger #2,204 to #2,209. Nine discoverables. **M2 battle core (THE SET)**: CTB timeline with action previews, Read / Tells / Lift interrupts, Break, Big Brother, Roxy's Heat and Meltdown, Mute, mercy endings; battle screen with 80s title cards, barks with tutorial tips, Auto and 1×/2×/4× speed. Balance bands in content and tests (Bellshell: ignore the Toll and lose about one run in ten). Staging commands (`enter_npc`, `move_npc`, `exit_npc` with a direction) and cutscene FX (gold threads, eye flash, vision, window shatter). Placeholder models for Leagues, Sable, Brick, Moss and the Bellshell crab; placeholder music for both fights, the song, the monster pulse and five jukebox songs. 29 tests; headless playthrough runs both fights. | Jesse playtest 0.3; then the side room, the stairs and the Main Drag (Lamp Moths, Static Hounds, Tin Gulls, Drum Toads) as the next storyboard; real assets once keys land. |
 | 2026-11-02 | **M1 build 0.2** (Jesse's playtest): NPCs never repeat (`seen.<scene>` counter + follow-up lines for everyone); objectives derived from flags so chores work in any order; back door needs floor + amp and says which is missing; visible back door with EXIT sign and floor chevrons; amp redesign (ground lift holds three bars, hum returns, Roxy ignites, Eddar punches the transformer, unnoticed violet flare via `@fx violet`); Ledger rewritten in the literary voice; proximity band layer (louder at the stage, muffled in the alley); grid path-finding for WIRE auto-walk; Mama Dee reachable across the bar. 13 tests. | Jesse playtest 0.2; keys; Know-How options (M4); M2 battle core. |
 | 2026-11-02 | **M1 build 0.1** in repo `rhapsodic-legacy/neon-sovereign` (branch `m1-engine-skeleton`): TS/Vite/Three.js, headless core, scene DSL (docs/SCENES.md), field movement, save/load, WIRE AI API (docs/WIRE.md), dialogue + Ledger UI, title, placeholder procedural sets/characters/synth music. Playable: Pink Wyvern opening → Rex's letter → Sable glimpse. 11 tests incl. full headless playthrough. | Jesse playtest; keys for fal/Tripo/ElevenLabs; M2 battle core. |
 | 2026-11-02 | Jesse approved v3 ("everything else is mint"). Added: Thunderhorn's last-ballad quest "One Word" (missing word = love), the Last Dance cutscene to an AI vocal track, the Hush as a low Dirge (not silence), Living Soundtrack (choices change music), Rex's terrible Anthem with in-battle buff. | Repo + keys; M1. |

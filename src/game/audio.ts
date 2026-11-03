@@ -8,7 +8,7 @@ interface Preset {
   bpm: number;
   root: number; // MIDI note
   chords: number[][]; // semitone offsets per bar
-  drums: 'none' | 'soft' | 'rock' | 'swagger';
+  drums: 'none' | 'soft' | 'rock' | 'swagger' | 'heart' | 'shuffle';
   arp: boolean;
   lead?: number[]; // optional melody (semitones, -99 = rest), 8th notes
   bassStyle: 'pulse' | 'root' | 'walk';
@@ -29,6 +29,28 @@ const PRESETS: Record<string, Preset> = {
     lead: [7, 7, 10, 12, -99, 12, 10, 7, 5, -99, 3, 5, 7, -99, -99, -99], gaps: [3, 2] },
   band_live: { bpm: 124, root: 40, chords: [[0, 3, 7], [-2, 2, 5], [-4, 0, 3], [-5, -1, 2]], drums: 'rock', arp: true, bassStyle: 'pulse',
     lead: [7, 7, 10, 12, -99, 12, 10, 7, 5, -99, 3, 5, 7, -99, -99, -99] },
+  // Fights (THE SET). Placeholder until the Suno pass (DESIGN §9).
+  battle_alley: { bpm: 150, root: 43, chords: [[0, 3, 7], [0, 3, 7], [-2, 2, 5], [1, 5, 8]], drums: 'rock', arp: true, bassStyle: 'walk',
+    lead: [12, 15, 12, 10, 12, -99, 7, 10, 12, 15, 17, 15, 12, -99, 10, -99] },
+  battle_bellshell: { bpm: 138, root: 38, chords: [[0, 3, 7], [1, 4, 8], [0, 3, 7], [-1, 3, 6]], drums: 'rock', arp: true, bassStyle: 'pulse',
+    lead: [12, -99, 13, 12, -99, 8, 7, -99, 12, -99, 13, 15, 13, 12, 8, -99] },
+  // "Burn Forever": the impossible song, two lead lines (Leagues' and Roxy's) answering each other.
+  burn_forever: { bpm: 172, root: 40, chords: [[0, 4, 7, 11], [5, 9, 12, 16], [2, 5, 9, 12], [7, 11, 14, 17]], drums: 'rock', arp: true, bassStyle: 'walk',
+    lead: [19, 16, 14, 12, 11, 12, 14, 16, 23, -99, 21, 19, 16, 19, 21, 24] },
+  // The monster-attack pulse that replaces the room tone after the screams.
+  monster_pulse: { bpm: 66, root: 33, chords: [[0, 1, 6], [0, 1, 6], [-1, 0, 5], [-2, 1, 6]], drums: 'heart', arp: false, bassStyle: 'root' },
+  // Jukebox (storyboard v2): five songs that change the room tone.
+  juke_neon_heart: { bpm: 100, root: 45, chords: [[0, 4, 7], [-3, 0, 4], [-7, -3, 0], [-5, -1, 2]], drums: 'rock', arp: true, bassStyle: 'pulse',
+    lead: [7, -99, 7, 9, 11, -99, 9, 7, 4, -99, 4, 2, 4, -99, -99, -99] },
+  juke_halcyon: { bpm: 72, root: 42, chords: [[0, 4, 7, 11], [-3, 0, 4, 7], [5, 9, 12, 16], [7, 11, 14, 17]], drums: 'soft', arp: true, bassStyle: 'root',
+    lead: [16, -99, -99, 14, 12, -99, 11, -99, 12, -99, -99, -99, -99, -99, -99, -99] },
+  juke_dockside: { bpm: 118, root: 43, chords: [[0, 4, 7, 10], [0, 4, 7, 10], [5, 9, 12, 15], [0, 4, 7, 10]], drums: 'shuffle', arp: false, bassStyle: 'walk',
+    lead: [12, 10, 7, -99, 10, 12, -99, 15, 12, -99, 10, 7, 5, -99, 7, -99] },
+  juke_burn_slow: { bpm: 96, root: 40, chords: [[0, 3, 7], [-2, 2, 5], [-4, 0, 3], [-5, -1, 2]], drums: 'rock', arp: false, bassStyle: 'pulse',
+    lead: [7, -99, 7, 10, 12, -99, 10, 7, 5, -99, 3, 5, 7, -99, -99, -99] },
+  // Rex's demo: enthusiastic, and a quarter-tone wrong in all the important places.
+  juke_valor: { bpm: 132, root: 41, chords: [[0, 4, 7], [5, 9, 12], [0, 4, 7], [7, 11, 14]], drums: 'swagger', arp: false, bassStyle: 'walk',
+    lead: [12, 12, 12, 13, 12, -99, 11, 12, 16, 16, 15.5, 14, 12, -99, 12.5, -99] },
   alley_night: { bpm: 78, root: 38, chords: [[0, 3, 7], [-4, 0, 3], [-7, -3, 0], [-5, -2, 2]], drums: 'soft', arp: true, bassStyle: 'root' },
 };
 
@@ -220,6 +242,16 @@ export class AudioEngine {
       if (s % 2 === 0) this.hat(t, 0.06, out);
       return;
     }
+    if (p.drums === 'heart') {
+      if (s === 0 || s === 3) this.kick(t, s === 0 ? 0.55 : 0.35, out);
+      return;
+    }
+    if (p.drums === 'shuffle') {
+      if (s === 0 || s === 8) this.kick(t, 0.5, out);
+      if (s === 4 || s === 12) this.snare(t, 0.25, out);
+      if (s % 4 === 0 || s % 4 === 3) this.hat(t, 0.05, out);
+      return;
+    }
     if (p.drums === 'swagger') {
       if (s === 0 || s === 7 || s === 10) this.kick(t, 0.55, out);
       if (s === 4 || s === 12) this.snare(t, 0.3, out);
@@ -355,6 +387,93 @@ export class AudioEngine {
       case 'card':
         this.tone('sawtooth', mtof(45), t, 2.5, 0.12, 1200, 0.3, 10, out);
         this.tone('sawtooth', mtof(52), t, 2.5, 0.1, 1200, 0.3, 10, out);
+        break;
+      case 'door':
+        this.noiseHit(t, 0.25, 0.4, 'lowpass', 500, out);
+        this.tone('sine', 140, t + 0.05, 0.6, 0.15, 400, 0.01, 0, out);
+        break;
+      case 'organ':
+        for (const n of [28, 40, 47, 52]) this.tone('sine', mtof(n), t, 3.2, 0.12, 2000, 0.2, 4, out);
+        break;
+      case 'big_chord':
+        for (const n of [40, 47, 52, 56, 59, 64]) this.tone('sawtooth', mtof(n), t, 2.6, 0.07, 2800, 0.004, 14, out);
+        this.noiseHit(t, 0.4, 0.3, 'bandpass', 2000, out);
+        break;
+      case 'cheer':
+        for (let i = 0; i < 6; i++) this.noiseHit(t + i * 0.12, 0.18, 1.2, 'bandpass', 900 + i * 220, out);
+        break;
+      case 'scream':
+        for (const [d, f] of [[0, 900], [0.25, 1150], [0.5, 780]]) {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = 'sawtooth';
+          o.frequency.setValueAtTime(f, t + d);
+          o.frequency.exponentialRampToValueAtTime(f * 0.55, t + d + 0.9);
+          g.gain.setValueAtTime(0.0001, t + d);
+          g.gain.exponentialRampToValueAtTime(0.07, t + d + 0.05);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + d + 0.95);
+          const fl = ctx.createBiquadFilter();
+          fl.type = 'bandpass';
+          fl.frequency.value = 1400;
+          o.connect(fl).connect(g).connect(out);
+          o.start(t + d);
+          o.stop(t + d + 1);
+        }
+        break;
+      case 'crab_clang':
+        // a cracked bell: two partials a hair apart, beating
+        this.tone('triangle', 196, t, 1.6, 0.22, 3000, 0.002, 0, out);
+        this.tone('triangle', 203, t, 1.6, 0.18, 3000, 0.002, 0, out);
+        this.tone('sine', 471, t, 0.9, 0.08, 3000, 0.002, 0, out);
+        break;
+      case 'bell_true':
+        this.tone('sine', 196, t, 4, 0.25, 4000, 0.003, 0, out);
+        this.tone('sine', 392, t, 3, 0.1, 4000, 0.003, 0, out);
+        this.tone('sine', 588, t, 2.2, 0.06, 4000, 0.003, 0, out);
+        break;
+      case 'glass':
+        for (let i = 0; i < 10; i++) this.tone('sine', 2200 + Math.random() * 2600, t + i * 0.03, 0.25, 0.05, 9000, 0.001, 0, out);
+        this.noiseHit(t, 0.5, 0.4, 'highpass', 3000, out);
+        break;
+      case 'battle_sting':
+        for (const [i, n] of [45, 52, 57, 60].entries()) this.tone('sawtooth', mtof(n), t + i * 0.07, 1.4, 0.08, 2400, 0.004, 10, out);
+        this.kick(t, 0.8, out);
+        break;
+      case 'swing':
+        this.noiseHit(t, 0.25, 0.14, 'bandpass', 2400, out);
+        break;
+      case 'hit':
+        this.noiseHit(t, 0.6, 0.1, 'lowpass', 1200, out);
+        this.tone('sine', 85, t, 0.15, 0.4, 300, 0.002, 0, out);
+        break;
+      case 'heal':
+        [0, 4, 7, 12].forEach((n, i) => this.tone('triangle', mtof(76 + n), t + i * 0.06, 0.4, 0.06, 6000, 0.005, 0, out));
+        break;
+      case 'lift':
+        this.tone('sine', 220, t, 0.5, 0.15, 1800, 0.01, 30, out);
+        this.noiseHit(t, 0.3, 0.2, 'bandpass', 600, out);
+        break;
+      case 'break':
+        this.noiseHit(t, 0.7, 0.3, 'bandpass', 1600, out);
+        this.tone('square', 110, t, 0.3, 0.2, 800, 0.002, 0, out);
+        break;
+      case 'read':
+        [0, 7].forEach((n, i) => this.tone('square', mtof(84 + n), t + i * 0.08, 0.1, 0.05, 6000, 0.002, 0, out));
+        break;
+      case 'toll':
+        this.tone('triangle', 98, t, 2.4, 0.35, 2000, 0.002, 0, out);
+        this.tone('triangle', 102, t, 2.4, 0.3, 2000, 0.002, 0, out);
+        this.noiseHit(t, 0.4, 0.6, 'lowpass', 400, out);
+        break;
+      case 'ko':
+        this.tone('sawtooth', 220, t, 0.6, 0.12, 900, 0.005, 0, out);
+        this.tone('sawtooth', 110, t + 0.15, 0.7, 0.12, 700, 0.005, 0, out);
+        break;
+      case 'victory':
+        [0, 4, 7, 12, 7, 12].forEach((n, i) => this.tone('square', mtof(72 + n), t + i * 0.11, 0.3, 0.07, 5000, 0.003, 0, out));
+        break;
+      case 'buzz':
+        this.tone('square', 90, t, 0.18, 0.08, 900, 0.002, 0, out);
         break;
     }
   }

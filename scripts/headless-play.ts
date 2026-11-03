@@ -11,13 +11,19 @@ const game = new Game(loadContent());
 game.start();
 
 // A tiny "policy": the order an attentive player would tackle the objectives in.
-// Deliberately out of order: talk first, fix the amp (twice: the first fix doesn't hold), then mop.
-const goals = ['roxy', 'spike', 'amp', 'amp', 'spike', 'back_door', 'puddle_1', 'puddle_2', 'puddle_3', 'mama_dee', 'back_door', 'dumpster'];
+// Deliberately out of order: pester the stranger, talk, fix the amp (twice: the first fix doesn't hold), then mop.
+// Fights are played by the WIRE's built-in tactician (auto_battle); an LLM would send {type:'battle', skill, target}.
+const goals = ['leagues', 'leagues', 'leagues', 'roxy', 'spike', 'amp', 'amp', 'spike', 'back_door', 'puddle_1', 'puddle_2', 'puddle_3', 'mama_dee', 'back_door'];
 const tried = new Map<string, number>();
 let turns = 0;
-while (!game.state.flags['p.sable_seen'] || game.mode === 'scene') {
+while (!game.state.flags['p.bellshell_done'] || game.mode !== 'field') {
   if (++turns > 3000) throw new Error('policy got stuck');
   console.log('\n' + describe(game));
+  if (game.mode === 'battle') {
+    const r = act(game, { type: 'auto_battle' });
+    console.log(`> auto_battle (${r.message})`);
+    continue;
+  }
   if (game.mode === 'scene') {
     const v = game.view!;
     // Prefer the first option (usually the kindest, which suits Eddar); if we come back to the same choice, try the next.
@@ -36,4 +42,4 @@ while (!game.state.flags['p.sable_seen'] || game.mode === 'scene') {
   const r = act(game, { type: 'interact', target });
   console.log(`> interact ${target} (${r.message})`);
 }
-console.log(`\n=== Build 0.2 finished in ${turns} WIRE actions. Ledger entries: ${game.state.ledger.length}. Harmony: ${game.state.vars.harmony}. ===`);
+console.log(`\n=== Build 0.3 (the opening, inception to Bellshell) finished in ${turns} WIRE actions. Ledger entries: ${game.state.ledger.length}. Harmony: ${game.state.vars.harmony}. ===`);

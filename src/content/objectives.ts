@@ -3,10 +3,13 @@
  * actually left to do no matter what order the player does things in. First matching rule wins.
  */
 export const OBJECTIVES: { cond: string; text: string }[] = [
+  // After the Bellshell (end of build 0.3)
+  { cond: 'p.bellshell_done', text: 'The Wyvern is wrecked and the Bay is screaming. (The side room, the stairs and the Main Drag come next.)' },
+  { cond: 'p.screams', text: 'Stop the Bellshell before it wrecks the Wyvern.' },
+  { cond: 'p.dock_fight_won', text: 'Head back inside with Rex.' },
   // Alley
-  { cond: 'p.sable_seen', text: 'Head to the Cathedral for the Proclamation. (Coming in the next build.)' },
-  { cond: 'p.letter_done', text: 'Climb out of the barrel. Then dump the trash, with dignity.' },
-  { cond: 'p.amp_fixed & puddles>=3', text: 'Take the trash out the back door (stage right, under the EXIT sign).' },
+  { cond: 'p.letter_done', text: 'Hold the alley with Rex.' },
+  { cond: 'p.trash_called', text: 'Take the trash out the back door (stage right, under the EXIT sign).' },
   // Wyvern, in any order
   { cond: 'p.amp_fixed', text: 'Mop the cola before doors open. ({puddles}/3)' },
   { cond: 'p.amp_hum_back', text: "The hum is back. Have another look at Roxy's amp." },

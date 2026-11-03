@@ -1,5 +1,6 @@
 import { Game, WALK_SPEED } from './game';
 import { findPath, INTERACT_RANGE } from './map';
+import { smartPolicy } from './battle/policy';
 
 /**
  * THE WIRE — the AI-player interface. An LLM (or any bot) can play the whole game through
@@ -14,7 +15,9 @@ export type WireAction =
   | { type: 'interact'; target?: string }
   | { type: 'advance' }
   | { type: 'choose'; index: number }
-  | { type: 'wait'; seconds: number };
+  | { type: 'wait'; seconds: number }
+  | { type: 'battle'; skill: string; target?: string }
+  | { type: 'auto_battle' };
 
 export interface WireResult {
   ok: boolean;
@@ -33,6 +36,37 @@ export function observe(game: Game) {
     inventory: s.inventory,
     ledger_latest: s.ledger.slice(-3).map((l) => l.text),
   };
+  if (game.mode === 'battle' && game.battle) {
+    const b = game.battle;
+    return {
+      ...base,
+      battle: {
+        id: b.def.id,
+        title: b.def.title,
+        current: b.current,
+        result: b.result,
+        timeline: b.order(6).map((o) => o.unit),
+        units: b.units.map((u) => {
+          const known = u.side === 'party' || u.analyzed;
+          return {
+            id: u.id,
+            name: u.name,
+            side: u.side,
+            alive: u.alive,
+            hp: known ? u.hp : undefined,
+            max_hp: known ? u.maxHp : undefined,
+            hp_pct: Math.round((u.hp / u.maxHp) * 100),
+            statuses: Object.keys(u.statuses).concat(u.broken ? ['broken'] : []),
+            heat: u.traits?.includes('heat') ? u.heat : undefined,
+            next_move: u.side === 'enemy' && u.analyzed && u.intent ? b.skill(u.intent.skill).name : undefined,
+            weakness: u.analyzed ? u.weakness : undefined,
+          };
+        }),
+        legal: b.legal().map((l) => ({ skill: l.skill, name: l.name, desc: l.desc, targets: l.targets, blocked: l.blocked })),
+      },
+      legal: ['battle', 'auto_battle'],
+    };
+  }
   if (game.mode === 'scene') {
     const v = game.view!;
     const speakers = game.content.speakers;
@@ -65,6 +99,23 @@ export function observe(game: Game) {
 
 export function act(game: Game, a: WireAction): WireResult {
   switch (a.type) {
+    case 'battle':
+    case 'auto_battle': {
+      const b = game.battle;
+      if (game.mode !== 'battle' || !b) return fail('not in a battle');
+      const c = a.type === 'auto_battle' ? smartPolicy(b) : { skill: a.skill, target: a.target };
+      try {
+        game.battleAct(c.skill, c.target);
+      } catch (e) {
+        return fail(String(e instanceof Error ? e.message : e));
+      }
+      if (b.result) {
+        const r = b.result;
+        game.finishBattle();
+        return ok(`${c.skill} -> battle over: ${r}`);
+      }
+      return ok(`used ${c.skill}${c.target ? ' on ' + c.target : ''}`);
+    }
     case 'advance':
       if (game.mode !== 'scene') return fail('not in a scene');
       game.advance();
@@ -145,6 +196,25 @@ export function describe(game: Game): string {
   const lines: string[] = [];
   lines.push(`You are Eddar, in ${o.map.name}.`);
   if (o.objective) lines.push(`Objective: ${o.objective}`);
+  if (game.mode === 'battle') {
+    const bt = o.battle as {
+      title: string; current: string; timeline: string[];
+      units: { id: string; name: string; side: string; alive: boolean; hp?: number; max_hp?: number; hp_pct: number; statuses: string[]; heat?: number; next_move?: string; weakness?: string }[];
+      legal: { skill: string; name: string; desc: string; targets: string[]; blocked?: string }[];
+    };
+    lines.push(`BATTLE: ${bt.title}. It is ${bt.current}'s turn. Turn order next: ${bt.timeline.join(' > ')}.`);
+    for (const u of bt.units.filter((x) => x.alive)) {
+      const hp = u.hp !== undefined ? `${u.hp}/${u.max_hp} HP` : `${u.hp_pct}% HP (Read to learn more)`;
+      const extra = [u.statuses.length ? `status: ${u.statuses.join(', ')}` : '', u.heat !== undefined ? `heat ${u.heat}` : '', u.next_move ? `next move: ${u.next_move}` : '', u.weakness ? `weakness: ${u.weakness}` : '']
+        .filter(Boolean)
+        .join('; ');
+      lines.push(`  ${u.side === 'party' ? 'ALLY' : 'FOE '} ${u.name} [${u.id}]: ${hp}${extra ? ' — ' + extra : ''}`);
+    }
+    lines.push('Commands:');
+    for (const l of bt.legal) lines.push(`  ${l.skill}${l.blocked ? ` (BLOCKED: ${l.blocked})` : ''}: ${l.desc} Targets: ${l.targets.join(', ')}`);
+    lines.push('Action: battle <skill> <target>, or auto_battle to let the tactician pick.');
+    return lines.join('\n');
+  }
   if (game.mode === 'scene') {
     const sc = o.scene as { kind: string; speaker?: string; text?: string; options?: { index: number; text: string }[] };
     if (sc.kind === 'line') lines.push(sc.speaker ? `${sc.speaker} says: "${sc.text}"` : `(${sc.text})`, 'Action: advance.');

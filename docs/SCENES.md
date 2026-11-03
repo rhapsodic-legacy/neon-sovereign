@@ -21,8 +21,16 @@ Scenes live in `src/content/scenes/`. A file can hold many scenes. Lines are tri
 | `@cam focus <npc>` / `@cam shake` | Camera |
 | `@emote <npc> <what>` | Character emote (e.g. `roxy fire`) |
 | `@join id` / `@leave id` / `@give item n` / `@warp map spawn` | Party, items, map change |
-| `@cmd exit_npc <npc>` | NPC walks off |
-| `@fx violet eddar` | One-shot visual effect on a character (`violet`: Eddar's power leaking, a flash and sparks) |
+| `@cmd exit_npc <npc> [front\|back\|left\|right]` | NPC walks off that way (set the flag that hides them right after) |
+| `@cmd enter_npc <npc> [front\|back\|window]` | NPC walks in from that entrance to their map position (set the flag that shows them first) |
+| `@cmd move_npc <npc> <x> <z>` | NPC walks to a point; several in a row make a path, and the last one sticks (saved in state) |
+| `@fx violet eddar` | Eddar's power leaking: a violet flash and sparks nobody notices |
+| `@fx gold_threads <npc>` / `@fx gold_threads off` | Leagues' music pouring into the band as gold threads, until turned off |
+| `@fx eye_flash <npc\|band>` | A white flash in someone's eyes |
+| `@fx vision on\|off` | The Canticle vision overlay (red ink, sepia) for cutscenes |
+| `@fx shatter window` | The Wyvern's front window bursts inward |
+| `@battle <id>` | Queue a battle from `src/content/battles.ts`; it starts when this scene ends, and its `after` scene plays when it's won (or ends in mercy) |
+| `SPEAKER [vo]: Text` | Voice-over: the dialogue box turns gold and italic |
 
 Conditions: `flag`, `!flag`, `var>=3` (`>= <= > < == !=`), combined with `&`.
 Text can include `{var}` to print a variable.
@@ -46,3 +54,9 @@ For state-specific follow-ups (e.g. after the amp is fixed) keep your own counte
 after every scene. Chores can be done in any order and the line always names what's left. `{var}` works here too.
 
 Run `npm run lint:scenes` after editing.
+
+## Battles
+Battles live in `src/content/battles.ts`: units, skills, a title card (`title`, `tagline`), barks keyed by engine
+triggers (`start`, `turn:<unit>`, `read`, `tell:<unit>`, `interrupt`, `cover`, `charge_land`, `hurt:<unit>`, `break`,
+`mute`, `heat_max`, `meltdown`, `lift_rear:<unit>`, `roxy_rex_hit`, `win`, `mercy`, `defeat`), each firing once with an
+optional tutorial `hint`, and balance `bands` per sim policy that the tests enforce. Run `npm run sim` to see them.

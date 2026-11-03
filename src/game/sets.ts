@@ -12,6 +12,8 @@ export interface SetPiece {
   camBounds: { minX: number; maxX: number; minZ: number; maxZ: number };
   background: THREE.Color;
   fog: THREE.Fog;
+  /** Props tied to a hotspot id: shown only while that hotspot's cond holds (e.g. the spare guitar, the window). */
+  props?: Record<string, THREE.Object3D>;
 }
 
 const std = (color: number, p: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
@@ -188,6 +190,169 @@ export function buildWyvern(): SetPiece {
   jbArch.rotation.y = -Math.PI / 2;
   g.add(jbArch);
 
+
+  // ---- discoverables (storyboard v2): what you can examine, so the player sees it first ----
+  const props: Record<string, THREE.Object3D> = {};
+  const poster = (draw: (c: CanvasRenderingContext2D) => void, w: number, h: number) => {
+    const tex = canvasTex(256, Math.round((256 * h) / w), draw);
+    tex.magFilter = THREE.LinearFilter;
+    return new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9, emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.25 }));
+  };
+  // SAVE THE WORLD poster: a cartoon guitarist punching a meteor (left wall, by the stage)
+  const savePoster = poster((c) => {
+    const H = c.canvas.height;
+    const grd = c.createLinearGradient(0, 0, 0, H);
+    grd.addColorStop(0, '#1a0a3a');
+    grd.addColorStop(1, '#ff2b8a');
+    c.fillStyle = grd;
+    c.fillRect(0, 0, 256, H);
+    c.fillStyle = '#ffd24a';
+    c.beginPath();
+    c.arc(180, 90, 42, 0, Math.PI * 2);
+    c.fill();
+    c.strokeStyle = '#ff6a00';
+    c.lineWidth = 8;
+    for (let i = 0; i < 4; i++) {
+      c.beginPath();
+      c.moveTo(210 + i * 8, 60 + i * 12);
+      c.lineTo(250, 20 + i * 12);
+      c.stroke();
+    }
+    c.fillStyle = '#111';
+    c.fillRect(70, 120, 26, 90); // guitarist
+    c.beginPath();
+    c.arc(83, 108, 16, 0, Math.PI * 2);
+    c.fill();
+    c.fillRect(90, 120, 80, 14); // punching arm
+    c.fillStyle = '#ff2bd6';
+    c.fillRect(40, 170, 70, 18); // guitar
+    c.fillStyle = '#fff';
+    c.font = 'bold 34px Impact, sans-serif';
+    c.textAlign = 'center';
+    c.fillText('SAVE THE', 128, H - 70);
+    c.fillText('WORLD!', 128, H - 34);
+    c.font = '12px sans-serif';
+    c.fillText('HEATS TONIGHT \u2022 EST. TIME IMMEMORIAL', 128, H - 12);
+  }, 1.0, 1.4);
+  savePoster.position.set(-8.04, 2.2, -2.8);
+  savePoster.rotation.y = Math.PI / 2;
+  g.add(savePoster);
+  // Rex's jousting poster, crown drawn on in gold pen (back wall, stage right)
+  const rexPoster = poster((c) => {
+    const H = c.canvas.height;
+    c.fillStyle = '#16233f';
+    c.fillRect(0, 0, 256, H);
+    c.fillStyle = '#e0b590';
+    c.beginPath();
+    c.arc(128, 120, 46, 0, Math.PI * 2);
+    c.fill();
+    c.fillStyle = '#f2c230';
+    c.beginPath();
+    c.ellipse(128, 70, 50, 26, 0, 0, Math.PI * 2);
+    c.fill();
+    c.strokeStyle = '#ffd24a';
+    c.lineWidth = 5;
+    c.beginPath();
+    c.moveTo(88, 50);
+    c.lineTo(98, 14);
+    c.lineTo(113, 40);
+    c.lineTo(128, 6);
+    c.lineTo(143, 40);
+    c.lineTo(158, 14);
+    c.lineTo(168, 50);
+    c.closePath();
+    c.stroke();
+    c.fillStyle = '#d4a017';
+    c.fillRect(60, 170, 136, 40);
+    c.fillStyle = '#fff';
+    c.font = 'bold 30px Impact, sans-serif';
+    c.textAlign = 'center';
+    c.fillText('REX VALOR', 128, H - 56);
+    c.fillStyle = '#ffd24a';
+    c.fillText('UNDEFEATED', 128, H - 20);
+  }, 0.9, 1.3);
+  rexPoster.position.set(6.9, 2.3, -6.13);
+  g.add(rexPoster);
+  // chalkboard A-frame by the door
+  const board = new THREE.Group();
+  const slate = poster((c) => {
+    const H = c.canvas.height;
+    c.fillStyle = '#1d2a22';
+    c.fillRect(0, 0, 256, H);
+    c.fillStyle = '#f4f4ea';
+    c.font = 'bold 24px "Comic Sans MS", cursive';
+    c.textAlign = 'center';
+    c.fillText('TONIGHT:', 128, 40);
+    c.fillText('SAVE THE WORLD', 128, 72);
+    c.fillText('HEAT', 128, 102);
+    c.font = '18px "Comic Sans MS", cursive';
+    c.fillText('Roxy & the Wildfires', 128, 146);
+    c.fillText('vs. the Velvet Undertow', 128, 172);
+    c.fillText('vs. Gary', 128, 198);
+    c.font = '12px "Comic Sans MS", cursive';
+    c.fillText('who is gary?', 180, H - 30);
+    c.fillText('nobody knows who gary is', 150, H - 12);
+  }, 0.8, 1.0);
+  slate.position.set(0, 0.85, 0.02);
+  slate.rotation.x = -0.18;
+  board.add(slate, box(0.9, 1.1, 0.04, std(0x5a3a1a), 0, 0.82, -0.05));
+  board.position.set(-3.8, 0, 5.3);
+  board.rotation.y = Math.PI;
+  g.add(board);
+  // front window (right wall, by the door): whole until the Bellshell
+  const glassMat = new THREE.MeshStandardMaterial({ color: 0x7ab8ff, transparent: true, opacity: 0.35, metalness: 0.3, roughness: 0.05, emissive: 0x2a3a8a, emissiveIntensity: 0.6 });
+  const windowWhole = new THREE.Group();
+  const pane = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.5), glassMat);
+  pane.rotation.y = -Math.PI / 2;
+  windowWhole.add(pane);
+  const frameMat = std(0xff2bd6, { emissive: 0xff2bd6, emissiveIntensity: 0.6 });
+  const frameBits = [box(0.06, 0.06, 1.7, frameMat, 0, 0.78, 0), box(0.06, 0.06, 1.7, frameMat, 0, -0.78, 0), box(0.06, 1.6, 0.06, frameMat, 0, 0, 0.82), box(0.06, 1.6, 0.06, frameMat, 0, 0, -0.82)];
+  const windowFrame = new THREE.Group();
+  windowFrame.add(...frameBits);
+  windowFrame.position.set(8.03, 1.8, 5.3);
+  windowWhole.position.set(8.03, 1.8, 5.3);
+  g.add(windowFrame, windowWhole);
+  props.window = windowWhole;
+  const broken = new THREE.Group();
+  for (let i = 0; i < 6; i++) {
+    const shard = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.4 + (i % 3) * 0.15, 3), glassMat);
+    shard.position.set(0, i < 3 ? 0.62 : -0.62, -0.6 + (i % 3) * 0.6);
+    shard.rotation.z = i < 3 ? Math.PI : 0;
+    broken.add(shard);
+  }
+  broken.position.set(8.0, 1.8, 5.3);
+  g.add(broken);
+  props.window_broken = broken;
+  // the spare guitar, "decorative" (right wall, between the back door and the booths)
+  const spare = new THREE.Group();
+  spare.add(box(0.06, 0.5, 0.36, std(0x6a1b1b, { roughness: 0.3, metalness: 0.3 }), 0, 0, 0));
+  spare.add(box(0.04, 0.7, 0.06, std(0x3b2a1a), 0, 0.6, 0));
+  spare.add(box(0.05, 0.14, 0.1, std(0x222222), 0, 1.0, 0));
+  spare.position.set(8.0, 1.9, -1.1);
+  spare.rotation.x = 0.25;
+  g.add(spare);
+  props.spare_guitar = spare;
+  // lost-and-found box at the end of the bar
+  const lf = new THREE.Group();
+  lf.add(box(0.6, 0.4, 0.45, std(0x9a7a4a), 0, 0.2, 0));
+  const glove = new THREE.Mesh(new THREE.SphereGeometry(0.1, 6, 4), std(0x222222));
+  glove.position.set(0.1, 0.42, 0);
+  const letter = box(0.22, 0.02, 0.15, std(0xf4ecd8), -0.12, 0.42, 0.05);
+  letter.rotation.y = 0.4;
+  lf.add(glove, letter);
+  lf.position.set(-6.5, 0, 5.2);
+  g.add(lf);
+  // tip jar on the bar
+  const jar = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.22, 10), new THREE.MeshStandardMaterial({ color: 0xbfe8ff, transparent: true, opacity: 0.5, roughness: 0.05 }));
+  jar.position.set(-5.75, 1.25, 0.4);
+  g.add(jar);
+  // amp manual and set list at the stage edge
+  const manual = box(0.28, 0.04, 0.36, std(0x2a5a9a), -1.6, 0.52, -3.55);
+  manual.rotation.y = 0.3;
+  const setList = box(0.3, 0.01, 0.4, std(0xffffff, { emissive: 0xffffff, emissiveIntensity: 0.15 }), 1.3, 0.51, -3.6);
+  setList.rotation.y = -0.2;
+  g.add(manual, setList);
+
   // disco ball
   const disco = new THREE.Mesh(new THREE.IcosahedronGeometry(0.35, 1), new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0.05, flatShading: true }));
   disco.position.set(0, 4.3, 0);
@@ -216,6 +381,7 @@ export function buildWyvern(): SetPiece {
   return {
     group: g,
     camBounds: { minX: -3.5, maxX: 3.5, minZ: -3.2, maxZ: 2.5 },
+    props,
     background: new THREE.Color(0x0b0412),
     fog: new THREE.Fog(0x0b0412, 14, 30),
     update(dt, t) {

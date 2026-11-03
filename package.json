@@ -11,7 +11,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint:scenes": "vite-node scripts/lint-scenes.ts",
-    "play:headless": "vite-node scripts/headless-play.ts"
+    "play:headless": "vite-node scripts/headless-play.ts",
+    "sim": "vite-node scripts/balance-sim.ts"
   },
   "dependencies": {
     "three": "0.180.0"

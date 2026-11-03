@@ -1,10 +1,12 @@
 import type { Content } from '../content/index';
 import { evalCond, GameState, newGameState } from './state';
-import { Interactable, interactables, INTERACT_RANGE, MapDef, movePlayer, resolveScene } from './map';
+import { Interactable, interactables, INTERACT_RANGE, MapDef, movePlayer, npcPosition, resolveScene } from './map';
 import { interpolate, SceneCommand, SceneRunner, SceneView } from './scene/runner';
 import { Rng } from './rng';
+import { Battle } from './battle/engine';
+import type { BattleResult } from './battle/types';
 
-export type Mode = 'field' | 'scene';
+export type Mode = 'field' | 'scene' | 'battle';
 
 export const WALK_SPEED = 3.4; // metres per second
 
@@ -16,9 +18,13 @@ export type GameEvent =
   | { type: 'cam'; args: string[] }
   | { type: 'emote'; who: string; what: string }
   | { type: 'fx'; id: string; target: string }
-  | { type: 'npc_exit'; id: string }
+  | { type: 'npc_exit'; id: string; dir: string }
+  | { type: 'npc_enter'; id: string; from: string }
+  | { type: 'npc_move'; id: string; x: number; z: number }
   | { type: 'objective'; text: string }
   | { type: 'toast'; text: string }
+  | { type: 'battle_start'; id: string }
+  | { type: 'battle_end'; id: string; result: BattleResult }
   | { type: 'scene_start'; id: string }
   | { type: 'scene_end'; id: string };
 
@@ -35,6 +41,9 @@ export class Game {
   state: GameState;
   mode: Mode = 'field';
   runner: SceneRunner | null = null;
+  battle: Battle | null = null;
+  /** Battle queued by a scene's @battle command; starts when that scene ends. */
+  private pendingBattle: string | null = null;
   readonly rng: Rng;
   private events: GameEvent[] = [];
   private listeners: ((e: GameEvent) => void)[] = [];
@@ -114,7 +123,8 @@ export class Game {
     const map = this.map;
     if (target.kind === 'npc') {
       const npc = map.npcs.find((n) => n.id === target.id)!;
-      this.state.player.facing = Math.atan2(npc.pos.x - this.state.player.pos.x, npc.pos.z - this.state.player.pos.z);
+      const np = npcPosition(this.state, map.id, npc);
+      this.state.player.facing = Math.atan2(np.x - this.state.player.pos.x, np.z - this.state.player.pos.z);
       const sc = resolveScene(this.state, npc.talk);
       if (sc) this.startScene(sc);
       return true;
@@ -183,6 +193,12 @@ export class Game {
       this.state.vars[key] = (this.state.vars[key] ?? 0) + 1;
       this.emit({ type: 'scene_end', id });
       this.refreshObjective();
+      if (this.pendingBattle) {
+        const b = this.pendingBattle;
+        this.pendingBattle = null;
+        this.startBattle(b);
+        return;
+      }
       this.checkTriggers();
     }
   }
@@ -203,6 +219,47 @@ export class Game {
       this.state.objective = text;
       this.emit({ type: 'objective', text });
     }
+  }
+
+  // ---------- battles ----------
+
+  /** Start a battle by id (content.battles). Scenes queue one with `@battle <id>`; it begins when the scene ends. */
+  startBattle(id: string): void {
+    const def = this.content.battles?.[id];
+    if (!def || !this.content.battleData) throw new Error(`unknown battle ${id}`);
+    this.battle = new Battle(def, this.content.battleData, Math.floor(this.rng.next() * 2 ** 31));
+    this.mode = 'battle';
+    this.emit({ type: 'battle_start', id });
+    this.emit({ type: 'bgm', id: def.bgm });
+  }
+
+  /** The current party member acts. Returns once the battle is waiting for the next command or is over. */
+  battleAct(skill: string, target?: string): void {
+    if (!this.battle || this.battle.result) return;
+    this.battle.act(skill, target);
+  }
+
+  /**
+   * Close a finished battle (the presentation layer calls this after the last animation; headless players
+   * call it straight away). Win/mercy: set the flag and play the after-scene. Defeat: retry from the start.
+   */
+  finishBattle(): void {
+    const b = this.battle;
+    if (!b || !b.result) return;
+    const id = b.def.id;
+    if (b.result === 'defeat') {
+      this.emit({ type: 'battle_end', id, result: 'defeat' });
+      this.startBattle(id);
+      return;
+    }
+    this.battle = null;
+    this.mode = 'field';
+    this.state.flags[b.def.flag] = true;
+    this.emit({ type: 'battle_end', id, result: b.result });
+    this.emit({ type: 'bgm', id: this.state.bgm || this.map.bgm });
+    this.refreshObjective();
+    if (b.def.after) this.startScene(b.def.after);
+    else this.checkTriggers();
   }
 
   private checkTriggers(): void {
@@ -240,11 +297,14 @@ export class Game {
       case 'emote':
         this.emit({ type: 'emote', who: c.args[0], what: c.args[1] });
         break;
+      case 'battle':
+        this.pendingBattle = c.args[0];
+        break;
       case 'fx':
         this.emit({ type: 'fx', id: c.args[0], target: c.args[1] ?? 'eddar' });
         break;
       case 'cmd':
-        if (c.args[0] === 'exit_npc') this.emit({ type: 'npc_exit', id: c.args[1] });
+        this.stageCommand(c.args);
         break;
       case 'join':
         if (!this.state.party.includes(c.args[0])) this.state.party.push(c.args[0]);
@@ -261,6 +321,24 @@ export class Game {
       default:
         // Unknown presentation-only commands are ignored by the core.
         break;
+    }
+  }
+
+  /**
+   * Staging: `@cmd exit_npc <npc> [front|back|left|right]`, `@cmd enter_npc <npc> [front|back|window]`,
+   * `@cmd move_npc <npc> <x> <z>` (moves are queued, so several in a row make a path; the last one sticks in state).
+   * Presence itself is always the NPC's map `cond`, so set the flag that shows or hides them alongside.
+   */
+  private stageCommand(args: string[]): void {
+    const [verb, id] = args;
+    if (verb === 'exit_npc') this.emit({ type: 'npc_exit', id, dir: args[2] ?? 'back' });
+    else if (verb === 'enter_npc') this.emit({ type: 'npc_enter', id, from: args[2] ?? 'front' });
+    else if (verb === 'move_npc') {
+      const x = Number(args[2]);
+      const z = Number(args[3]);
+      if (!Number.isFinite(x) || !Number.isFinite(z)) throw new Error(`move_npc ${id}: bad position`);
+      (this.state.npcPos ??= {})[`${this.state.mapId}:${id}`] = { x, z };
+      this.emit({ type: 'npc_move', id, x, z });
     }
   }
 

@@ -33,9 +33,17 @@ const g = new Game(loadContent()); g.start();
 | `move_to` | `target` or `x`,`z` | Walk there along a grid path around furniture and people |
 | `walk` | `dx`,`dz`,`seconds` | Raw movement |
 | `wait` | `seconds` | Let time pass |
+| `battle` | `skill`, `target?` | In a battle: the current party member uses a skill from `observe().battle.legal` |
+| `auto_battle` | none | In a battle: let the built-in tactician (the same one as the in-game Auto) pick this turn |
 
 ## Observation (field mode)
 `mode`, `map`, `objective`, `player {x,z}`, `party`, `tokens`, `inventory`, `ledger_latest`, `interactables[] {id, kind, name, x, z, distance, in_range}` (distance already allows for reach, e.g. Mama Dee talks across the bar), `legal[]`.
 In scene mode, `scene` is one of `{kind:'line', speaker, text}`, `{kind:'card', text}` or `{kind:'choice', options[]}`.
 
-The battle API (turn order, enemy Tells, legal skills with previews) arrives with the battle system (milestone M2).
+## Observation (battle mode)
+`battle {id, title, current, result, timeline[], units[], legal[]}`.
+- `timeline`: the next six turns, soonest first (CTB, so fast actions come round sooner).
+- `units[]`: `{id, name, side, alive, hp, max_hp, hp_pct, statuses[], heat, next_move, weakness}`. A foe's `hp`, `next_move` and `weakness` stay hidden until Eddar uses **Read** on it; `hp_pct` is always shown.
+- `legal[]`: `{skill, name, desc, targets[], blocked?}`. A blocked skill says why (for example `Muted`, or `Needs 100 Heat (40)`).
+
+What a careful player does: Read each foe; when a foe's `next_move` is a heavy set-up (a wind-up, or the Bellshell rearing to Toll), Lift it; Patch anyone under 40%; let Roxy's Heat reach 100 for Meltdown. A loss restarts the fight. Fights end with `battle over: win` (or `mercy`), and the after-scene starts at once.

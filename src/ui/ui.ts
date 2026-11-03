@@ -3,7 +3,7 @@ import type { SceneView } from '../core/scene/runner';
 import type { AudioEngine } from '../game/audio';
 
 const VOICE_PITCH: Record<string, number> = {
-  EDDAR: 520, ROXY: 640, REX: 260, 'MAMA DEE': 330, SPIKE: 380, LULU: 700, GIL: 300, GRUBB: 450, VINNIE: 280, SABLE: 420,
+  EDDAR: 520, ROXY: 640, REX: 260, 'MAMA DEE': 330, SPIKE: 380, LULU: 700, GIL: 300, GRUBB: 450, VINNIE: 280, SABLE: 420, STRANGER: 220, LEAGUES: 220, BRICK: 200, MOSS: 360, VOICE: 480,
 };
 
 const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, html?: string) => {
@@ -41,6 +41,7 @@ export class UI {
   private menu = el('div', 'menu hidden');
   private title = el('div', 'title');
   private help = el('div', 'help', 'WASD / Arrows: move · E / Enter / Space: talk & advance · Esc: menu · M: sound');
+  private vision = el('div', 'vision hidden');
 
   private shownKey = '';
   private full = '';
@@ -66,7 +67,7 @@ export class UI {
     const box = el('div', 'dbox');
     box.append(this.portrait, this.nameplate, this.text, this.more);
     this.dialogue.append(box);
-    this.root.append(this.objective, this.prompt, this.narrator, this.dialogue, this.choices, this.ledger, this.card, this.toast, this.menu, this.help, this.title);
+    this.root.append(this.vision, this.objective, this.prompt, this.narrator, this.dialogue, this.choices, this.ledger, this.card, this.toast, this.menu, this.help, this.title);
     this.buildTitle();
   }
 
@@ -88,7 +89,7 @@ export class UI {
       <div class="logo"><div class="logo-top">NEON</div><div class="logo-bottom">Sovereign</div></div>
       <div class="tagline">The prophecy named a hero. It forgot to mention the guy who does all the work.</div>
       <div class="title-menu"></div>
-      <div class="build">Build 0.1 · Prologue preview · placeholder art &amp; music</div>`;
+      <div class="build">Build 0.3 · Prologue: the opening, inception to Bellshell · placeholder art &amp; music</div>`;
     this.renderTitleMenu();
   }
 
@@ -127,6 +128,18 @@ export class UI {
     this.objective.classList.remove('pulse');
     void this.objective.offsetWidth;
     this.objective.classList.add('pulse');
+  }
+
+  /** The Canticle vision overlay (`@fx vision on|off`). */
+  setVision(on: boolean): void {
+    this.vision.classList.toggle('hidden', !on);
+  }
+
+  /** Battles hide the field help and objective. */
+  setBattle(on: boolean): void {
+    this.help.classList.toggle('hidden', on);
+    if (on) this.objective.classList.add('hidden');
+    else if (this.game?.state.objective) this.objective.classList.remove('hidden');
   }
 
   showToast(text: string): void {
@@ -207,6 +220,7 @@ export class UI {
     }
     const sp = this.game!.content.speakers[v.speaker] ?? { name: v.speaker, color: '#fff' };
     this.dialogue.classList.remove('hidden');
+    this.dialogue.classList.toggle('vo', v.emotion === 'vo');
     this.nameplate.textContent = sp.name;
     this.nameplate.style.setProperty('--c', sp.color);
     this.portrait.style.setProperty('--c', sp.color);
@@ -309,7 +323,7 @@ export class UI {
       this.menuItems = [{ label: 'BACK', run: () => this.renderMenu('main') }];
     } else if (page === 'controls') {
       panel.append(el('div', 'mtitle', 'CONTROLS'));
-      panel.append(el('div', 'mtext', 'Move: WASD or arrow keys<br>Talk / examine / advance: E, Enter or Space<br>Pick a reply: arrows + Enter, number keys, or click<br>Menu: Esc · Sound on/off: M<br><br>AI players: open the console and use <code>WIRE.describe()</code>, <code>WIRE.observe()</code> and <code>WIRE.act({...})</code>. See docs/WIRE.md.'));
+      panel.append(el('div', 'mtext', 'Move: WASD or arrow keys<br>Talk / examine / advance: E, Enter or Space<br>Pick a reply: arrows + Enter, number keys, or click<br>Battles: arrows + Enter to pick a command and a target, Esc to go back, A for Auto<br>Menu: Esc · Sound on/off: M<br><br>AI players: open the console and use <code>WIRE.describe()</code>, <code>WIRE.observe()</code> and <code>WIRE.act({...})</code>. See docs/WIRE.md.'));
       this.menuItems = [{ label: 'BACK', run: () => this.renderMenu('main') }];
     } else {
       panel.append(el('div', 'mtitle', 'PAUSED'));

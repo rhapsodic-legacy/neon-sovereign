@@ -27,6 +27,8 @@ export interface GameState {
   objective: string;
   ledger: LedgerEntry[];
   bgm: string;
+  /** NPCs a scene has moved (`@cmd move_npc`), keyed "<map>:<npc>". Optional so older saves still load. */
+  npcPos?: Record<string, Vec2>;
 }
 
 export function newGameState(seed = 1985): GameState {

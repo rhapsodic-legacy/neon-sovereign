@@ -26,6 +26,8 @@ export interface HotspotDef {
   cond?: string;
   /** Visual hint shown by the renderer (e.g. 'puddle', 'sparkle'). */
   marker?: string;
+  /** Extra examine range, e.g. for something behind a counter or high on a wall. */
+  reach?: number;
 }
 
 export interface ExitDef {
@@ -103,6 +105,11 @@ export function resolveScene(state: GameState, ref: SceneRef): string | undefine
   return ref.find((r) => evalCond(state, r.cond))?.scene;
 }
 
+/** Where an NPC stands now: its map position, unless a scene has moved it. */
+export function npcPosition(state: GameState, mapId: string, n: NpcDef): Vec2 {
+  return state.npcPos?.[`${mapId}:${n.id}`] ?? n.pos;
+}
+
 export interface Interactable {
   id: string;
   kind: 'npc' | 'hotspot' | 'exit';
@@ -118,8 +125,8 @@ export function interactables(state: GameState, map: MapDef): Interactable[] {
   const out: Interactable[] = [];
   const add = (id: string, kind: Interactable['kind'], name: string, pos: Vec2, reach = 0) =>
     out.push({ id, kind, name, pos, reach, distance: Math.max(0, Math.hypot(pos.x - p.x, pos.z - p.z) - reach) });
-  for (const n of map.npcs) if (evalCond(state, n.cond)) add(n.id, 'npc', n.name, n.pos, n.reach);
-  for (const h of map.hotspots) if (evalCond(state, h.cond)) add(h.id, 'hotspot', h.name, h.pos);
+  for (const n of map.npcs) if (evalCond(state, n.cond)) add(n.id, 'npc', n.name, npcPosition(state, map.id, n), n.reach);
+  for (const h of map.hotspots) if (evalCond(state, h.cond)) add(h.id, 'hotspot', h.name, h.pos, h.reach);
   for (const e of map.exits) add(e.id, 'exit', e.name, e.pos);
   return out.sort((a, b) => a.distance - b.distance);
 }
@@ -156,7 +163,8 @@ export function isWalkable(state: GameState, map: MapDef, pt: Vec2, r = PLAYER_R
   }
   for (const n of map.npcs) {
     if (!evalCond(state, n.cond)) continue;
-    if (Math.hypot(pt.x - n.pos.x, pt.z - n.pos.z) < r + (n.radius ?? 0.35)) return false;
+    const np = npcPosition(state, map.id, n);
+    if (Math.hypot(pt.x - np.x, pt.z - np.z) < r + (n.radius ?? 0.35)) return false;
   }
   return true;
 }
@@ -196,14 +204,15 @@ export function findPath(state: GameState, map: MapDef, from: Vec2, to: Vec2, st
   const H = Math.ceil((maxZ - minZ) / CELL) + 1;
   const pt = (i: number): Vec2 => ({ x: minX + (i % W) * CELL, z: minZ + Math.floor(i / W) * CELL });
   const walk = new Int8Array(W * H).fill(-1);
-  const ok = (i: number) => {
-    if (walk[i] < 0) walk[i] = isWalkable(state, map, pt(i)) ? 1 : 0;
-    return walk[i] === 1;
-  };
   const cx = Math.round((from.x - minX) / CELL);
   const cz = Math.round((from.z - minZ) / CELL);
   if (cx < 0 || cz < 0 || cx >= W || cz >= H) return null;
   const start = cz * W + cx;
+  // Path cells keep a little clearance, so a walker never hugs a corner it can't slide past.
+  const ok = (i: number) => {
+    if (walk[i] < 0) walk[i] = isWalkable(state, map, pt(i), PLAYER_RADIUS + 0.06) || i === start ? 1 : 0;
+    return walk[i] === 1;
+  };
   const prev = new Int32Array(W * H).fill(-2);
   prev[start] = -1;
   const queue = [start];

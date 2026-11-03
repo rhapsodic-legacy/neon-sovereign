@@ -3,6 +3,9 @@ import { parseScenes } from '../core/scene/parser';
 import type { Scene } from '../core/scene/types';
 import { alley, wyvern } from './maps/prologue';
 import { OBJECTIVES } from './objectives';
+import { BATTLE_DATA, BATTLES } from './battles';
+import type { BattleData } from '../core/battle/engine';
+import type { BattleDef } from '../core/battle/types';
 
 export interface Content {
   maps: Record<string, MapDef>;
@@ -11,6 +14,8 @@ export interface Content {
   speakers: Record<string, { name: string; color: string }>;
   /** Objective rules, first match wins (see objectives.ts). */
   objectives?: { cond: string; text: string }[];
+  battles?: Record<string, BattleDef>;
+  battleData?: BattleData;
 }
 
 const sceneFiles = import.meta.glob('./scenes/*.scene', { query: '?raw', import: 'default', eager: true }) as Record<
@@ -31,6 +36,8 @@ export function loadContent(): Content {
     scenes,
     speakers: SPEAKERS,
     objectives: OBJECTIVES,
+    battles: BATTLES,
+    battleData: BATTLE_DATA,
   };
 }
 
@@ -45,6 +52,11 @@ export const SPEAKERS: Record<string, { name: string; color: string }> = {
   GIL: { name: 'Old Gil', color: '#c9c3b5' },
   GRUBB: { name: 'Grubb', color: '#c7a36b' },
   VINNIE: { name: 'Vinnie', color: '#9aa5b1' },
+  BRICK: { name: 'Brick', color: '#8a8f99' },
+  MOSS: { name: 'Moss', color: '#7fa37a' },
+  STRANGER: { name: 'The Stranger', color: '#ffe9a8' },
+  LEAGUES: { name: 'Leagues Soprano', color: '#ffe9a8' },
+  VOICE: { name: 'Voice outside', color: '#d0d0d0' },
   NARRATOR: { name: '', color: '#ffffff' },
   LEDGER: { name: 'The Ledger', color: '#2b2b2b' },
 };

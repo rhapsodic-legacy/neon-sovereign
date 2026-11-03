@@ -163,3 +163,94 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-f
   .help { display: none; }
   .ledger { right: 16px; bottom: 150px; font-size: 22px; }
 }
+
+/* ---------- the Canticle vision (cutscene overlay) ---------- */
+.vision { position: absolute; inset: 0; pointer-events: none; backdrop-filter: sepia(0.85) hue-rotate(-28deg) saturate(1.6) contrast(1.15); background: radial-gradient(ellipse at center, rgba(120, 20, 10, 0.05) 30%, rgba(40, 0, 0, 0.75) 100%); animation: fadein 1.4s; }
+.vision::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(150, 20, 20, 0.07) 0 2px, transparent 2px 28px); animation: scroll-ink 9s linear infinite; }
+@keyframes scroll-ink { to { background-position: 0 -280px; } }
+.dialogue.vo .dbox { background: rgba(30, 6, 4, 0.82); border-color: #ffd36b; }
+.dialogue.vo .dtext { font-style: italic; color: #ffe9c2; }
+
+/* ---------- THE SET: battle screen ---------- */
+.battle { position: absolute; inset: 0; pointer-events: none; }
+.battle > * { pointer-events: auto; }
+.b-labels, .b-floaters { position: absolute; inset: 0; pointer-events: none !important; }
+.b-timeline { position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; gap: 4px; align-items: center; padding: 8px 6px; background: var(--panel); border: 1px solid rgba(255, 43, 214, 0.5); border-radius: 4px; }
+.b-tl-label { font: 9px 'Press Start 2P'; color: var(--gold); margin-bottom: 2px; }
+.b-chip { position: relative; width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--c); background: rgba(0,0,0,0.6); font: 700 18px 'Rajdhani'; color: var(--c); }
+.b-chip.enemy { border-radius: 6px; }
+.b-chip em { position: absolute; left: 44px; font: 600 12px 'Rajdhani'; font-style: normal; color: #ccc; white-space: nowrap; text-shadow: 0 1px 3px #000; }
+.b-chip.now { box-shadow: 0 0 12px var(--c); transform: scale(1.15); }
+.b-chip.preview { border-style: dashed; opacity: 0.85; box-shadow: 0 0 10px var(--cyan); }
+.b-party { position: absolute; right: 18px; bottom: 18px; display: flex; flex-direction: column; gap: 8px; width: min(320px, 44vw); }
+.b-member { padding: 8px 12px; background: var(--panel); border-left: 4px solid var(--c); border-radius: 3px; }
+.b-member.now { box-shadow: 0 0 16px var(--c); }
+.b-member.ko { opacity: 0.45; }
+.b-mname { font: 700 19px 'Rajdhani'; color: var(--c); letter-spacing: 1px; }
+.b-hp, .b-heat, .b-ehp, .b-break { position: relative; height: 8px; background: rgba(255,255,255,0.12); border-radius: 2px; overflow: hidden; margin-top: 4px; }
+.b-hp > div { height: 100%; background: linear-gradient(90deg, #3bff9a, #33e0ff); transition: width 0.3s; }
+.b-hp > div.low { background: linear-gradient(90deg, #ff3b5c, #ff9a3c); }
+.b-hpnum { font: 600 14px 'Rajdhani'; color: #ddd; text-align: right; }
+.b-heat { height: 12px; }
+.b-heat > div { height: 100%; background: linear-gradient(90deg, #ff9a3c, #ff2a00); transition: width 0.3s; }
+.b-heat b { position: absolute; inset: 0; font: 700 10px 'Rajdhani'; letter-spacing: 1px; text-align: center; line-height: 12px; }
+.st { font: 700 10px 'Rajdhani'; font-style: normal; padding: 1px 4px; margin-left: 4px; border-radius: 2px; background: #333; color: #fff; vertical-align: middle; }
+.st.mute { background: #6a2bd6; } .st.guard { background: #1b6fa5; } .st.charging { background: #b58a00; } .st.taunt { background: #a5521b; }
+.st.rearing { background: #d65a2b; } .st.broken { background: var(--gold); color: #000; }
+.b-menu { position: absolute; left: 18px; bottom: 18px; width: min(300px, 44vw); padding: 10px; background: var(--panel); border: 2px solid var(--cyan); border-radius: 4px; box-shadow: 0 0 18px rgba(51, 224, 255, 0.4); }
+.b-menu-head { font: 700 20px 'Rajdhani'; color: var(--c); letter-spacing: 2px; margin-bottom: 6px; }
+.b-cmd { padding: 6px 10px; font: 700 19px 'Rajdhani'; cursor: pointer; border-radius: 3px; }
+.b-cmd .num { display: inline-block; width: 22px; font: 10px 'Press Start 2P'; color: var(--pink); }
+.b-cmd small { margin-left: 8px; font: 600 13px 'Rajdhani'; color: #ff9a9a; }
+.b-cmd.sel { background: rgba(51, 224, 255, 0.15); color: var(--cyan); transform: translateX(6px); }
+.b-cmd.blocked { opacity: 0.45; }
+.b-help { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); max-width: min(460px, 34vw); padding: 8px 14px; background: var(--panel); border-radius: 3px; font: 600 16px 'Rajdhani'; color: #eee; text-align: center; }
+.b-label { position: absolute; transform: translate(-50%, -100%); min-width: 120px; text-align: center; }
+.b-label.party { min-width: 0; }
+.b-ename { font: 700 16px 'Rajdhani'; text-shadow: 0 2px 4px #000, 0 0 8px #000; }
+.b-ehp { height: 6px; width: 120px; margin: 3px auto 0; }
+.b-ehp > div { height: 100%; background: #ff3b5c; transition: width 0.3s; }
+.b-ehp.unknown > div { background: #774050; }
+.b-ehpnum { font: 600 12px 'Rajdhani'; color: #ddd; text-shadow: 0 1px 3px #000; }
+.b-break { height: 4px; width: 120px; margin: 3px auto 0; }
+.b-break > div { height: 100%; background: var(--gold); }
+.b-break.on > div { animation: blink 0.3s steps(2) infinite; }
+.b-intent { margin-top: 3px; font: 700 13px 'Rajdhani'; color: var(--cyan); text-shadow: 0 1px 3px #000; }
+.b-intent.heavy { color: #ff7a5a; animation: blink 0.8s steps(2) infinite; }
+.b-target { font-size: 22px; color: var(--gold); text-shadow: 0 0 8px var(--gold); animation: bob 0.6s infinite; }
+.b-float { position: absolute; transform: translate(-50%, -50%); font: 400 26px 'Press Start 2P'; color: #fff; text-shadow: 3px 3px 0 #000; animation: float-up 1.3s ease-out forwards; white-space: nowrap; }
+.b-float.hurt { color: #ff5a6a; }
+.b-float.crit { color: #ffd24a; font-size: 32px; }
+.b-float.heal { color: #6bff9a; }
+.b-float.tag, .b-float.skill { font: 700 20px 'Rajdhani'; letter-spacing: 2px; color: var(--cyan); }
+.b-float.skill { color: #fff; background: rgba(0,0,0,0.6); padding: 2px 10px; border: 1px solid var(--pink); }
+.b-float.break { color: var(--gold); font-size: 28px; }
+@keyframes float-up { 0% { opacity: 0; transform: translate(-50%, -20%) scale(0.6); } 15% { opacity: 1; transform: translate(-50%, -60%) scale(1.15); } 100% { opacity: 0; transform: translate(-50%, -190%) scale(1); } }
+.b-bark { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); width: min(600px, calc(100% - 700px)); min-width: min(520px, calc(100% - 32px)); padding: 12px 18px; background: var(--panel); border: 2px solid var(--c); border-radius: 4px; box-shadow: 0 0 16px var(--c); }
+.b-bark-name { font: 700 16px 'Rajdhani'; letter-spacing: 2px; color: var(--c); }
+.b-bark-text { font: 600 22px/1.3 'Rajdhani'; }
+.b-hint { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.25); font: 600 17px 'Rajdhani'; color: #ffe9a8; }
+.b-hint span { font: 9px 'Press Start 2P'; color: #000; background: var(--gold); padding: 3px 5px; margin-right: 6px; }
+.b-bark .more { position: absolute; right: 12px; bottom: 6px; }
+.b-card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: radial-gradient(ellipse at center, rgba(60, 0, 40, 0.55), rgba(0, 0, 0, 0.92)); animation: fadein 0.3s; }
+.b-card-title {
+  font: 400 clamp(46px, 10vw, 130px) 'Monoton'; letter-spacing: 4px; transform: skewX(-8deg);
+  background: linear-gradient(180deg, #fff 0%, #ffe9a8 40%, #b5651d 50%, #fff3 52%, #ff4fd8 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 18px rgba(255, 120, 40, 0.8)); animation: slam 0.5s cubic-bezier(.2,1.6,.4,1);
+}
+.b-card-tag { font: 400 clamp(20px, 3vw, 36px) 'Kaushan Script'; color: #ffe6f7; text-shadow: 0 0 12px var(--pink); animation: fadein 1.2s; }
+@keyframes slam { from { transform: skewX(-8deg) scale(2.4); opacity: 0; } }
+.b-banner { position: absolute; left: 0; right: 0; top: 34%; text-align: center; padding: 18px; background: linear-gradient(90deg, transparent, rgba(10, 0, 20, 0.9), transparent); }
+.b-banner-text { font: 400 clamp(40px, 8vw, 96px) 'Monoton'; color: var(--gold); text-shadow: 0 0 20px var(--gold); }
+.b-banner.mercy .b-banner-text { color: #9be8ff; text-shadow: 0 0 20px var(--cyan); }
+.b-banner.defeat .b-banner-text { color: #ff4f6a; text-shadow: 0 0 20px #ff4f6a; }
+.b-banner-sub { font: 600 20px 'Rajdhani'; color: #eee; }
+.b-auto { position: absolute; right: 18px; top: 14px; font: 9px 'Press Start 2P'; padding: 6px 8px; background: var(--panel); border: 1px solid #555; cursor: pointer; color: #aaa; }
+.b-speed { right: 172px; }
+.b-auto.on { color: var(--gold); border-color: var(--gold); box-shadow: 0 0 10px var(--gold); }
+@media (max-width: 640px) {
+  .b-help { display: none; }
+  .b-party { width: 46vw; }
+  .b-menu { width: 46vw; }
+  .b-chip em { display: none; }
+}

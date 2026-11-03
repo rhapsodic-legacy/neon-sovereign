@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { buildBellshell } from './monsters';
 
 /**
  * Placeholder character models built from primitives (until Tripo models land).
@@ -19,10 +20,12 @@ interface Spec {
   pants: number;
   shoes: number;
   hair: number;
-  hairStyle: 'messy' | 'quiff' | 'pony' | 'mohawk' | 'buns' | 'cap' | 'bob' | 'bald' | 'big';
+  hairStyle: 'messy' | 'quiff' | 'pony' | 'mohawk' | 'buns' | 'cap' | 'bob' | 'bald' | 'big' | 'short';
   shoulders?: number; // pauldron colour
   bulk?: number; // torso width multiplier
   extra?: (g: THREE.Group, mats: Record<string, THREE.Material>) => void;
+  /** Eyes that glow (Leagues Soprano). */
+  eyeGlow?: number;
 }
 
 const SPECS: Record<string, Spec> = {
@@ -44,10 +47,41 @@ const SPECS: Record<string, Spec> = {
   lulu: { scale: 0.92, skin: 0xc68e6a, jacket: 0x5a2e8a, shirt: 0xffb36b, pants: 0x1f1f2e, shoes: 0xffffff, hair: 0xff9a2e, hairStyle: 'buns' },
   gil: { scale: 0.95, skin: 0xd8b49a, jacket: 0x5a5146, shirt: 0x9a9182, pants: 0x3a352e, shoes: 0x2a2a2a, hair: 0x9a9a9a, hairStyle: 'cap' },
   grubb: { scale: 0.86, skin: 0xd9a77e, jacket: 0x7a5a2a, shirt: 0xcccccc, pants: 0x3a3a3a, shoes: 0x222222, hair: 0x4a3420, hairStyle: 'bob', bulk: 1.15 },
+  // Leagues Soprano: a moth-eaten black robe with faded gold notes, a black breastplate, and white eyes lit from within.
+  leagues: { scale: 1.06, skin: 0x5a3a26, jacket: 0x101014, shirt: 0x1a1a1f, pants: 0x0c0c0e, shoes: 0x0a0a0a, hair: 0x141010, hairStyle: 'short', eyeGlow: 0xffffff,
+    extra: (g) => {
+      const robe = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.42, 1.25, 10, 1, true), new THREE.MeshStandardMaterial({ map: robeTexture(), side: THREE.DoubleSide, roughness: 0.9, flatShading: true }));
+      robe.position.y = 0.78;
+      g.add(robe);
+      const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.23, 0.19, 0.42, 8), new THREE.MeshStandardMaterial({ color: 0x0b0b0d, metalness: 0.9, roughness: 0.25 }));
+      plate.position.y = 1.2;
+      g.add(plate);
+    } },
+  // Sable: silver crop, black wraps, a black visor (pushed up tonight).
+  sable: { scale: 0.98, skin: 0xe6c7b2, jacket: 0x0e0e12, shirt: 0x1c1726, pants: 0x101014, shoes: 0x1a1a1a, hair: 0xd8dde6, hairStyle: 'bob',
+    extra: (g) => {
+      const visor = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.07, 0.2), new THREE.MeshStandardMaterial({ color: 0x050508, metalness: 0.8, roughness: 0.15, emissive: 0x6a2bd6, emissiveIntensity: 0.4 }));
+      visor.position.set(0, 1.86, 0.02);
+      visor.rotation.x = -0.35;
+      g.add(visor);
+      const wrap = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.035, 5, 12), new THREE.MeshStandardMaterial({ color: 0x222228 }));
+      wrap.position.y = 1.34;
+      wrap.rotation.x = Math.PI / 2;
+      g.add(wrap);
+    } },
+  // The dock crew.
+  brick: { scale: 1.2, skin: 0xb88a68, jacket: 0x5a4a3a, shirt: 0x8a8f99, pants: 0x2a2f3a, shoes: 0x1a1a1a, hair: 0x2a2018, hairStyle: 'bald', bulk: 1.6 },
+  moss: { scale: 0.98, skin: 0xd2a88a, jacket: 0x3f5a3a, shirt: 0x7fa37a, pants: 0x2a2a22, shoes: 0x3a2a1a, hair: 0x2a3a20, hairStyle: 'cap', bulk: 0.9,
+    extra: (g) => {
+      const hook = new THREE.Mesh(new THREE.TorusGeometry(0.09, 0.018, 5, 10, Math.PI * 1.3), new THREE.MeshStandardMaterial({ color: 0xaaaaaa, metalness: 1, roughness: 0.3 }));
+      hook.position.set(0.32, 0.72, 0.08);
+      g.add(hook);
+    } },
   vinnie: { scale: 1.05, skin: 0xc49a7a, jacket: 0x4a5a6a, shirt: 0x9aa5b1, pants: 0x2a3440, shoes: 0x222222, hair: 0x111111, hairStyle: 'bald', bulk: 1.2 },
 };
 
 export function buildCharacter(model: string): CharacterRig {
+  if (model === 'bellshell') return buildBellshell();
   const spec = SPECS[model] ?? SPECS.eddar;
   const std = (color: number, extra: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
     new THREE.MeshStandardMaterial({ color, roughness: 0.75, flatShading: true, ...extra });
@@ -125,9 +159,14 @@ export function buildCharacter(model: string): CharacterRig {
   skull.scale.set(0.95, 1.1, 1);
   skull.castShadow = true;
   head.add(skull);
-  const eyeMat = new THREE.MeshBasicMaterial({ color: 0x111111 });
+  const eyeMat = new THREE.MeshBasicMaterial({ color: spec.eyeGlow ?? 0x111111, toneMapped: !spec.eyeGlow });
+  if (spec.eyeGlow) {
+    const glow = new THREE.PointLight(spec.eyeGlow, 1.2, 1.6, 2);
+    glow.position.set(0, 0.16, 0.2);
+    head.add(glow);
+  }
   for (const side of [-1, 1]) {
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.018, 5, 4), eyeMat);
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(spec.eyeGlow ? 0.026 : 0.018, 5, 4), eyeMat);
     eye.position.set(0.05 * side, 0.16, 0.135);
     head.add(eye);
   }
@@ -215,5 +254,34 @@ function addHair(head: THREE.Group, style: Spec['hairStyle'], mat: THREE.Materia
       break;
     case 'bald':
       break;
+    case 'short':
+      add(new THREE.SphereGeometry(0.162, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2.2), 0, 0.15, -0.01);
+      break;
   }
+}
+
+/** A moth-eaten black robe printed with faded gold music notes. */
+function robeTexture(): THREE.CanvasTexture {
+  const c = document.createElement('canvas');
+  c.width = 256;
+  c.height = 256;
+  const g = c.getContext('2d')!;
+  g.fillStyle = '#0d0c10';
+  g.fillRect(0, 0, 256, 256);
+  g.fillStyle = 'rgba(176, 140, 70, 0.75)';
+  g.font = '28px serif';
+  const notes = ['\u266A', '\u266B', '\u2669', '\u266C'];
+  for (let i = 0; i < 40; i++) g.fillText(notes[i % 4], (i * 53) % 256, 20 + ((i * 37) % 240));
+  // moth holes
+  g.fillStyle = '#2a2430';
+  for (let i = 0; i < 26; i++) {
+    g.beginPath();
+    g.arc((i * 97) % 256, (i * 61) % 256, 2 + (i % 4), 0, Math.PI * 2);
+    g.fill();
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(2, 1);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
 }

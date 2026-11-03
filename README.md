@@ -32,4 +32,4 @@ npm run build
 
 ## Status
 
-Build 0.1: engine skeleton + the opening of the Prologue (the Pink Wyvern and Rex's letter in the alley). Art and music are placeholders (procedural sets, primitive characters, synthesized score) until the asset pipeline lands. See DESIGN.md §13 for milestones.
+Build 0.3: the opening of the Prologue, from the mop to the Bellshell: the Pink Wyvern, the stranger, Rex's letter, the dock crew fight, the Champion reveal and "Burn Forever", the screams, Sable, and the Bellshell fight with its mercy ending. Battles run on THE SET (CTB timeline, Tells, Break, Auto; `npm run sim` prints the balance bands). Art and music are placeholders (procedural sets, primitive characters, synthesized score) until the asset pipeline lands. See DESIGN.md §13 for milestones.
