@@ -95,6 +95,54 @@ describe('THE SET: mechanics', () => {
     } else expect(b2.unit('eddar').statuses.mute).toBeGreaterThan(0);
   });
 
+  it('Break is real: the broken foe loses a turn, and every hit until it gets up does +50%', () => {
+    const b = new Battle(BATTLES.bellshell, BATTLE_DATA, 9);
+    const shell = b.unit('bellshell');
+    until(b, () => b.current === 'eddar' && !!shell.statuses.rearing, 80);
+    b.drain();
+    b.act('lift', 'bellshell');
+    expect(shell.broken).toBeGreaterThan(0);
+    // the party gets at least two actions before the crab acts again
+    const evs: BattleEvent[] = [];
+    let partyTurns = 0;
+    while (shell.broken > 0 && !b.result && partyTurns < 10) {
+      const l = b.legal().find((x) => !x.blocked && ['lid_bash', 'strike', 'axe_riff'].includes(x.skill));
+      if (!l) break;
+      b.act(l.skill, 'bellshell');
+      partyTurns++;
+      evs.push(...b.drain());
+    }
+    expect(partyTurns).toBeGreaterThanOrEqual(2);
+    const hits = evs.filter((e): e is Extract<BattleEvent, { type: 'damage' }> => e.type === 'damage' && e.target === 'bellshell');
+    expect(hits.length).toBeGreaterThan(0);
+    expect(hits.every((h) => h.broken)).toBe(true);
+    // and the bonus is really in the numbers: same seed, same hit, with and without Broken
+    const hitFor = (broken: boolean) => {
+      const t = new Battle(BATTLES.bellshell, BATTLE_DATA, 77);
+      until(t, () => t.current === 'rex', 20);
+      t.drain();
+      if (broken) t.unit('bellshell').broken = 1;
+      t.act('strike', 'bellshell');
+      return t.drain().find((e): e is Extract<BattleEvent, { type: 'damage' }> => e.type === 'damage' && e.target === 'bellshell')!.amount;
+    };
+    const plain = hitFor(false);
+    expect(hitFor(true)).toBeGreaterThanOrEqual(Math.floor(plain * 1.5));
+  });
+
+  it('boss barks: frightened until the turning point, cocky after it', () => {
+    const b = new Battle(BATTLES.bellshell, BATTLE_DATA, 4);
+    const evs: BattleEvent[] = [...b.drain()];
+    const shell = b.unit('bellshell');
+    until(b, () => b.turned, 400);
+    evs.push(...b.drain());
+    if (b.result) return; // lost before the turn; other seeds cover it
+    const before = evs.filter((e): e is Extract<BattleEvent, { type: 'bark' }> => e.type === 'bark').map((e) => e.text);
+    const flair = Object.entries(BATTLES.bellshell.barks).filter(([k]) => k.endsWith('+')).map(([, v]) => v.text);
+    for (const t of before.slice(0, -1)) expect(flair).not.toContain(t);
+    expect(before[before.length - 1]).toBe(BATTLES.bellshell.barks.turned.text);
+    expect(shell.hp).toBeLessThan(shell.maxHp * 0.5);
+  });
+
   it('Roxy builds Heat when Rex is hit, and Meltdown needs 100', () => {
     const b = new Battle(BATTLES.bellshell, BATTLE_DATA, 11);
     const roxy = b.unit('roxy');

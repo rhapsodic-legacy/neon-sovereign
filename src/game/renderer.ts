@@ -62,6 +62,8 @@ export class FieldRenderer {
   private markers = new Map<string, THREE.Object3D>();
   private camTarget = new THREE.Vector3();
   private camFocus: string | null = null;
+  /** Where Eddar is drawn while a cutscene walks him to a new spot (the core has already moved him). */
+  private playerWalk: THREE.Vector3 | null = null;
   private shake = 0;
   private effects: Effect[] = [];
   private t = 0;
@@ -128,6 +130,9 @@ export class FieldRenderer {
         }
         break;
       }
+      case 'player_move':
+        this.playerWalk = this.player.root.position.clone();
+        break;
       case 'npc_enter': {
         const a = this.actors.get(e.id);
         const from = ENTRANCES[this.game.map.view]?.[e.from];
@@ -346,6 +351,7 @@ export class FieldRenderer {
       this.markers.set(`exit:${ex.id}`, m);
     }
     this.effects = [];
+    this.playerWalk = null;
     const p = this.game.state.player.pos;
     this.camTarget.set(p.x, 0, p.z);
     this.snapCamera();
@@ -380,9 +386,22 @@ export class FieldRenderer {
 
     // player
     const p = st.player.pos;
-    const moving = Math.hypot(p.x - this.lastPlayerPos.x, p.z - this.lastPlayerPos.z) > 0.0005;
+    let moving = Math.hypot(p.x - this.lastPlayerPos.x, p.z - this.lastPlayerPos.z) > 0.0005;
     this.lastPlayerPos = { ...p };
-    this.player.root.position.set(p.x, 0, p.z);
+    if (this.playerWalk) {
+      const dx = p.x - this.playerWalk.x;
+      const dz = p.z - this.playerWalk.z;
+      const d = Math.hypot(dx, dz);
+      const step = dt * 4.5;
+      if (d <= step) this.playerWalk = null;
+      else {
+        this.playerWalk.x += (dx / d) * step;
+        this.playerWalk.z += (dz / d) * step;
+        moving = true;
+      }
+    }
+    const drawn = this.playerWalk ?? p;
+    this.player.root.position.set(drawn.x, 0, drawn.z);
     this.player.root.rotation.y = lerpAngle(this.player.root.rotation.y, st.player.facing, Math.min(1, dt * 14));
     this.player.update(dt, moving);
 

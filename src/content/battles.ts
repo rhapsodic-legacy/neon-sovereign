@@ -28,23 +28,23 @@ const skills: SkillDef[] = [
   { id: 'shove', name: 'Shove', desc: '', kind: 'attack', target: 'enemy', delay: 100, power: 1.0, prefer: 'eddar' },
   { id: 'hook_swipe', name: 'Hook Swipe', desc: '', kind: 'attack', target: 'enemy', delay: 90, power: 0.8 },
   // --- the Bellshell ---
-  { id: 'pinch', name: 'Pinch', desc: '', kind: 'attack', target: 'enemy', delay: 100, power: 1.0 },
+  { id: 'pinch', name: 'Pinch', desc: '', kind: 'attack', target: 'enemy', delay: 100, power: 1.4 },
   { id: 'rear', name: 'Rears Up…', desc: '', kind: 'rear', target: 'none', delay: 80, then: 'toll' },
-  { id: 'toll', name: 'TOLL', desc: '', kind: 'attack', target: 'all_party', delay: 120, power: 2.0, inflict: { id: 'mute', turns: 2 } },
-  { id: 'shell_ram', name: 'Shell Ram', desc: '', kind: 'attack', target: 'enemy', delay: 110, power: 1.5, prefer: 'weakest' },
+  { id: 'toll', name: 'TOLL', desc: '', kind: 'attack', target: 'all_party', delay: 120, power: 1.7, inflict: { id: 'mute', turns: 2 } },
+  { id: 'shell_ram', name: 'Shell Ram', desc: '', kind: 'attack', target: 'enemy', delay: 110, power: 2.1, prefer: 'weakest' },
 ];
 
 const units: UnitDef[] = [
   { id: 'eddar', name: 'Eddar', model: 'eddar', side: 'party', hp: 130, atk: 8, def: 4, spd: 11, skills: ['lid_bash', 'read', 'lift', 'patch', 'defend'] },
   { id: 'rex', name: 'Rex', model: 'rex', side: 'party', hp: 240, atk: 15, def: 9, spd: 9, skills: ['strike', 'charge', 'showboat', 'defend'], traits: ['big_brother'] },
   { id: 'roxy', name: 'Roxy', model: 'roxy', side: 'party', hp: 160, atk: 13, def: 5, spd: 13, skills: ['axe_riff', 'meltdown', 'defend'], traits: ['heat'] },
-  { id: 'vinnie', name: 'Vinnie', model: 'vinnie', side: 'enemy', hp: 140, atk: 14, def: 4, spd: 10, skills: [], ai: ['jab', 'wind_up', 'jab'],
+  { id: 'vinnie', name: 'Vinnie', model: 'vinnie', side: 'enemy', hp: 140, atk: 12, def: 4, spd: 10, skills: [], ai: ['jab', 'wind_up', 'jab'],
     breakMax: 60, weakness: 'Hates being interrupted', readNote: 'He breathes before he swings. When he winds up, the next blow is heavy. Lift him off his feet first.' },
-  { id: 'brick', name: 'Brick', model: 'brick', side: 'enemy', hp: 180, atk: 14, def: 8, spd: 8, skills: [], ai: ['shove', 'shove', 'jab'],
+  { id: 'brick', name: 'Brick', model: 'brick', side: 'enemy', hp: 180, atk: 12, def: 8, spd: 8, skills: [], ai: ['shove', 'shove', 'jab'],
     breakMax: 70, weakness: 'Slow. Big hits break him', readNote: 'A wall with opinions. He goes for whoever looks weakest, which is, regrettably, me.' },
-  { id: 'moss', name: 'Moss', model: 'moss', side: 'enemy', hp: 100, atk: 13, def: 3, spd: 12, skills: [], ai: ['hook_swipe', 'hook_swipe', 'jab'],
+  { id: 'moss', name: 'Moss', model: 'moss', side: 'enemy', hp: 100, atk: 11, def: 3, spd: 12, skills: [], ai: ['hook_swipe', 'hook_swipe', 'jab'],
     breakMax: 40, weakness: 'Fragile', readNote: 'Quick hands, glass jaw. The hook is for show; the show is for him.' },
-  { id: 'bellshell', name: 'Bellshell', model: 'bellshell', side: 'enemy', hp: 1100, atk: 25, def: 10, spd: 9, skills: [], ai: ['pinch', 'rear', 'shell_ram', 'pinch', 'rear'],
+  { id: 'bellshell', name: 'Bellshell', model: 'bellshell', side: 'enemy', hp: 1300, atk: 28, def: 10, spd: 9, skills: [], ai: ['pinch', 'rear', 'shell_ram', 'pinch', 'rear'],
     breakMax: 140, weakness: 'Soft underside while rearing',
     readNote: 'When it lifts to ring, its belly is bare: strike then, or lift it over. If it tolls, we lose our voices.' },
 ];
@@ -57,7 +57,8 @@ export const dockCrew: BattleDef = {
   party: ['eddar', 'rex'],
   enemies: ['vinnie', 'brick', 'moss'],
   // The tutorial must be winnable by mashing; reading and lifting should make it clean.
-  bands: { smart: [0.95, 1], attack: [0.85, 1], random: [0, 0.4] },
+  // Jesse's 0.3 playtest: it felt harder than the boss, so the crew hit softer now.
+  bands: { smart: [0.95, 1], attack: [0.9, 1], random: [0.1, 0.5] },
   flag: 'p.dock_fight_won',
   after: 'prologue.after_dock_fight',
   barks: {
@@ -84,21 +85,34 @@ export const bellshellFight: BattleDef = {
   party: ['eddar', 'rex', 'roxy'],
   enemies: ['bellshell'],
   mercy: { unit: 'bellshell', hpFraction: 0.1 },
-  // Storyboard v2: a player who ignores the Toll should lose about one run in ten; mashing should mostly lose.
-  // (A prologue mini-boss, so mechanic-aware play sits above the usual boss band of 80-95%.)
-  bands: { smart: [0.95, 1], ignore_tells: [0.8, 0.97], attack: [0, 0.4], random: [0, 0.5] },
+  // Jesse's 0.3 playtest: "a joke in difficulty". Now a real boss (DESIGN §6.5 band): careful play usually wins,
+  // ignoring the Toll usually loses, and mashing loses. It must stay clearly harder than the dock crew.
+  bands: { smart: [0.8, 0.95], ignore_tells: [0.1, 0.45], attack: [0, 0.15], random: [0, 0.15] },
   flag: 'p.bellshell_done',
   after: 'prologue.bellshell_mercy',
+  // Jesse's rule: until the crab is below half HP they are three terrified people refusing to run.
+  // The cocky lines (`key+`) only come once they're winning.
+  turn: { unit: 'bellshell', hpFraction: 0.5 },
   barks: {
-    start: { who: 'ROXY', text: "Stand back, boys. I'm gonna play this thing like a SOLO." },
-    read: { who: 'EDDAR', text: "When it lifts to ring, its belly's bare. Strike then, or suffer its song.", hint: 'Hits on a REARING foe deal 50% more. LIFT flips it over and BREAKS it.' },
-    'tell:bellshell': { who: 'EDDAR', text: "It's rearing! Now, before it rings!" },
-    'lift_rear:bellshell': { who: 'EDDAR', text: 'Over you go, old bell. Gently, now.' },
+    start: { who: 'ROXY', text: 'Okay. Okay okay okay. Stay together. Nobody runs, nobody dies. Deal?' },
+    read: { who: 'EDDAR', text: "There. When it lifts to ring, its belly's bare. Breathe, Eddar. Breathe.", hint: 'Hits on a REARING foe deal 50% more. LIFT flips it over and BREAKS it.' },
+    'read+': { who: 'EDDAR', text: "When it lifts to ring, its belly's bare. Strike then, or suffer its song.", hint: 'Hits on a REARING foe deal 50% more. LIFT flips it over and BREAKS it.' },
+    'tell:bellshell': { who: 'EDDAR', text: "It's rearing! Now! Now, now, NOW!" },
+    'tell:bellshell+': { who: 'EDDAR', text: "It's rearing! Now, before it rings!" },
+    'lift_rear:bellshell': { who: 'EDDAR', text: 'I... it went over! Please stay over!' },
+    'lift_rear:bellshell+': { who: 'EDDAR', text: 'Over you go, old bell. Gently, now.' },
     mute: { who: 'EDDAR', text: "My voice... I can't find the note.", hint: 'MUTE: Resonance skills (Lift, Patch) are blocked for two turns.' },
-    roxy_rex_hit: { who: 'ROXY', text: 'HEY. Only I get to hit Rex!', hint: "HEAT: Roxy's Heat climbs when she or her friends get hurt." },
-    heat_max: { who: 'ROXY', text: 'Oh, I am ON FIRE now.', hint: 'At 100 Heat, MELTDOWN SOLO is ready.' },
-    meltdown: { who: 'ROXY', text: 'SWEET. SCREAMING. AMPLIFIERS!' },
-    break: { who: 'REX', text: "It's on its back! Pile on!" },
+    'hurt:eddar': { who: 'REX', text: 'Adder! Get behind me! Get BEHIND me!', hint: 'DEFEND halves damage until your next turn.' },
+    'hurt:rex': { who: 'ROXY', text: 'Rex? REX! Say something stupid so I know you\'re okay!', hint: 'PATCH heals an ally.' },
+    roxy_rex_hit: { who: 'ROXY', text: "Don't you DARE die on me, you big dumb blond!", hint: "HEAT: Roxy's Heat climbs when she or her friends get hurt." },
+    'roxy_rex_hit+': { who: 'ROXY', text: 'HEY. Only I get to hit Rex!', hint: "HEAT: Roxy's Heat climbs when she or her friends get hurt." },
+    heat_max: { who: 'ROXY', text: "My hands won't stop shaking. Fine. Shaking's just vibrato.", hint: 'At 100 Heat, MELTDOWN SOLO is ready.' },
+    'heat_max+': { who: 'ROXY', text: 'Oh, I am ON FIRE now.', hint: 'At 100 Heat, MELTDOWN SOLO is ready.' },
+    meltdown: { who: 'ROXY', text: 'Please work, please work, please WORK!' },
+    'meltdown+': { who: 'ROXY', text: 'SWEET. SCREAMING. AMPLIFIERS!' },
+    break: { who: 'REX', text: 'It fell over! Hit it! HIT IT before it gets up!' },
+    'break+': { who: 'REX', text: "It's on its back! Pile on!" },
+    turned: { who: 'ROXY', text: "It's slowing down... We're WINNING? Stand back, boys. I'm gonna play this thing like a SOLO." },
     defeat: { who: 'ROXY', text: 'Not. Like. THIS. Again!' },
   },
 };

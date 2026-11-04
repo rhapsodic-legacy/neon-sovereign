@@ -201,7 +201,8 @@ export class BattleUI {
       }
       case 'damage':
         this.shownHp.set(e.target, Math.max(0, (this.shownHp.get(e.target) ?? 0) - e.amount));
-        this.floatText(e.target, String(e.amount), e.exposed ? 'crit' : this.b.unit(e.target).side === 'party' ? 'hurt' : 'dmg');
+        this.floatText(e.target, String(e.amount), e.exposed || e.broken ? 'crit' : this.b.unit(e.target).side === 'party' ? 'hurt' : 'dmg');
+        if (e.broken) this.floatText(e.target, 'BROKEN +50%', 'tag');
         this.audio.playSfx('hit');
         this.renderParty();
         return Math.max(0.3, anim);

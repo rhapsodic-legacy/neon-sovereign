@@ -24,6 +24,7 @@ Scenes live in `src/content/scenes/`. A file can hold many scenes. Lines are tri
 | `@cmd exit_npc <npc> [front\|back\|left\|right]` | NPC walks off that way (set the flag that hides them right after) |
 | `@cmd enter_npc <npc> [front\|back\|window]` | NPC walks in from that entrance to their map position (set the flag that shows them first) |
 | `@cmd move_npc <npc> <x> <z>` | NPC walks to a point; several in a row make a path, and the last one sticks (saved in state) |
+| `@cmd move_player <x> <z>` | Eddar walks to a point during a cutscene (the core moves him at once; the renderer animates the walk) |
 | `@fx violet eddar` | Eddar's power leaking: a violet flash and sparks nobody notices |
 | `@fx gold_threads <npc>` / `@fx gold_threads off` | Leagues' music pouring into the band as gold threads, until turned off |
 | `@fx eye_flash <npc\|band>` | A white flash in someone's eyes |

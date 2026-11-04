@@ -51,9 +51,9 @@ export const wyvern: MapDef = {
     { id: 'gil', model: 'gil', name: 'Old Gil', pos: { x: -5.0, z: 3.9 }, facing: Math.PI / 2, talk: 'prologue.gil', cond: '!p.screams' },
     // The stranger: walks in during the cold open, sits in the dark corner booth, says nothing.
     { id: 'leagues', model: 'leagues', name: 'Stranger', pos: { x: 6.1, z: 0.6 }, facing: -Math.PI / 2, talk: 'prologue.leagues', cond: 'p.leagues_in & !p.leagues_gone', reach: 1.0 },
-    // Rex comes back inside with Eddar after the alley fight.
+    // Rex goes back inside ahead of Eddar after the alley fight.
     { id: 'rex', model: 'rex', name: 'Rex', pos: { x: 3.2, z: 2.2 }, facing: Math.PI / 4, talk: 'prologue.rex_after', cond: 'p.dock_fight_won', radius: 0.5 },
-    { id: 'sable', model: 'sable', name: 'Sable', pos: { x: 0.6, z: 3.4 }, facing: Math.PI, talk: 'prologue.sable', cond: 'p.sable_in & !p.sable_gone' },
+    { id: 'sable', model: 'sable', name: 'Woman in the Mask', pos: { x: 0.9, z: 1.4 }, facing: 2.1, talk: 'prologue.sable', cond: 'p.sable_in & !p.sable_gone' },
     { id: 'bellshell', model: 'bellshell', name: 'Bellshell', pos: { x: 2.0, z: 3.2 }, facing: Math.PI, talk: 'prologue.bellshell_look', cond: 'p.bellshell_in & !p.bellshell_gone', radius: 1.2 },
   ],
   hotspots: [
@@ -106,12 +106,14 @@ export const alley: MapDef = {
   ],
   blockers: [
     { x: -2.0, z: -1.5, w: 1.2, d: 2.6 }, // dumpster
+    { x: 2.4, z: -6.4, w: 1.0, d: 1.6 }, // the box someone lives in
+    { x: 2.5, z: -3.2, w: 0.6, d: 0.6 }, // the cat's crate
   ],
   spawns: {
     from_wyvern: { pos: { x: 1.6, z: 4.4 }, facing: Math.PI },
   },
   npcs: [
-    { id: 'rex', model: 'rex', name: 'Rex', pos: { x: -0.6, z: 0.6 }, facing: Math.PI / 4, talk: 'prologue.the_letter', cond: '!p.champion', radius: 0.5 },
+    { id: 'rex', model: 'rex', name: 'Rex', pos: { x: -0.6, z: 0.6 }, facing: Math.PI / 4, talk: 'prologue.the_letter', cond: '!p.rex_went_in', radius: 0.5 },
     { id: 'grubb', model: 'grubb', name: 'Grubb', pos: { x: -1.6, z: 1.6 }, facing: Math.PI / 3, talk: 'prologue.the_letter', cond: '!p.grubb_fled' },
     { id: 'vinnie', model: 'vinnie', name: 'Vinnie', pos: { x: 0.4, z: -4.2 }, facing: 0, talk: 'prologue.vinnie', cond: 'p.vinnie_in & !p.crew_fled' },
     { id: 'brick', model: 'brick', name: 'Brick', pos: { x: -1.0, z: -5.2 }, facing: 0, talk: 'prologue.dock_crew', cond: 'p.crew_in & !p.crew_fled' },
@@ -120,7 +122,8 @@ export const alley: MapDef = {
   hotspots: [
     { id: 'dumpster', name: 'Dumpster', pos: { x: -1.2, z: -1.5 }, examine: 'prologue.dumpster' },
     { id: 'barrel', name: 'Trash barrel', pos: { x: 1.9, z: 1.4 }, examine: 'prologue.barrel' },
-    { id: 'cat', name: 'Alley cat', pos: { x: 2.1, z: -3.2 }, examine: 'prologue.cat' },
+    { id: 'cat', name: 'Black cat', pos: { x: 2.0, z: -3.2 }, examine: 'prologue.cat' },
+    { id: 'box_home', name: 'Big cardboard box', pos: { x: 1.7, z: -6.0 }, examine: 'prologue.box_home' },
     { id: 'exit_sign', name: 'EXIT sign', pos: { x: 2.3, z: 4.6 }, examine: 'prologue.exit_sign' },
   ],
   exits: [

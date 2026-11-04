@@ -29,6 +29,8 @@ export class Battle {
   /** Unit whose turn it is (a party member waiting for a command, while result is null). */
   current = '';
   private fired = new Set<string>();
+  /** True once the fight's turning point (BattleDef.turn) has passed: barks prefer their `key+` variants. */
+  turned = false;
   private readonly rng: Rng;
 
   constructor(
@@ -153,13 +155,13 @@ export class Battle {
       this.emit({ type: 'turn', unit: u.id });
       this.tickStatuses(u);
       if (u.broken > 0) {
+        // The lost turn was already paid when it broke (breakUnit pushed it back a full turn),
+        // so it gets up now and acts. Every hit until then took +50%.
         u.broken--;
         if (u.broken === 0) {
           u.breakVal = 0;
           this.emit({ type: 'status', target: u.id, id: 'broken', on: false });
         }
-        u.next += this.cost(BASE_DELAY, u.spd);
-        continue;
       }
       if (u.statuses.charging) {
         // Rex's Charge lands on his next turn, automatically.
@@ -290,12 +292,13 @@ export class Battle {
     let dmg = (s.power ?? 1) * me.atk * 3 * (20 / (20 + t.def)) * variance;
     const exposed = !!t.statuses.rearing;
     if (exposed) dmg *= 1.5;
-    if (t.broken) dmg *= 1.5;
+    const broken = t.broken > 0;
+    if (broken) dmg *= 1.5;
     if (t.statuses.guard) dmg *= 0.5;
     if (me.side === 'enemy' && t.traits?.includes('big_brother') && this.def.party.includes('eddar')) dmg *= 0.85;
     const amount = Math.max(1, Math.round(dmg));
     t.hp = Math.max(0, t.hp - amount);
-    this.emit({ type: 'damage', target: t.id, amount, exposed });
+    this.emit({ type: 'damage', target: t.id, amount, exposed, broken });
     if (s.inflict) this.setStatus(t, s.inflict.id, s.inflict.turns);
     if (t.side === 'party') {
       if (t.hp > 0 && t.hp < t.maxHp * 0.5) this.trigger(`hurt:${t.id}`);
@@ -315,6 +318,7 @@ export class Battle {
       t.alive = false;
       this.emit({ type: 'ko', unit: t.id });
     }
+    this.checkTurn(t);
     this.checkMercy(t);
   }
 
@@ -353,6 +357,8 @@ export class Battle {
 
   private breakUnit(t: UnitState): void {
     t.broken = 1;
+    // Broken: it loses a whole turn, and the party gets that time to pile on.
+    t.next += this.cost(BASE_DELAY, t.spd);
     t.breakVal = t.breakMax ?? 0;
     this.emit({ type: 'break', target: t.id });
     this.emit({ type: 'status', target: t.id, id: 'broken', on: true });
@@ -381,6 +387,16 @@ export class Battle {
         delete u.statuses[id];
         this.emit({ type: 'status', target: u.id, id, on: false });
       }
+    }
+  }
+
+  /** The fight's turning point: once the named enemy drops below the threshold, the party's fear turns to flair. */
+  private checkTurn(t: UnitState): void {
+    const tp = this.def.turn;
+    if (!tp || this.turned || t.id !== tp.unit || this.result) return;
+    if (t.hp < t.maxHp * tp.hpFraction) {
+      this.turned = true;
+      this.trigger('turned');
     }
   }
 
@@ -440,8 +456,10 @@ export class Battle {
     return (delay * 10) / spd;
   }
 
-  /** Fire a bark once per battle, if the content defines one for this trigger. */
-  private trigger(key: string): void {
+  /** Fire a bark once per battle, if the content defines one for this trigger (or its `+` variant after the turn). */
+  private trigger(base: string): void {
+    // After the turning point, a `key+` variant (the cocky line) replaces the frightened one.
+    const key = this.turned && this.def.barks[`${base}+`] ? `${base}+` : base;
     if (this.fired.has(key)) return;
     const b = this.def.barks[key];
     if (!b) return;

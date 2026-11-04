@@ -46,6 +46,7 @@ export const SPEAKERS: Record<string, { name: string; color: string }> = {
   ROXY: { name: 'Roxy', color: '#ff5a3c' },
   REX: { name: 'Rex', color: '#ffd24a' },
   SABLE: { name: 'Sable', color: '#b18cff' },
+  MASK: { name: 'Woman in the Mask', color: '#b18cff' },
   'MAMA DEE': { name: 'Mama Dee', color: '#ff8fd0' },
   SPIKE: { name: 'Spike', color: '#9dff8a' },
   LULU: { name: 'Lulu', color: '#ffb36b' },

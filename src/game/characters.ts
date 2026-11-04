@@ -20,7 +20,9 @@ interface Spec {
   pants: number;
   shoes: number;
   hair: number;
-  hairStyle: 'messy' | 'quiff' | 'pony' | 'mohawk' | 'buns' | 'cap' | 'bob' | 'bald' | 'big' | 'short';
+  /** A full-face mask; the number is the seam's glow colour. */
+  mask?: number;
+  hairStyle: 'messy' | 'quiff' | 'pony' | 'mohawk' | 'buns' | 'cap' | 'bob' | 'bald' | 'big' | 'short' | 'long';
   shoulders?: number; // pauldron colour
   bulk?: number; // torso width multiplier
   extra?: (g: THREE.Group, mats: Record<string, THREE.Material>) => void;
@@ -57,17 +59,19 @@ const SPECS: Record<string, Spec> = {
       plate.position.y = 1.2;
       g.add(plate);
     } },
-  // Sable: silver crop, black wraps, a black visor (pushed up tonight).
-  sable: { scale: 0.98, skin: 0xe6c7b2, jacket: 0x0e0e12, shirt: 0x1c1726, pants: 0x101014, shoes: 0x1a1a1a, hair: 0xd8dde6, hairStyle: 'bob',
+  // The Woman in the Mask (Sable): tall and lithe, form-fitting black under a long black trench, a mask
+  // over the whole face, and long neon-silver hair left free.
+  sable: { scale: 1.06, skin: 0xe6c7b2, jacket: 0x0b0b0e, shirt: 0x141218, pants: 0x0b0b0e, shoes: 0x111111, hair: 0xd8e4ff, hairStyle: 'long', bulk: 0.86, mask: 0xb18cff,
     extra: (g) => {
-      const visor = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.07, 0.2), new THREE.MeshStandardMaterial({ color: 0x050508, metalness: 0.8, roughness: 0.15, emissive: 0x6a2bd6, emissiveIntensity: 0.4 }));
-      visor.position.set(0, 1.86, 0.02);
-      visor.rotation.x = -0.35;
-      g.add(visor);
-      const wrap = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.035, 5, 12), new THREE.MeshStandardMaterial({ color: 0x222228 }));
-      wrap.position.y = 1.34;
-      wrap.rotation.x = Math.PI / 2;
-      g.add(wrap);
+      const coatMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0d, roughness: 0.55, metalness: 0.15, side: THREE.DoubleSide, flatShading: true });
+      // open at the front, so the coat swings around the legs
+      const coat = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.36, 1.0, 12, 1, true, 0.55, Math.PI * 2 - 1.1), coatMat);
+      coat.position.y = 0.88;
+      coat.castShadow = true;
+      g.add(coat);
+      const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.2, 0.18, 10, 1, true, 0.7, Math.PI * 2 - 1.4), coatMat);
+      collar.position.y = 1.5;
+      g.add(collar);
     } },
   // The dock crew.
   brick: { scale: 1.2, skin: 0xb88a68, jacket: 0x5a4a3a, shirt: 0x8a8f99, pants: 0x2a2f3a, shoes: 0x1a1a1a, hair: 0x2a2018, hairStyle: 'bald', bulk: 1.6 },
@@ -91,7 +95,7 @@ export function buildCharacter(model: string): CharacterRig {
     shirt: std(spec.shirt),
     pants: std(spec.pants),
     shoes: std(spec.shoes, model === 'roxy' ? { emissive: 0xff3300, emissiveIntensity: 0.6 } : {}),
-    hair: std(spec.hair, model === 'roxy' ? { emissive: 0xff2200, emissiveIntensity: 0.35 } : {}),
+    hair: std(spec.hair, model === 'roxy' ? { emissive: 0xff2200, emissiveIntensity: 0.35 } : model === 'sable' ? { emissive: 0x9ab8ff, emissiveIntensity: 0.3, roughness: 0.3 } : {}),
   };
   const root = new THREE.Group();
   const body = new THREE.Group();
@@ -171,6 +175,19 @@ export function buildCharacter(model: string): CharacterRig {
     head.add(eye);
   }
   addHair(head, spec.hairStyle, mats.hair);
+  if (spec.mask !== undefined) {
+    // a smooth black mask over the whole face, with one thin glowing seam where the eyes would be
+    const mask = new THREE.Mesh(
+      new THREE.SphereGeometry(0.158, 14, 10, Math.PI / 2 - 1.15, 2.3, Math.PI * 0.2, Math.PI * 0.62),
+      new THREE.MeshStandardMaterial({ color: 0x050507, metalness: 0.85, roughness: 0.15, side: THREE.DoubleSide }),
+    );
+    mask.position.y = 0.14;
+    mask.scale.set(0.98, 1.13, 1.04);
+    head.add(mask);
+    const seam = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.01, 0.01), new THREE.MeshBasicMaterial({ color: spec.mask }));
+    seam.position.set(0, 0.165, 0.158);
+    head.add(seam);
+  }
   spec.extra?.(body, mats);
 
   root.scale.setScalar(spec.scale);
@@ -248,6 +265,14 @@ function addHair(head: THREE.Group, style: Spec['hairStyle'], mat: THREE.Materia
     }
     case 'bob':
       add(new THREE.SphereGeometry(0.17, 10, 6, 0, Math.PI * 2, 0, Math.PI * 0.62), 0, 0.15, -0.01);
+      break;
+    case 'long':
+      cap();
+      // falls straight down the back, narrowing to a point
+      add(new THREE.SphereGeometry(0.163, 10, 8, Math.PI / 2 + 0.9, Math.PI * 2 - 1.8, 0, Math.PI * 0.72), 0, 0.14, -0.01, 0, 0, [1, 1.12, 1.05]); // the back of the head
+      add(new THREE.CylinderGeometry(0.13, 0.06, 0.66, 8, 1, false, Math.PI / 2, Math.PI), 0, -0.18, -0.13, 0.16, 0); // down the back, over the coat
+      add(new THREE.BoxGeometry(0.035, 0.28, 0.05), -0.14, 0.04, 0.02, 0, 0.05);
+      add(new THREE.BoxGeometry(0.035, 0.28, 0.05), 0.14, 0.04, 0.02, 0, -0.05);
       break;
     case 'big':
       add(new THREE.SphereGeometry(0.2, 10, 8), 0, 0.3, -0.08);

@@ -254,3 +254,4 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-f
   .b-menu { width: 46vw; }
   .b-chip em { display: none; }
 }
+.portrait[data-emotion='scared'] { animation: shake 0.12s 6; }

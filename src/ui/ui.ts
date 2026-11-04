@@ -89,7 +89,7 @@ export class UI {
       <div class="logo"><div class="logo-top">NEON</div><div class="logo-bottom">Sovereign</div></div>
       <div class="tagline">The prophecy named a hero. It forgot to mention the guy who does all the work.</div>
       <div class="title-menu"></div>
-      <div class="build">Build 0.3 · Prologue: the opening, inception to Bellshell · placeholder art &amp; music</div>`;
+      <div class="build">Build 0.3b · Prologue: the opening, inception to Bellshell · placeholder art &amp; music</div>`;
     this.renderTitleMenu();
   }
 

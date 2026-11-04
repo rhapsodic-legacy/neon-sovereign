@@ -431,6 +431,37 @@ export function buildAlley(): SetPiece {
     b.castShadow = true;
     g.add(b);
   }
+  // a big cardboard box against the wall, a blanket folded inside: somebody lives here
+  const cardboard = std(0x8a6a3e, { roughness: 0.9 });
+  g.add(box(1.0, 0.75, 1.6, cardboard, 2.4, 0.375, -6.4));
+  const flap = box(0.04, 0.5, 1.6, cardboard, 1.86, 0.62, -6.4);
+  flap.rotation.z = 0.5;
+  g.add(flap);
+  g.add(box(0.8, 0.12, 1.3, std(0x6a2a4a, { roughness: 1 }), 2.4, 0.78, -6.35)); // the blanket
+  // the black cat on a crate, watching
+  g.add(box(0.6, 0.45, 0.6, std(0x5a4228, { roughness: 0.9 }), 2.5, 0.225, -3.2));
+  const catMat = std(0x0b0b10, { roughness: 0.6 });
+  const cat = new THREE.Group();
+  const catBody = new THREE.Mesh(new THREE.SphereGeometry(0.16, 8, 6), catMat);
+  catBody.scale.set(1, 0.85, 1.35);
+  catBody.position.y = 0.14;
+  const catHead = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 6), catMat);
+  catHead.position.set(0, 0.3, 0.14);
+  cat.add(catBody, catHead);
+  for (const sx of [-1, 1]) {
+    const ear = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.08, 4), catMat);
+    ear.position.set(0.05 * sx, 0.4, 0.13);
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.018, 6, 4), new THREE.MeshBasicMaterial({ color: 0xc8ff4a }));
+    eye.position.set(0.04 * sx, 0.31, 0.23);
+    cat.add(ear, eye);
+  }
+  const tail = new THREE.Mesh(new THREE.CapsuleGeometry(0.025, 0.32, 3, 5), catMat);
+  tail.position.set(-0.14, 0.08, -0.18);
+  tail.rotation.set(0, 0, 1.3);
+  cat.add(tail);
+  cat.position.set(2.5, 0.45, -3.2);
+  cat.rotation.y = -Math.PI / 2 - 0.4;
+  g.add(cat);
   // back door
   g.add(box(1.2, 2.2, 0.1, std(0x5a1030, { metalness: 0.4 }), 2.95, 1.1, 4.8));
   const exitSign = neonText('EXIT', '#ff2bd6', { font: 'bold 180px "Courier New", monospace', scale: 1.4 });

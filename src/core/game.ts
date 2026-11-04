@@ -21,6 +21,7 @@ export type GameEvent =
   | { type: 'npc_exit'; id: string; dir: string }
   | { type: 'npc_enter'; id: string; from: string }
   | { type: 'npc_move'; id: string; x: number; z: number }
+  | { type: 'player_move'; x: number; z: number }
   | { type: 'objective'; text: string }
   | { type: 'toast'; text: string }
   | { type: 'battle_start'; id: string }
@@ -327,6 +328,7 @@ export class Game {
   /**
    * Staging: `@cmd exit_npc <npc> [front|back|left|right]`, `@cmd enter_npc <npc> [front|back|window]`,
    * `@cmd move_npc <npc> <x> <z>` (moves are queued, so several in a row make a path; the last one sticks in state).
+   * `@cmd move_player <x> <z>` walks Eddar somewhere during a cutscene.
    * Presence itself is always the NPC's map `cond`, so set the flag that shows or hides them alongside.
    */
   private stageCommand(args: string[]): void {
@@ -339,6 +341,15 @@ export class Game {
       if (!Number.isFinite(x) || !Number.isFinite(z)) throw new Error(`move_npc ${id}: bad position`);
       (this.state.npcPos ??= {})[`${this.state.mapId}:${id}`] = { x, z };
       this.emit({ type: 'npc_move', id, x, z });
+    } else if (verb === 'move_player') {
+      // `@cmd move_player <x> <z>`: Eddar moves in a cutscene. The core jumps; the renderer walks him there.
+      const x = Number(args[1]);
+      const z = Number(args[2]);
+      if (!Number.isFinite(x) || !Number.isFinite(z)) throw new Error('move_player: bad position');
+      const from = this.state.player.pos;
+      this.state.player.facing = Math.atan2(x - from.x, z - from.z);
+      this.state.player.pos = { x, z };
+      this.emit({ type: 'player_move', x, z });
     }
   }
 

@@ -149,18 +149,33 @@ describe('field + WIRE headless playthrough', () => {
       if (e.type === 'scene_start') seen.add(e.id);
       if (e.type === 'battle_start') seen.add(`battle:${e.id}`);
     });
-    play(g, ['leagues', 'leagues', 'leagues', 'puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door'], () => !!g.state.flags['p.bellshell_done'] && g.mode === 'field');
+    play(g, ['leagues', 'leagues', 'leagues', 'puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door', 'back_door'], () => !!g.state.flags['p.bellshell_done'] && g.mode === 'field');
     for (const id of ['prologue.trash_call', 'prologue.the_letter', 'battle:dock_crew', 'prologue.after_dock_fight', 'prologue.champion', 'prologue.screams', 'battle:bellshell', 'prologue.bellshell_mercy'])
       expect(seen.has(id), id).toBe(true);
     expect(g.state.flags['p.dock_fight_won']).toBe(true);
     expect(g.state.mapId).toBe('wyvern');
-    // Ledger #2,204 to #2,209, in order
+    // Ledger #2,204 to #2,208, in order. No entry after the Bellshell: nobody journals right after nearly dying.
     const nums = g.state.ledger.map((l) => /#2,(\d+)/.exec(l.text)?.[1]);
-    expect(nums).toEqual(['204', '205', '206', '207', '208', '209']);
+    expect(nums).toEqual(['204', '205', '206', '207', '208']);
     // talked to the stranger three times: he said it twice, and the Ledger noticed
-    expect(g.state.ledger.length).toBe(6);
+    expect(g.state.ledger.length).toBe(5);
     expect(observe(g).mode).toBe('field');
     expect(g.state.objective).toMatch(/Main Drag/);
+  });
+
+  it('after the alley fight Rex goes in first, and the player walks back in (no warp)', () => {
+    const g = new Game(loadContent());
+    g.start();
+    play(g, ['puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door'], () => !!g.state.flags['p.crew_fled'] && g.mode === 'field');
+    expect(g.state.mapId).toBe('alley');
+    expect(g.state.flags['p.rex_went_in']).toBe(true);
+    expect(g.nearby().map((n) => n.id)).not.toContain('rex');
+    expect(g.nearby().map((n) => n.id)).toEqual(expect.arrayContaining(['cat', 'box_home', 'dumpster']));
+    expect(g.state.objective).toBe('Head back inside.');
+    const r = act(g, { type: 'interact', target: 'back_door' });
+    expect(r.ok, r.message).toBe(true);
+    expect(g.state.mapId).toBe('wyvern');
+    expect(g.runner?.scene.id).toBe('prologue.champion');
   });
 
   it('nobody in the prologue mentions the Hush or Nocturne', () => {

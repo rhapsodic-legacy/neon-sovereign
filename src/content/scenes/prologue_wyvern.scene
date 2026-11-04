@@ -10,10 +10,15 @@
 @bgm wyvern_soundcheck
 @card THE PINK WYVERN — SAVE THE WORLD NIGHT
 @cam focus roxy
-ROXY [smile]: Listen up, Wildfires! Tonight we don't PLAY Save the World. Tonight we ARE the world, and we are SAVING it. With VOLUME.
-SPIKE: From what?
-ROXY [angry]: From being BORING, Spike!
+ROXY [smile]: Listen up, Wildfires! Tonight we don't PLAY Save the World. Tonight we ARE the world, and we are SAVING it.
+ROXY [smile]: With music to light the heavens! With volume to awaken the dead! With FIRE hot enough to ignite an ocean with!
+@emote roxy fire
+@sfx cheer
+NARRATOR: Scattered applause from the bar. Old Gil claps twice and goes back to his beer.
+SPIKE: Save the world? From what...
+ROXY [angry]: From being BORING! I'm lead vocals, Spike, not you, so shut F-sharp up!
 LULU: Ooh, can we open with the new one? The one with no ending?
+ROXY: Not tonight, hon'. Soon, though.
 @sfx mop
 NARRATOR: Lulu points with her cola. The cola leaves the cup. Eddar's mop is already there.
 LULU: You're a saint, Eddar.
@@ -220,7 +225,7 @@ EDDAR: Most diagnostics do, if you mean them.
 ROXY [smile]: Is that... OH. That's CLEAN. Sweet screaming amplifiers, LISTEN to her! C'mere, lucky charm!
 @emote roxy kiss
 NARRATOR: She kisses his forehead and is back at the mic before he can blink.
-LEDGER: Entry #2,206: Forehead. Again. The brow is a fine and sacred country, I am told; but I should dearly like, one day, to visit the capital.
+LEDGER: Entry #2,206: Forehead. Again. Not the cheek, or the mouth... The brow is a fine and sacred country, I am told; but I should dearly like, one day, to visit the capital.
 @end
 
 @scene prologue.trash_call
@@ -301,7 +306,7 @@ LULU: ...That's so sad. Do you want a gummy?
 @end
 
 @scene prologue.gil
-# CHARACTER: barfly with micro-stories. PLOT: plants Sable's arrival in town, and Leagues' kind.
+# CHARACTER: barfly with micro-stories. PLOT: plants the masked woman's arrival in town, and Leagues' kind.
 @if seen.prologue.gil>=2
 GIL: I've told you all I know. At my age, that's mostly the names of horses that lost.
 @end
@@ -311,7 +316,7 @@ GIL: That fella in the corner. I've seen his kind once before, forty years back,
 GIL: Didn't drown. He just... left.
 @end
 @endif
-GIL: Saw a woman ride in this afternoon. Black light-cycle, black visor, silver hair. Looked at every face on the boardwalk like she was reading a list.
+GIL: Saw a woman ride in this afternoon. Black light-cycle, a black mask, silver hair right down her back. Looked at every face on the boardwalk like she was reading a list.
 EDDAR: And did she find the name she sought?
 GIL: Kid, everybody's looking for someone. Most of us are just looking for the bathroom.
 @end

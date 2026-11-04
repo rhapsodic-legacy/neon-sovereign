@@ -42,4 +42,4 @@ while (!game.state.flags['p.bellshell_done'] || game.mode !== 'field') {
   const r = act(game, { type: 'interact', target });
   console.log(`> interact ${target} (${r.message})`);
 }
-console.log(`\n=== Build 0.3 (the opening, inception to Bellshell) finished in ${turns} WIRE actions. Ledger entries: ${game.state.ledger.length}. Harmony: ${game.state.vars.harmony}. ===`);
+console.log(`\n=== Build 0.3b (the opening, inception to Bellshell) finished in ${turns} WIRE actions. Ledger entries: ${game.state.ledger.length}. Harmony: ${game.state.vars.harmony}. ===`);

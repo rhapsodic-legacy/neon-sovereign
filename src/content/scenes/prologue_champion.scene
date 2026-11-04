@@ -19,7 +19,7 @@ NARRATOR: He cracks his knuckles and slides across the floor like he's on rails.
 @sfx organ
 @fx eye_flash leagues
 @cam shake
-NARRATOR: Leagues rises. His eyes blaze white, and from nowhere comes one low organ chord. The whole bar hears it.
+NARRATOR: The stranger rises. His eyes blaze white, and from nowhere comes one low organ chord. The whole bar hears it.
 STRANGER: You.
 REX: ...Me?
 STRANGER: The pauldron. The jaw. The terrible, magnificent hair. It is you. The Champion of All Peoples. The Hero of Legend, as the Canticle calls him.
@@ -96,8 +96,8 @@ LEDGER: Entry #2,208: Tonight, Rex Valor was named the Hero of all the world. I 
 @end
 
 @scene prologue.screams
-# PLOT: Monsters off the docks; Sable walks in and looks at Eddar first; Leagues bows to her; the Bellshell breaks through the front window.
-# CHARACTER: Sable's clipped certainty; Rex's oblivious claim; Roxy's fury on behalf of her heat night; Mama Dee herding her people.
+# PLOT: Monsters off the docks; a masked woman walks in and looks at Eddar first; Leagues bows to her; the Bellshell breaks through the front window, and the trio choose to stand.
+# CHARACTER: The masked woman's cold certainty; Rex's oblivious claim; real terror, then love, before any flair. Nobody here is a hero yet.
 @sfx scream
 @bgm monster_pulse
 NARRATOR: Outside, a scream, then many. Something howls like feedback through a broken speaker. The room tone drains away, and a low, uneasy pulse replaces it.
@@ -106,12 +106,15 @@ VOICE: Monsters! They're coming off the docks!
 @flag p.sable_in
 @cmd enter_npc sable front
 @cam focus sable
-NARRATOR: The front door swings open. Sable walks in, visor up, looking at only one person in the room: Eddar.
-SABLE: So you're the One? The One who'll save all peoples? Let's see, Champion.
-REX [smug]: This dweeb? Ha! No, lady with a mask on. I'm the Champion of Champions, or whatever my title is.
+NARRATOR: The front door swings open. A woman walks in: tall, lithe, in spray-on black under a long black trench that moves like smoke.
+NARRATOR: A mask covers her whole face. Her hair doesn't hide at all. It falls down her back, long and neon-silver.
+NARRATOR: She looks at only one person in the room: Eddar.
+MASK: So you're the One? The One who'll save all peoples? Let's see, Champion.
+REX [smug]: This dweeb? Ha! No, lady with a mask on. I'm the Champion of Champions, the Hero of Princess's hearts.
 @cam focus leagues
 LEAGUES: The Champion of All Peoples. The Hero of Legend.
-NARRATOR: He gives Sable a small bow, one old order to another. She gives him the smallest nod in return, the way you nod to a priest you find tiresome.
+NARRATOR: The mysterious man with a symphony of notes on his moth-eaten coat bows dramatically at the woman in the mask.
+NARRATOR: She gives him the smallest nod in return, and pays him no further attention.
 @cam focus mama_dee
 MAMA DEE [angry]: Everybody in the back! Now! Gil, put down the beer. ...Fine, bring the beer, just MOVE.
 @cmd exit_npc mama_dee left
@@ -124,13 +127,14 @@ MAMA DEE [angry]: Everybody in the back! Now! Gil, put down the beer. ...Fine, b
 NARRATOR: Roxy rips her flying-V from its case. Its headstock is an axe blade.
 ROXY [angry]: Nobody wrecks my heat night. NOBODY.
 @cam focus sable
-SABLE: You're the One?
+NARRATOR: The masked woman turns her head, slowly, to Rex.
+MASK: You're... the one?
 REX [smug]: You got it, doll.
-SABLE: Irrelevant. People won't save themselves. Get to it, champions.
+MASK: This is... irrelevant. People won't save themselves. Get to it, champions.
 @cmd exit_npc sable front
 @flag p.sable_gone
 @flag p.leagues_gone
-NARRATOR: She's gone. When Eddar looks back at the stage, so is Leagues. The alley door is still swinging.
+NARRATOR: She's gone. When Eddar looks back at the stage, so is the man in the moth-eaten coat. The alley door is still swinging.
 EDDAR: Champions, she said. Plural.
 REX [smug]: She meant me twice.
 ROXY [angry]: Did that girl just walk into my venue and BOSS me?
@@ -144,17 +148,45 @@ NARRATOR: The front window bows inward.
 @flag p.bellshell_in
 @cmd enter_npc bellshell window
 @cam focus bellshell
-NARRATOR: Then it bursts. A crab the size of a car drags itself through the glass. Its shell is shaped like a ship's bell, cracked down one side, and it clangs with every step. It's clanging out of tune.
-EDDAR: Wait. Listen to it. It isn't angry. It's in pain.
-REX [angry]: Great. It can be in pain AND out of my bar.
-ROXY [angry]: It's not your bar either!
+NARRATOR: Then it bursts. A crab the size of a car drags itself through the glass. Its shell is shaped like a ship's bell, cracked down one side, and it clangs with every step.
+@emote bellshell rear
+EDDAR [scared]: WHAT THE?! Gaaaaaaaah!
+@cmd move_player -2.0 -0.8
+NARRATOR: Eddar runs for the back, after everyone else.
+@cmd move_npc roxy -2.6 -1.2
+ROXY [scared]: MAMA DEEEEEE! I'm coming!
+@cam focus rex
+@cmd move_npc rex 3.0 1.4
+REX [angry]: I'm the Champion of Heroes! Rex doesn't run!
+NARRATOR: Rex plants his feet in front of the crab. Alone.
+@emote bellshell settle
+@cam focus roxy
+NARRATOR: Eddar and Roxy stop. They look at each other.
+ROXY [scared]: What is that moron doing? I can't... I can't let him face that thing alone.
+ROXY: I want you to know, I think you're cute. A loser. But cute.
+NARRATOR: She wipes away a tear.
+ROXY: Can't hold that over me when I'm dead.
+@cmd move_npc roxy 3.8 0.6
+NARRATOR: She runs back to Rex.
+NARRATOR: Eddar nods to no one, and grabs a mic stand.
+EDDAR [scared]: I... uh... Well. We're about to go into the undiscovered country.
+EDDAR: Roxy. Rex. I love you. Just know that.
+@cam focus rex
+@cmd move_player 2.1 1.1
+NARRATOR: He takes his place beside Rex.
+ROXY: Love you too, hon.
+REX: The Hero of All Champions loves you both. A lot.
+@sfx crab_clang
+@emote bellshell rear
+@cam shake
+NARRATOR: The Bellshell lunges.
 @join roxy
 @battle bellshell
 @end
 
 @scene prologue.bellshell_mercy
-# PLOT: The fight ends in mercy: Roxy's furious chord rings true by accident, and the Bellshell answers and goes home to the sea.
-# CHARACTER: Roxy's fury and wonder; Eddar's careful uncertainty (he can't know what calms monsters); Rex's fifty-fifty.
+# PLOT: The fight ends in mercy: Roxy's furious chord rings true by accident, and the Bellshell answers and goes home to the sea. The trio are alive, and they can't quite believe it.
+# CHARACTER: Rex claims the win with shaking hands; Roxy's tenderness snaps back into armour; Eddar gives the credit away; Rex takes the lead.
 @cam focus bellshell
 @sfx crab_clang
 NARRATOR: The Bellshell pins Roxy against the stage, its cracked bell clanging inches from her face.
@@ -163,20 +195,30 @@ ROXY [angry]: Fine! You want NOISE? HERE'S NOISE!
 @emote roxy fire
 NARRATOR: Roxy slams her guitar in pure fury, and one clean chord rings out.
 @sfx bell_true
-NARRATOR: The Bellshell stops. Its cracked bell answers with a single true note, the first in weeks. It backs out through the broken window and scuttles toward the sea.
+@emote bellshell calm
+NARRATOR: The Bellshell stops. Its cracked bell answers with a single true note. It backs out through the broken window and scuttles toward the sea.
 @cmd exit_npc bellshell front
 @flag p.bellshell_gone
+@cam focus rex
+REX: Wait... I did it? I beat that giant bell crab thing? I really am the Champion of All Songs...
+NARRATOR: Roxy pats him on the back.
+ROXY: Your hands are shaking.
+REX: I'm just loosening them.
+NARRATOR: He turns away.
+EDDAR: Great job, guys. We live to see another day, thanks to Roxy. And Rex.
 @cam focus roxy
-ROXY: ...Did I just do that?
-EDDAR: Something did. I'd not swear it was the chord. Nor would I swear it wasn't.
-REX [smug]: Sure. Or Rex scared it. Fifty-fifty.
-LEDGER: Entry #2,209: The beast was not cruel. It was a bell that had forgotten its note. I've known men like that. I've been one, most Tuesdays.
+ROXY [smile]: And you. You've got something in you, kid.
+EDDAR: You mean cutie...
+ROXY [angry]: SHUT UP, LOSER!
+@cam focus rex
+REX [smile]: Yeah! ...Let's go grab Mama Dee.
+@cmd move_npc rex 0.0 -1.0
 @card END OF BUILD 0.3 — THE SIDE ROOM, THE STAIRS AND THE MAIN DRAG COME NEXT
 @end
 
 @scene prologue.bellshell_look
-# CHARACTER: Eddar listening where others only hear noise.
-EDDAR: Every clang is a half-step flat. It isn't roaring. It's trying to find its note and failing, again and again.
+# CHARACTER: Eddar faced with something that should not exist.
+EDDAR [scared]: It's the size of a car. It's shaped like a bell. Neither of those things should be true of a crab.
 @end
 
 @scene prologue.rex_after
@@ -204,7 +246,7 @@ EDDAR: I'd back you, Roxy. The ocean's never once been in a fight with you.
 @end
 
 @scene prologue.sable
-# CHARACTER: Sable doesn't make small talk, and Eddar notices.
-SABLE: ...
+# CHARACTER: The masked woman doesn't make small talk, and Eddar notices.
+MASK: ...
 EDDAR: She looks at me the way one reads a sentence twice, to be sure of its meaning.
 @end

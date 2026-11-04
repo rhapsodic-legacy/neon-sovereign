@@ -4,9 +4,9 @@
  */
 export const OBJECTIVES: { cond: string; text: string }[] = [
   // After the Bellshell (end of build 0.3)
-  { cond: 'p.bellshell_done', text: 'The Wyvern is wrecked and the Bay is screaming. (The side room, the stairs and the Main Drag come next.)' },
+  { cond: 'p.bellshell_done', text: 'Go with Rex and Roxy to find Mama Dee. (The side room, the stairs and the Main Drag come next.)' },
   { cond: 'p.screams', text: 'Stop the Bellshell before it wrecks the Wyvern.' },
-  { cond: 'p.dock_fight_won', text: 'Head back inside with Rex.' },
+  { cond: 'p.dock_fight_won', text: 'Head back inside.' },
   // Alley
   { cond: 'p.letter_done', text: 'Hold the alley with Rex.' },
   { cond: 'p.trash_called', text: 'Take the trash out the back door (stage right, under the EXIT sign).' },

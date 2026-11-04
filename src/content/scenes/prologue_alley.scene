@@ -74,7 +74,7 @@ EDDAR: You've got two of them, Rex. I'll keep the third from your back. It's onl
 @end
 
 @scene prologue.after_dock_fight
-# PLOT: The crew flees; Rex and Eddar head inside together, which carries Rex into the Champion scene.
+# PLOT: The crew flees; Rex heads inside first, and the player walks Eddar back in under their own steam.
 # CHARACTER: Rex's backhanded respect; Eddar's grace and his ache, in the Ledger.
 @bgm alley_rex
 VINNIE [angry]: This ain't over, mop boy!
@@ -88,8 +88,10 @@ EDDAR: It rarely is, Vinnie. That's the tragedy of it.
 REX [smile]: Not bad, Adder. You hit like a librarian, but you hit like a smart librarian.
 EDDAR: High praise, from a man who's never met one.
 REX [smug]: C'mon. Rex is thirsty, and Mama Dee's got a corner booth with my name on it. Probably. Rex should check.
+@sfx door
+@cmd exit_npc rex front
+@flag p.rex_went_in
 LEDGER: Entry #2,207: Fought three men in an alley with a bin lid, beside the man who put me in the bin. Life is not a story; a story would be ashamed of such symmetry.
-@warp wyvern from_alley
 @end
 
 @scene prologue.vinnie
@@ -129,12 +131,31 @@ EDDAR: A trash barrel. Clean, as trash barrels go. Rex has standards.
 
 @scene prologue.cat
 # CHARACTER: Eddar's gentleness. Encore will matter later (she always comes back).
+@if p.crew_fled
+@if seen.prologue.cat>=1
+EDDAR: Encore yawns. Somewhere in that yawn is a review of my footwork, and it isn't kind.
+@end
+@endif
+EDDAR: Encore. She was right here the whole time, wasn't she? Three men, one bin lid, a near-death experience...
+EDDAR: ...and she watched the entire thing from her crate like it was the late show, and the late show was a rerun.
+@end
+@endif
 @if seen.prologue.cat>=1
 EDDAR: Encore blinks at me, slowly. In cat, that's either "I love you" or "you are furniture." I'll take either.
 @end
 @endif
-EDDAR: The alley cat. Mama Dee calls her Encore, because she always comes back.
+EDDAR: The black cat. Mama Dee calls her Encore, because she always comes back.
 EDDAR: She judges me less than everyone inside. I bring her fish.
+@end
+
+@scene prologue.box_home
+# CHARACTER: Eddar's quiet decency; Solace Bay has people with less than a mop and a barrel.
+@if seen.prologue.box_home>=1
+EDDAR: I'll leave it be. A man's home is his castle, even when the castle is cardboard and the moat is a puddle.
+@end
+@endif
+EDDAR: A fridge box, turned on its side out of the rain. There's a blanket inside, folded with real care, and a tin cup.
+EDDAR: Somebody lives here. Somebody with even less than a mop and a barrel, and they still fold the blanket.
 @end
 
 @scene prologue.exit_sign

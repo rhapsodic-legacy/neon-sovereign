@@ -83,7 +83,12 @@ export interface BattleDef {
   enemies: string[];
   /** End early (in mercy) when this enemy drops to this fraction of HP. */
   mercy?: { unit: string; hpFraction: number };
-  /** Lines fired once, on engine triggers (see Battle.trigger). */
+  /**
+   * Turning point: once this enemy drops below hpFraction of its HP, the 'turned' bark fires and every
+   * later trigger prefers its `key+` bark. Before it, the party is scared; after it, they get cocky.
+   */
+  turn?: { unit: string; hpFraction: number };
+  /** Lines fired once, on engine triggers (see Battle.trigger). A `key+` entry is the after-the-turn variant. */
   barks: Record<string, BarkDef>;
   /** Balance-sim bands (DESIGN §6.5): win-rate [min, max] per sim policy. Tests fail when a fight leaves its band. */
   bands?: Partial<Record<'smart' | 'ignore_tells' | 'attack' | 'random', [number, number]>>;
@@ -113,7 +118,7 @@ export type BattleResult = 'win' | 'mercy' | 'defeat';
 export type BattleEvent =
   | { type: 'turn'; unit: string }
   | { type: 'action'; actor: string; skill: string; name: string; targets: string[] }
-  | { type: 'damage'; target: string; amount: number; weak?: boolean; exposed?: boolean }
+  | { type: 'damage'; target: string; amount: number; weak?: boolean; exposed?: boolean; broken?: boolean }
   | { type: 'heal'; target: string; amount: number }
   | { type: 'status'; target: string; id: string; on: boolean }
   | { type: 'break'; target: string }
