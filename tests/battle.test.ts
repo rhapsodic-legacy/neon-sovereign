@@ -143,6 +143,24 @@ describe('THE SET: mechanics', () => {
     expect(shell.hp).toBeLessThan(shell.maxHp * 0.5);
   });
 
+  it('chakra: Rex (gold) gains by dealing damage; Eddar (black) gains whenever anyone else does, far more from enemies', () => {
+    const b = new Battle(BATTLES.bellshell, BATTLE_DATA, 21);
+    const rex = b.unit('rex');
+    const eddar = b.unit('eddar');
+    until(b, () => b.current === 'rex', 20);
+    const r0 = rex.heat;
+    const e0 = eddar.heat;
+    b.act('strike', 'bellshell');
+    expect(rex.heat).toBeGreaterThan(r0);
+    expect(eddar.heat).toBeGreaterThan(e0);
+    // an enemy attack feeds Eddar much more than the same energy from a friend would
+    const t = new Battle(BATTLES.bellshell, BATTLE_DATA, 21);
+    const ed = t.unit('eddar');
+    // first enemy action, before anyone in the party has gained a thing
+    until(t, () => t.drain().some((e) => e.type === 'action' && e.actor === 'bellshell'), 40);
+    expect(ed.heat).toBeGreaterThanOrEqual(Math.round((BATTLE_DATA.units.bellshell.chakraGain ?? 0) * 0.9));
+  });
+
   it('Roxy builds Heat when Rex is hit, and Meltdown needs 100', () => {
     const b = new Battle(BATTLES.bellshell, BATTLE_DATA, 11);
     const roxy = b.unit('roxy');

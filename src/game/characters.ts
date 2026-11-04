@@ -47,6 +47,11 @@ const SPECS: Record<string, Spec> = {
   mama_dee: { scale: 1.02, skin: 0x8a5a3c, jacket: 0xff7fbf, shirt: 0xffffff, pants: 0x3a2a4a, shoes: 0x222222, hair: 0x1b1b1b, hairStyle: 'big', bulk: 1.2 },
   spike: { scale: 1.02, skin: 0xd9b08c, jacket: 0x111111, shirt: 0x4c8f2a, pants: 0x222222, shoes: 0x444444, hair: 0x7dff3a, hairStyle: 'mohawk' },
   lulu: { scale: 0.92, skin: 0xc68e6a, jacket: 0x5a2e8a, shirt: 0xffb36b, pants: 0x1f1f2e, shoes: 0xffffff, hair: 0xff9a2e, hairStyle: 'buns' },
+  // Early patrons (Jesse's 0.3b notes): the regulars who heckle the band and spill on Eddar's floor.
+  dwayne: { scale: 1.08, skin: 0xd6a582, jacket: 0x7a2a2a, shirt: 0xe8e0d0, pants: 0x2a2a3a, shoes: 0x222222, hair: 0x5a3a1a, hairStyle: 'short', bulk: 1.3 },
+  tammy_dad: { scale: 1.0, skin: 0xb07a52, jacket: 0x3a5a7a, shirt: 0xd8d0b0, pants: 0x4a4038, shoes: 0x3a2a1a, hair: 0x6a6a6a, hairStyle: 'bald', bulk: 1.15 },
+  superfan: { scale: 0.94, skin: 0xf0d0b8, jacket: 0xff3a8a, shirt: 0x111111, pants: 0x1a1a2a, shoes: 0xffffff, hair: 0x33e0ff, hairStyle: 'pony' },
+  kings_fan: { scale: 1.0, skin: 0x8a5a3c, jacket: 0x1a1a1a, shirt: 0x33e0ff, pants: 0x3a3a3a, shoes: 0x222222, hair: 0x111111, hairStyle: 'cap' },
   gil: { scale: 0.95, skin: 0xd8b49a, jacket: 0x5a5146, shirt: 0x9a9182, pants: 0x3a352e, shoes: 0x2a2a2a, hair: 0x9a9a9a, hairStyle: 'cap' },
   grubb: { scale: 0.86, skin: 0xd9a77e, jacket: 0x7a5a2a, shirt: 0xcccccc, pants: 0x3a3a3a, shoes: 0x222222, hair: 0x4a3420, hairStyle: 'bob', bulk: 1.15 },
   // Leagues Soprano: a moth-eaten black robe with faded gold notes, a black breastplate, and white eyes lit from within.

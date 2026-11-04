@@ -16,6 +16,10 @@ export interface LegalAction {
 }
 
 const BASE_DELAY = 100;
+/** Share of a friend's chakra gain that Eddar's black chakra takes in. */
+const FRIEND_TO_BLACK = 0.3;
+/** Share of an enemy's chakra gain that Eddar takes in: a significant factor more than from friends. */
+const ENEMY_TO_BLACK = 0.9;
 
 /**
  * One battle, as a deterministic state machine (DESIGN §6.1: CTB timeline, Break gauge, readable Tells).
@@ -248,6 +252,7 @@ export class Battle {
           this.emit({ type: 'heat', unit: me.id, value: 0 });
           this.trigger('meltdown');
         } else if (me.traits?.includes('heat')) this.addHeat(me, 10);
+        if (me.side === 'enemy' && me.chakraGain) this.feedBlack(me.chakraGain * ENEMY_TO_BLACK);
         break;
       case 'read':
         for (const t of targets) {
@@ -299,6 +304,8 @@ export class Battle {
     const amount = Math.max(1, Math.round(dmg));
     t.hp = Math.max(0, t.hp - amount);
     this.emit({ type: 'damage', target: t.id, amount, exposed, broken });
+    // Gold (Rex): his energy is doing damage.
+    if (me.chakra === 'gold' && t.side === 'enemy') this.addHeat(me, Math.min(30, Math.max(4, Math.round(amount * 0.3))));
     if (s.inflict) this.setStatus(t, s.inflict.id, s.inflict.turns);
     if (t.side === 'party') {
       if (t.hp > 0 && t.hp < t.maxHp * 0.5) this.trigger(`hurt:${t.id}`);
@@ -365,11 +372,21 @@ export class Battle {
     this.trigger('break');
   }
 
+  /** A unit gains energy in its own chakra. Every gain by someone else also feeds Eddar's black chakra. */
   private addHeat(u: UnitState, n: number): void {
     const before = u.heat;
     u.heat = Math.min(100, u.heat + n);
     if (u.heat !== before) this.emit({ type: 'heat', unit: u.id, value: u.heat });
-    if (u.heat >= 100 && before < 100) this.trigger('heat_max');
+    if (u.heat >= 100 && before < 100) this.trigger(u.chakra === 'red' || !u.chakra ? 'heat_max' : `energy_max:${u.id}`);
+    const gained = u.heat - before;
+    if (gained > 0 && u.chakra !== 'black') this.feedBlack(gained * FRIEND_TO_BLACK);
+  }
+
+  /** Black (Eddar): the absence of light takes in whatever energy anyone else raises. */
+  private feedBlack(n: number): void {
+    const amount = Math.round(n);
+    if (amount <= 0) return;
+    for (const u of this.units) if (u.alive && u.chakra === 'black' && u.heat < 100) this.addHeat(u, amount);
   }
 
   private setStatus(u: UnitState, id: string, turns: number): void {

@@ -5,33 +5,22 @@
 # Eddar's voice: Shakespeare's music, Tennyson's longing, Nietzsche's edge. Never pompous, never pathetic.
 
 @scene prologue.intro
-# PLOT: Cold open. The Wildfires rehearse for tonight's SAVE THE WORLD heat; Eddar mops; the stranger walks in.
-# CHARACTER: Eddar is competent, invisible, and funnier than anyone in the room. Roxy is a rockstar who isn't famous yet.
+# PLOT: Cold open (Jesse's draft 2): the title card, then control goes straight to the player. The band's pep talk and the patrons' heckling play out in speech bubbles (chatter/wyvern.ts) while Eddar mops.
+# CHARACTER: Eddar says nothing here. He's the mop boy, and the room doesn't see him.
 @bgm wyvern_soundcheck
 @card THE PINK WYVERN — SAVE THE WORLD NIGHT
-@cam focus roxy
-ROXY [smile]: Listen up, Wildfires! Tonight we don't PLAY Save the World. Tonight we ARE the world, and we are SAVING it.
-ROXY [smile]: With music to light the heavens! With volume to awaken the dead! With FIRE hot enough to ignite an ocean with!
-@emote roxy fire
-@sfx cheer
-NARRATOR: Scattered applause from the bar. Old Gil claps twice and goes back to his beer.
-SPIKE: Save the world? From what...
-ROXY [angry]: From being BORING! I'm lead vocals, Spike, not you, so shut F-sharp up!
-LULU: Ooh, can we open with the new one? The one with no ending?
-ROXY: Not tonight, hon'. Soon, though.
-@sfx mop
-NARRATOR: Lulu points with her cola. The cola leaves the cup. Eddar's mop is already there.
-LULU: You're a saint, Eddar.
-EDDAR: No saint, Lulu. Saints are paid in eternity. I'm paid on Fridays, and of the two I'd sooner trust the Friday.
-EDDAR: "Save the World," says the poster. As if the world had ever once asked to be saved. It asks only to be mopped.
+@flag p.intro
+@end
+
+@scene prologue.stranger_in
+# PLOT: The main puddles are done, and the stranger (Leagues) walks in through the locked front door.
+# CHARACTER: Nobody notices but Eddar, and nobody would believe him.
 @sfx door
 @flag p.leagues_in
 @cmd enter_npc leagues front
 @cam focus leagues
 NARRATOR: The front door, which is locked, opens. A man walks past the bar without looking at it and sits in the dark corner booth.
 NARRATOR: Nobody looks up.
-LEDGER: Entry #2,204: Mopped the stage at six. At five past, the band, in their infinite and terrible wisdom, baptised it anew in cola. O tempora, o mores, o Spike.
-@flag p.intro
 @end
 
 @scene prologue.leagues
@@ -71,18 +60,17 @@ NARRATOR: He looks at Eddar for a long moment. He says nothing.
 @end
 
 @scene prologue.puddle_1
-# PLOT: Chore 1/3. CHARACTER: observational wit.
+# PLOT: Chore 1/3. CHARACTER: meek; he barely speaks yet.
 @sfx mop
-EDDAR: Cola, lime, and something that glows. Some men drink to forget. Spike drinks to discover new colours.
+EDDAR: Cola. Lime. Something that glows.
 @flag p.puddle_1
 @set puddles += 1
 @end
 
 @scene prologue.puddle_2
-# PLOT: Chore 2/3. CHARACTER: a little petty, a lot human.
+# PLOT: Chore 2/3. CHARACTER: a little petty, very quietly.
 @sfx mop
-EDDAR: This one bears the likeness of Rex Valor. I'll take my time.
-EDDAR: ...There. Even a puddle may be redeemed.
+EDDAR: This one looks like Rex. ...I'll take my time.
 @flag p.puddle_2
 @set puddles += 1
 @end
@@ -90,15 +78,47 @@ EDDAR: ...There. Even a puddle may be redeemed.
 @scene prologue.puddle_3
 # PLOT: Chore 3/3. CHARACTER: the band loves him in their careless way.
 @sfx mop
-EDDAR: Skate wax, drawn through the cola in a perfect spiral. No accident, this. It's a signature.
+EDDAR: A perfect spiral. On purpose.
 ROXY [smile]: You're welcome!
 @flag p.puddle_3
 @set puddles += 1
 @end
 
+@scene prologue.lulu_puddle
+# PLOT: Lulu's cola by the stage draws Eddar over; mopping it gets Roxy's attention (her bubble calls him over next).
+# CHARACTER: Eddar is meek. Lulu is sweet to him, and he deflects it.
+@sfx mop
+LULU: You're a saint, Eddar.
+EDDAR: A saint who mops floors.
+LEDGER: Entry #2,204: Mopped the stage at six. At five past, the band, in their infinite and terrible wisdom, baptised it anew in cola. O tempora, o mores, o Lulu.
+@flag p.lulu_mopped
+@end
+
+@scene prologue.spill_a
+# PLOT: A patron spill. Mopping it achieves nothing: somebody always spills again.
+@sfx mop
+@unflag p.spill_a
+@end
+
+@scene prologue.spill_b
+# PLOT: A patron spill. Mopping it achieves nothing: somebody always spills again.
+@sfx mop
+@unflag p.spill_b
+@end
+
+@scene prologue.spill_c
+# PLOT: A patron spill. Mopping it achieves nothing: somebody always spills again.
+@sfx mop
+@unflag p.spill_c
+@end
+
 @scene prologue.roxy
 # PLOT: Introduce Roxy's stakes (Velvet Kane, the Grand Stadium, her brothers) and the amp hum.
 # CHARACTER: big, theatrical, all-in; the fire is fear in a leather jacket. Eddar's quiet devotion.
+@if !p.lulu_mopped
+ROXY [angry]: Not now, Eddar! I'm VISUALISING!
+@end
+@endif
 @if p.amp_fixed
 @if talk.roxy_after>=1
 ROXY [smile]: Stop hovering, lucky charm. You'll jinx her. Go be lucky at somebody else.
@@ -371,16 +391,12 @@ EDDAR: The trash goes out the back. Stage right, under the pink EXIT sign.
 @end
 
 @scene prologue.back_door_locked
-# PLOT: Gate the alley until both chores are done; say which one is missing.
-@if p.amp_fixed
-MAMA DEE: Floor first, sugar! I can hear your shoes sticking from here!
-@end
-@endif
+# PLOT: Gate the alley until the chores are done; say what's missing.
 @if puddles>=3
-EDDAR: The alley can wait. Roxy's amp can't. Soundcheck first, says the woman who signs my paychecks.
+EDDAR: Not yet. Mama Dee wants the floor done before the trash.
 @end
 @endif
-EDDAR: The alley can wait. Floor first, then the amp, says the woman who signs my paychecks.
+MAMA DEE: Floor first, sugar! I can hear your shoes sticking from here!
 @end
 
 # ---------------------------------------------------------------- discoverables
@@ -489,3 +505,46 @@ EDDAR: Crossed out at the bottom: "One Word?" She never told me what the word wa
 @endif
 EDDAR: "Burn Slow. Burn Medium. Burn Fast. Burn Forever (??? needs 2 leads)." The question marks are underlined three times.
 @end
+
+# ---------------------------------------------------------------- patrons
+
+@scene prologue.dwayne
+# CHARACTER: a heckler who thinks he's the funniest man in the Bay. Eddar is meek with him.
+@if seen.prologue.dwayne>=1
+DWAYNE: Still here, mop guy? I'm WATCHING the BAND.
+@end
+@endif
+DWAYNE: Hey, you're blocking Roxy. Move it, mop guy.
+EDDAR: Sorry.
+@end
+
+@scene prologue.superfan
+# CHARACTER: she's here for the Wildfires, and nobody else exists.
+@if seen.prologue.superfan>=1
+SUPERFAN: Shh! Spike's tuning! This is a SACRED moment!
+@end
+@endif
+SUPERFAN: Do you work here? Can you get me Roxy's guitar pick? No? Then why are you TALKING to me?
+@end
+
+@scene prologue.kings_fan
+# CHARACTER: one man's lonely crusade for 'Neon Nights'.
+@if seen.prologue.kings_fan>=1
+KINGS FAN: They're gonna play it. I can feel it. Tonight's the night.
+@end
+@endif
+KINGS FAN: You think they'll play 'Neon Nights'? You should ask 'em. They listen to you, right?
+EDDAR: Nobody listens to me.
+KINGS FAN: Yeah. Figured.
+@end
+
+@scene prologue.tammy_dad
+# CHARACTER: a proud, slightly sad dad; grounded among the hecklers.
+@if seen.prologue.tammy_dad>=1
+TAMMY'S DAD: She's eleven. She plays the recorder. Badly. I tell her she's a natural.
+@end
+@endif
+TAMMY'S DAD: My daughter Tammy loves this band. Couldn't get her a ticket. So I came and I'm gonna tell her ALL about it.
+EDDAR: She's lucky.
+@end
+

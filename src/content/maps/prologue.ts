@@ -1,4 +1,5 @@
 import type { MapDef } from '../../core/map';
+import { WYVERN_CHATTER } from '../chatter/wyvern';
 
 /**
  * The Pink Wyvern — Solace Bay's rock club, before doors on SAVE THE WORLD night.
@@ -49,7 +50,12 @@ export const wyvern: MapDef = {
       cond: '!p.screams',
     },
     { id: 'gil', model: 'gil', name: 'Old Gil', pos: { x: -5.0, z: 3.9 }, facing: Math.PI / 2, talk: 'prologue.gil', cond: '!p.screams' },
-    // The stranger: walks in during the cold open, sits in the dark corner booth, says nothing.
+    // Early patrons: they heckle the band and spill on Eddar's floor.
+    { id: 'dwayne', model: 'dwayne', name: 'Dwayne', pos: { x: -5.0, z: -0.8 }, facing: Math.PI * 0.85, talk: 'prologue.dwayne', cond: '!p.screams' },
+    { id: 'superfan', model: 'superfan', name: 'Superfan', pos: { x: -1.6, z: -2.4 }, facing: Math.PI, talk: 'prologue.superfan', cond: '!p.screams' },
+    { id: 'kings_fan', model: 'kings_fan', name: 'Guy in a Static Kings Shirt', pos: { x: -2.2, z: 3.0 }, facing: Math.PI, talk: 'prologue.kings_fan', cond: '!p.screams' },
+    { id: 'tammy_dad', model: 'tammy_dad', name: "Tammy's Dad", pos: { x: 3.5, z: 3.1 }, facing: Math.PI * 1.1, talk: 'prologue.tammy_dad', cond: '!p.screams' },
+    // The stranger: walks in once the main puddles are mopped, sits in the dark corner booth, says nothing.
     { id: 'leagues', model: 'leagues', name: 'Stranger', pos: { x: 6.1, z: 0.6 }, facing: -Math.PI / 2, talk: 'prologue.leagues', cond: 'p.leagues_in & !p.leagues_gone', reach: 1.0 },
     // Rex goes back inside ahead of Eddar after the alley fight.
     { id: 'rex', model: 'rex', name: 'Rex', pos: { x: 3.2, z: 2.2 }, facing: Math.PI / 4, talk: 'prologue.rex_after', cond: 'p.dock_fight_won', radius: 0.5 },
@@ -60,6 +66,12 @@ export const wyvern: MapDef = {
     { id: 'puddle_1', name: 'Cola puddle', pos: { x: 2.4, z: 1.2 }, examine: 'prologue.puddle_1', cond: 'p.intro & !p.puddle_1', marker: 'puddle' },
     { id: 'puddle_2', name: 'Cola puddle', pos: { x: -3.4, z: -1.6 }, examine: 'prologue.puddle_2', cond: 'p.intro & !p.puddle_2', marker: 'puddle' },
     { id: 'puddle_3', name: 'Cola puddle', pos: { x: 4.6, z: 2.6 }, examine: 'prologue.puddle_3', cond: 'p.intro & !p.puddle_3', marker: 'puddle' },
+    // Lulu's cola by the stage, after the stranger walks in; it brings Eddar to Roxy's attention.
+    { id: 'lulu_puddle', name: "Lulu's cola", pos: { x: 1.6, z: -2.8 }, examine: 'prologue.lulu_puddle', cond: 'p.lulu_spill & !p.lulu_mopped', marker: 'puddle' },
+    // Patron spills: they keep coming back, and mopping them achieves nothing.
+    { id: 'spill_a', name: 'Spilled drink', pos: { x: -4.3, z: -0.2 }, examine: 'prologue.spill_a', cond: 'p.spill_a & !p.trash_called', marker: 'puddle' },
+    { id: 'spill_b', name: 'Spilled drink', pos: { x: 3.9, z: 2.1 }, examine: 'prologue.spill_b', cond: 'p.spill_b & !p.trash_called', marker: 'puddle' },
+    { id: 'spill_c', name: 'Spilled drink', pos: { x: -1.3, z: 3.4 }, examine: 'prologue.spill_c', cond: 'p.spill_c & !p.trash_called', marker: 'puddle' },
     { id: 'amp', name: "Roxy's amp", pos: { x: 4.6, z: -3.6 }, examine: 'prologue.amp', marker: 'sparkle', cond: '!p.amp_fixed' },
     { id: 'amp_done', name: "Roxy's amp", pos: { x: 4.6, z: -3.6 }, examine: 'prologue.amp', cond: 'p.amp_fixed' },
     { id: 'jukebox', name: 'Jukebox', pos: { x: 7.3, z: 2.4 }, examine: 'prologue.jukebox' },
@@ -86,10 +98,12 @@ export const wyvern: MapDef = {
   ],
   triggers: [
     { cond: '!p.intro', scene: 'prologue.intro' },
-    { cond: 'p.amp_fixed & puddles>=3 & !p.trash_called', scene: 'prologue.trash_call' },
+    { cond: 'puddles>=3 & !p.leagues_in', scene: 'prologue.stranger_in' },
+    { cond: 'p.amp_fixed & !p.trash_called', scene: 'prologue.trash_call' },
     { cond: 'p.dock_fight_won & !p.champion', scene: 'prologue.champion' },
     { cond: 'p.champion & !p.screams', scene: 'prologue.screams' },
   ],
+  chatter: WYVERN_CHATTER,
 };
 
 /** The alley behind the Wyvern: brick, fryer steam, a pink EXIT sign, Rex, and the first fight. */

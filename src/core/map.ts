@@ -65,6 +65,33 @@ export interface MapDef {
   sounds?: SoundDef[];
   /** Scenes auto-played on entry (or after any scene) when cond holds. Each should set a flag so it plays once. */
   triggers: { cond: string; scene: string }[];
+  /** Speech-bubble chatter that plays while the player keeps control (field mode only). */
+  chatter?: ChatterTrack[];
+}
+
+/**
+ * A run of speech bubbles over NPCs' heads (DESIGN §7: living rooms). Lines play in order while `cond`
+ * holds; time only passes in the field, so a scene pauses the room. Progress is saved in state.chatter.
+ */
+export interface ChatterTrack {
+  id: string;
+  cond: string;
+  lines: ChatterLine[];
+  /** Start again from the top after the last line. */
+  loop?: boolean;
+}
+
+export interface ChatterLine {
+  /** NPC id the bubble floats over. Skipped (silently) if that NPC isn't present. */
+  who: string;
+  text?: string;
+  /** Seconds after the previous line (default 3). */
+  wait?: number;
+  /** Only plays when this holds; otherwise the line is skipped. */
+  cond?: string;
+  /** Flag set when the line plays (e.g. a spill that makes a puddle appear). */
+  flag?: string;
+  sfx?: string;
 }
 
 export interface SoundDef {

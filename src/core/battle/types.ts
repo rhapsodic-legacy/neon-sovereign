@@ -62,6 +62,15 @@ export interface UnitDef {
   weakness?: string;
   /** Read text: what this enemy does, in the reader's voice. */
   readNote?: string;
+  /**
+   * Chakra (DESIGN §6.4): each hero's special-ability energy lives in their own chakra.
+   * red = Roxy (Heat: rises when she or her friends get hurt), gold = Rex (gold-white, all chakras:
+   * rises when he deals damage), black = Eddar (the absence of light: rises whenever anyone else gains
+   * energy, a little from friends and much more from enemies).
+   */
+  chakra?: 'red' | 'gold' | 'black';
+  /** Enemies: chakra energy gained each time they attack (bigger foes, stronger energy). Feeds Eddar. */
+  chakraGain?: number;
   /** Passive traits: 'big_brother' (covers Eddar), 'heat' (Roxy's resource). */
   traits?: string[];
 }
@@ -105,6 +114,7 @@ export interface UnitState extends UnitDef {
   breakVal: number;
   /** Turns of Broken left (skip turn, +50% damage taken). */
   broken: number;
+  /** Chakra energy, 0-100 (Roxy's is called Heat). */
   heat: number;
   analyzed: boolean;
   /** What this unit will do on its next turn (enemies; visible after Read). */

@@ -57,7 +57,7 @@ export function observe(game: Game) {
             max_hp: known ? u.maxHp : undefined,
             hp_pct: Math.round((u.hp / u.maxHp) * 100),
             statuses: Object.keys(u.statuses).concat(u.broken ? ['broken'] : []),
-            heat: u.traits?.includes('heat') ? u.heat : undefined,
+            heat: u.chakra && u.side === 'party' ? u.heat : undefined,
             next_move: u.side === 'enemy' && u.analyzed && u.intent ? b.skill(u.intent.skill).name : undefined,
             weakness: u.analyzed ? u.weakness : undefined,
           };

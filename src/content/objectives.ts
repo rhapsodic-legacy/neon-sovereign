@@ -10,11 +10,12 @@ export const OBJECTIVES: { cond: string; text: string }[] = [
   // Alley
   { cond: 'p.letter_done', text: 'Hold the alley with Rex.' },
   { cond: 'p.trash_called', text: 'Take the trash out the back door (stage right, under the EXIT sign).' },
-  // Wyvern, in any order
-  { cond: 'p.amp_fixed', text: 'Mop the cola before doors open. ({puddles}/3)' },
+  // Wyvern (Jesse's draft 2: one thing after another, and the floor is never done)
+  { cond: 'p.amp_fixed', text: 'Take the trash out the back door.' },
   { cond: 'p.amp_hum_back', text: "The hum is back. Have another look at Roxy's amp." },
-  { cond: 'p.amp_checked & puddles>=3', text: "Fix the hum in Roxy's amp." },
-  { cond: 'p.amp_checked', text: "Fix the hum in Roxy's amp, and mop the cola. ({puddles}/3)" },
-  { cond: 'puddles>=3', text: 'Find out why Roxy is yelling at her amp.' },
-  { cond: 'p.intro', text: 'Mop the cola puddles before doors. ({puddles}/3)' },
+  { cond: 'p.amp_checked', text: "Fix the hum in Roxy's amp." },
+  { cond: 'p.lulu_mopped', text: 'Roxy is yelling for you. Go and see what she wants.' },
+  { cond: 'p.lulu_spill', text: 'Lulu spilled her cola by the stage.' },
+  { cond: 'p.leagues_in', text: 'Keep mopping.' },
+  { cond: 'p.intro', text: 'Mop up the cola puddles. ({puddles}/3)' },
 ];

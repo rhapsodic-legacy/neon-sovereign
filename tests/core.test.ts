@@ -4,7 +4,8 @@ import { SceneRunner } from '../src/core/scene/runner';
 import { newGameState } from '../src/core/state';
 import { Game } from '../src/core/game';
 import { loadContent } from '../src/content';
-import { act, describe as wireDescribe, observe } from '../src/core/wire';
+import { act, observe } from '../src/core/wire';
+import { autoplay } from '../src/core/autoplay';
 import { Rng } from '../src/core/rng';
 
 const inScene = (g: Game) => g.mode === 'scene';
@@ -113,33 +114,19 @@ describe('content', () => {
 });
 
 describe('field + WIRE headless playthrough', () => {
-  /** Drive a Game through WIRE: a plan of targets to interact with, and a choice policy that never repeats a dead end. */
+  /** Drive a Game through WIRE (core/autoplay): a plan of targets, and a choice policy that never repeats a dead end. */
   function play(g: Game, plan: string[], done: () => boolean) {
     const tried = new Map<string, number>();
-    let steps = 0;
-    while (!done() && steps++ < 3000) {
-      if (g.mode === 'battle') {
-        const r = act(g, { type: 'auto_battle' });
-        expect(r.ok, r.message).toBe(true);
-        continue;
-      }
-      if (g.mode === 'scene') {
-        const v = g.view!;
-        if (v.kind === 'choice') {
-          const key = `${g.runner!.scene.id}:${v.options.map((o) => o.text).join('|')}`;
-          const n = tried.get(key) ?? 0;
-          tried.set(key, n + 1);
-          act(g, { type: 'choose', index: v.options.length - 1 - (n % v.options.length) });
-        } else act(g, { type: 'advance' });
-        continue;
-      }
-      const target = plan.shift();
-      expect(target, `stuck: ${wireDescribe(g)}`).toBeDefined();
-      const r = act(g, { type: 'interact', target: target! });
-      expect(r.ok, `${target}: ${r.message}\n${wireDescribe(g)}`).toBe(true);
-    }
+    autoplay(g, plan, done, (gm, options) => {
+      const key = `${gm.runner!.scene.id}:${options.join('|')}`;
+      const n = tried.get(key) ?? 0;
+      tried.set(key, n + 1);
+      return options.length - 1 - (n % options.length);
+    });
     while (inScene(g)) g.advance();
   }
+
+  const TO_THE_ALLEY = ['puddle_1', 'puddle_2', 'puddle_3', 'lulu_puddle', 'roxy', 'amp', 'amp', 'back_door'];
 
   it('an AI policy can play the whole opening, inception to Bellshell, through both fights', () => {
     const g = new Game(loadContent());
@@ -149,7 +136,7 @@ describe('field + WIRE headless playthrough', () => {
       if (e.type === 'scene_start') seen.add(e.id);
       if (e.type === 'battle_start') seen.add(`battle:${e.id}`);
     });
-    play(g, ['leagues', 'leagues', 'leagues', 'puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door', 'back_door'], () => !!g.state.flags['p.bellshell_done'] && g.mode === 'field');
+    play(g, ['puddle_1', 'puddle_2', 'puddle_3', 'lulu_puddle', 'leagues', 'leagues', 'leagues', 'roxy', 'amp', 'amp', 'back_door', 'back_door'], () => !!g.state.flags['p.bellshell_done'] && g.mode === 'field');
     for (const id of ['prologue.trash_call', 'prologue.the_letter', 'battle:dock_crew', 'prologue.after_dock_fight', 'prologue.champion', 'prologue.screams', 'battle:bellshell', 'prologue.bellshell_mercy'])
       expect(seen.has(id), id).toBe(true);
     expect(g.state.flags['p.dock_fight_won']).toBe(true);
@@ -166,7 +153,7 @@ describe('field + WIRE headless playthrough', () => {
   it('after the alley fight Rex goes in first, and the player walks back in (no warp)', () => {
     const g = new Game(loadContent());
     g.start();
-    play(g, ['puddle_1', 'puddle_2', 'puddle_3', 'roxy', 'amp', 'amp', 'back_door'], () => !!g.state.flags['p.crew_fled'] && g.mode === 'field');
+    play(g, TO_THE_ALLEY, () => !!g.state.flags['p.crew_fled'] && g.mode === 'field');
     expect(g.state.mapId).toBe('alley');
     expect(g.state.flags['p.rex_went_in']).toBe(true);
     expect(g.nearby().map((n) => n.id)).not.toContain('rex');
@@ -184,23 +171,55 @@ describe('field + WIRE headless playthrough', () => {
       for (const i of s.instrs) if (i.op === 'line') expect(i.text, s.id).not.toMatch(/\bHush\b|Nocturne/);
   });
 
-  it('chores work in any order, and the back door waits for both', () => {
+  it('the opening runs in order: puddles, the stranger, Lulu\'s spill, then Roxy and her amp', () => {
     const g = new Game(loadContent());
     g.start();
-    play(g, ['amp', 'roxy', 'amp', 'amp'], () => !!g.state.flags['p.amp_fixed']);
-    expect(g.state.flags['p.amp_fixed']).toBe(true);
-    expect(g.state.objective).toContain('0/3');
-    // Floor not mopped: the back door is still locked and says why.
-    act(g, { type: 'interact', target: 'back_door' });
-    expect(inScene(g)).toBe(true);
-    expect(g.view).toMatchObject({ speaker: 'MAMA DEE' });
     while (inScene(g)) g.advance();
+    // The cold open is speech bubbles, played while the player has control.
+    const bubbles: string[] = [];
+    g.on((e) => e.type === 'bubble' && bubbles.push(`${e.who}: ${e.text}`));
+    act(g, { type: 'wait', seconds: 12 });
+    expect(bubbles[0]).toMatch(/^roxy: Listen up, Wildfires/);
+    expect(g.mode).toBe('field');
+    // Roxy has no time for Eddar yet, and the back door stays locked.
+    act(g, { type: 'interact', target: 'roxy' });
+    expect(g.view).toMatchObject({ speaker: 'ROXY', text: expect.stringMatching(/VISUALISING/) });
+    while (inScene(g)) g.advance();
+    act(g, { type: 'interact', target: 'back_door' });
     expect(g.state.mapId).toBe('wyvern');
-    play(g, ['puddle_1', 'puddle_2', 'puddle_3'], () => (g.state.vars.puddles ?? 0) >= 3);
-    expect(g.state.objective).toContain('back door');
-    play(g, ['back_door'], () => !!g.state.flags['p.letter_done']);
-    expect(g.state.mapId).toBe('alley');
-    expect(g.mode).toBe('battle');
+    while (inScene(g)) g.advance();
+    // Mopping the main puddles brings in the stranger.
+    expect(g.state.flags['p.leagues_in']).toBeFalsy();
+    play(g, ['puddle_1', 'puddle_2', 'puddle_3'], () => !!g.state.flags['p.leagues_in'] && g.mode === 'field');
+    expect(g.state.objective).toBe('Keep mopping.');
+    // Then Lulu spills by the stage; mopping it gets the "saint" line and Roxy calls him over.
+    play(g, ['lulu_puddle'], () => !!g.state.flags['p.lulu_mopped'] && g.mode === 'field');
+    expect(g.state.ledger.map((l) => l.text)).toEqual([expect.stringMatching(/^Entry #2,204/)]);
+    act(g, { type: 'wait', seconds: 3 });
+    expect(bubbles).toContain('roxy: EDDAR! Come HERE!');
+    // The floor is never done: patrons keep spilling, and mopping changes nothing.
+    act(g, { type: 'wait', seconds: 45 });
+    expect(g.nearby().map((n) => n.id)).toEqual(expect.arrayContaining(['spill_a', 'spill_b', 'spill_c']));
+    const before = JSON.stringify({ o: g.state.objective, p: g.state.vars.puddles });
+    play(g, ['spill_a'], () => !g.state.flags['p.spill_a']);
+    expect(JSON.stringify({ o: g.state.objective, p: g.state.vars.puddles })).toBe(before);
+    play(g, ['roxy', 'amp', 'amp'], () => !!g.state.flags['p.trash_called'] && g.mode === 'field');
+    expect(g.nearby().some((n) => n.id.startsWith('spill_'))).toBe(false);
+  });
+
+  it('Q-style focus cycling reaches everything in reach (the alley back door under the EXIT sign)', () => {
+    const g = new Game(loadContent());
+    g.start();
+    play(g, TO_THE_ALLEY, () => !!g.state.flags['p.crew_fled'] && g.mode === 'field');
+    act(g, { type: 'move_to', target: 'exit_sign' });
+    const near = g.inRange().map((n) => n.id);
+    expect(near).toEqual(expect.arrayContaining(['exit_sign', 'back_door']));
+    const seen = new Set<string>();
+    for (let i = 0; i < near.length; i++) seen.add(g.cycleFocus()!.id);
+    expect([...seen].sort()).toEqual([...near].sort());
+    while (g.focus()!.id !== 'back_door') g.cycleFocus();
+    g.interact();
+    expect(g.state.mapId).toBe('wyvern');
   });
 
   it('NPCs remember earlier conversations and never repeat on the next talk', () => {
@@ -242,5 +261,26 @@ describe('field + WIRE headless playthrough', () => {
     expect(inScene(g)).toBe(true);
     while (inScene(g)) g.advance();
     expect(g.state.mapId).toBe('wyvern');
+  });
+});
+
+describe('test warps', () => {
+  it('every checkpoint builds, and lands where it says', async () => {
+    const { CHECKPOINTS, buildCheckpoint } = await import('../src/content/checkpoints');
+    const c = loadContent();
+    for (const cp of CHECKPOINTS) {
+      const { game, then } = buildCheckpoint(c, cp.id);
+      game.start();
+      then?.(game);
+      expect(['field', 'scene', 'battle'], cp.id).toContain(game.mode);
+    }
+    const alley = buildCheckpoint(c, 'after_alley').game;
+    expect(alley.state.mapId).toBe('alley');
+    expect(alley.state.flags['p.crew_fled']).toBe(true);
+    const crab = buildCheckpoint(c, 'bellshell');
+    crab.game.start();
+    crab.then!(crab.game);
+    expect(crab.game.battle?.def.id).toBe('bellshell');
+    expect(crab.game.state.party).toContain('roxy');
   });
 });

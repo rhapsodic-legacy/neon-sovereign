@@ -11,9 +11,10 @@ const game = new Game(loadContent());
 game.start();
 
 // A tiny "policy": the order an attentive player would tackle the objectives in.
-// Deliberately out of order: pester the stranger, talk, fix the amp (twice: the first fix doesn't hold), then mop.
+// Talk to Roxy too early, mop, wait for the stranger and Lulu's spill, pester the stranger, then the amp (twice: the
+// first fix doesn't hold). When a target isn't there yet (it arrives on the clock), the policy waits.
 // Fights are played by the WIRE's built-in tactician (auto_battle); an LLM would send {type:'battle', skill, target}.
-const goals = ['leagues', 'leagues', 'leagues', 'roxy', 'spike', 'amp', 'amp', 'spike', 'back_door', 'puddle_1', 'puddle_2', 'puddle_3', 'mama_dee', 'back_door'];
+const goals = ['roxy', 'puddle_1', 'puddle_2', 'puddle_3', 'lulu_puddle', 'leagues', 'leagues', 'leagues', 'roxy', 'spike', 'amp', 'amp', 'spike', 'mama_dee', 'back_door', 'back_door'];
 const tried = new Map<string, number>();
 let turns = 0;
 while (!game.state.flags['p.bellshell_done'] || game.mode !== 'field') {
@@ -37,9 +38,14 @@ while (!game.state.flags['p.bellshell_done'] || game.mode !== 'field') {
     console.log(`> ${v.kind === 'choice' ? `choose ${idx}` : 'advance'} (${r.message})`);
     continue;
   }
+  if (goals[0] && !game.nearby().some((n) => n.id === goals[0])) {
+    const r = act(game, { type: 'wait', seconds: 1 });
+    console.log(`> wait 1 for ${goals[0]} (${r.message})`);
+    continue;
+  }
   const target = goals.shift();
   if (!target) break;
   const r = act(game, { type: 'interact', target });
   console.log(`> interact ${target} (${r.message})`);
 }
-console.log(`\n=== Build 0.3b (the opening, inception to Bellshell) finished in ${turns} WIRE actions. Ledger entries: ${game.state.ledger.length}. Harmony: ${game.state.vars.harmony}. ===`);
+console.log(`\n=== Build 0.3c (the opening, inception to Bellshell) finished in ${turns} WIRE actions. Ledger entries: ${game.state.ledger.length}. Harmony: ${game.state.vars.harmony}. ===`);

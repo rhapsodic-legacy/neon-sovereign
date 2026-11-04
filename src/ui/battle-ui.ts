@@ -400,8 +400,9 @@ export class BattleUI {
           .filter((s) => s !== 'charging' || true)
           .map((s) => `<i class="st ${s}">${s.toUpperCase()}</i>`)
           .join('');
-        const heat = u.traits?.includes('heat')
-          ? `<div class="b-heat"><div style="width:${u.heat}%"></div><b>HEAT ${u.heat}</b></div>`
+        const label = u.chakra === 'red' ? 'HEAT' : u.chakra === 'gold' ? 'GOLD' : 'BLACK';
+        const heat = u.chakra
+          ? `<div class="b-heat ${u.chakra}"><div style="width:${u.heat}%"></div><b>${label} ${u.heat}</b></div>`
           : '';
         return `<div class="b-member${b.current === id && this.phase !== 'play' ? ' now' : ''}${hp <= 0 ? ' ko' : ''}" style="--c:${UNIT_COLOR[id]}">
           <div class="b-mname">${esc(u.name)} ${sts}</div>

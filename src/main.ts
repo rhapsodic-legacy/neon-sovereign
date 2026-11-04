@@ -1,5 +1,6 @@
 import './ui/styles.css';
 import { loadContent } from './content';
+import { buildCheckpoint, CHECKPOINTS } from './content/checkpoints';
 import { Game, GameEvent, SaveData } from './core/game';
 import { soundGains } from './core/map';
 import * as wire from './core/wire';
@@ -50,11 +51,22 @@ const ui = new UI(app, null, audio, {
     audio.setMuted(!audio.muted);
     return audio.muted;
   },
+  checkpoints: () => CHECKPOINTS.map((c) => ({ id: c.id, label: c.label })),
+  warpTo: (id) => warpTo(id),
 });
+
+/** Test warps: jump to a section of the opening (title screen, pause menu, or ?at=<id> in the URL). */
+function warpTo(id: string): void {
+  const { game: g, then } = buildCheckpoint(content, id);
+  ui.closeMenu();
+  begin(g);
+  then?.(g);
+}
 
 function begin(g: Game): void {
   unsub?.();
   battleUI.stop();
+  ui.clearBubbles();
   ui.setVision(false);
   game = g;
   renderer.bind(game);
@@ -80,7 +92,11 @@ function onEvent(e: GameEvent): void {
       ui.showToast(e.text);
       break;
     case 'map':
+      ui.clearBubbles();
       ui.showToast(game.map.name);
+      break;
+    case 'bubble':
+      ui.addBubble(e.who, e.name, e.text);
       break;
     case 'fx':
       if (e.id === 'vision') ui.setVision(e.target === 'on');
@@ -147,6 +163,7 @@ window.addEventListener('keydown', (ev) => {
     if (confirm) ui.confirm();
     return;
   }
+  if (k === 'q') game.cycleFocus(ev.shiftKey ? -1 : 1);
   if (confirm) game.interact();
 });
 window.addEventListener('keyup', (ev) => held.delete(ev.key.toLowerCase()));
@@ -179,7 +196,10 @@ function loop(now: number): void {
   const f = !ui.titleOpen && game.mode === 'field' ? game.focus() : undefined;
   const pos = f ? renderer.project(f.pos.x, 2.3, f.pos.z) : null;
   const verb = f ? (f.kind === 'npc' ? 'Talk' : f.kind === 'exit' ? 'Go' : 'Examine') : '';
-  ui.update(dt, pos, f ? `${verb} · ${f.name}` : '');
+  const near = f ? game.inRange() : [];
+  const cycle = near.length > 1 ? { index: near.findIndex((n) => n.id === f!.id) + 1, count: near.length } : null;
+  ui.update(dt, pos, f ? `${verb} · ${f.name}` : '', cycle);
+  ui.updateBubbles(dt, (id) => renderer.headScreenPos(id), !ui.titleOpen && game.mode === 'field');
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
@@ -201,3 +221,7 @@ window.WIRE = {
   describe: () => wire.describe(game),
   newGame: () => begin(new Game(content)),
 };
+
+const at = new URLSearchParams(location.search).get('at');
+if (at && CHECKPOINTS.some((c) => c.id === at)) warpTo(at);
+

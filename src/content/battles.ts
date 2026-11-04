@@ -35,16 +35,16 @@ const skills: SkillDef[] = [
 ];
 
 const units: UnitDef[] = [
-  { id: 'eddar', name: 'Eddar', model: 'eddar', side: 'party', hp: 130, atk: 8, def: 4, spd: 11, skills: ['lid_bash', 'read', 'lift', 'patch', 'defend'] },
-  { id: 'rex', name: 'Rex', model: 'rex', side: 'party', hp: 240, atk: 15, def: 9, spd: 9, skills: ['strike', 'charge', 'showboat', 'defend'], traits: ['big_brother'] },
-  { id: 'roxy', name: 'Roxy', model: 'roxy', side: 'party', hp: 160, atk: 13, def: 5, spd: 13, skills: ['axe_riff', 'meltdown', 'defend'], traits: ['heat'] },
-  { id: 'vinnie', name: 'Vinnie', model: 'vinnie', side: 'enemy', hp: 140, atk: 14, def: 4, spd: 10, skills: [], ai: ['jab', 'wind_up', 'jab'],
+  { id: 'eddar', name: 'Eddar', model: 'eddar', side: 'party', hp: 130, atk: 8, def: 4, spd: 11, skills: ['lid_bash', 'read', 'lift', 'patch', 'defend'], chakra: 'black' },
+  { id: 'rex', name: 'Rex', model: 'rex', side: 'party', hp: 240, atk: 15, def: 9, spd: 9, skills: ['strike', 'charge', 'showboat', 'defend'], traits: ['big_brother'], chakra: 'gold' },
+  { id: 'roxy', name: 'Roxy', model: 'roxy', side: 'party', hp: 160, atk: 13, def: 5, spd: 13, skills: ['axe_riff', 'meltdown', 'defend'], traits: ['heat'], chakra: 'red' },
+  { id: 'vinnie', name: 'Vinnie', model: 'vinnie', side: 'enemy', hp: 140, atk: 14, def: 4, spd: 10, skills: [], ai: ['jab', 'wind_up', 'jab'], chakraGain: 8,
     breakMax: 60, weakness: 'Hates being interrupted', readNote: 'He breathes before he swings. When he winds up, the next blow is heavy. Lift him off his feet first.' },
-  { id: 'brick', name: 'Brick', model: 'brick', side: 'enemy', hp: 180, atk: 14, def: 8, spd: 8, skills: [], ai: ['shove', 'shove', 'jab'],
+  { id: 'brick', name: 'Brick', model: 'brick', side: 'enemy', hp: 180, atk: 14, def: 8, spd: 8, skills: [], ai: ['shove', 'shove', 'jab'], chakraGain: 8,
     breakMax: 70, weakness: 'Slow. Big hits break him', readNote: 'A wall with opinions. He goes for whoever looks weakest, which is, regrettably, me.' },
-  { id: 'moss', name: 'Moss', model: 'moss', side: 'enemy', hp: 100, atk: 13, def: 3, spd: 12, skills: [], ai: ['hook_swipe', 'hook_swipe', 'jab'],
+  { id: 'moss', name: 'Moss', model: 'moss', side: 'enemy', hp: 100, atk: 13, def: 3, spd: 12, skills: [], ai: ['hook_swipe', 'hook_swipe', 'jab'], chakraGain: 8,
     breakMax: 40, weakness: 'Fragile', readNote: 'Quick hands, glass jaw. The hook is for show; the show is for him.' },
-  { id: 'bellshell', name: 'Bellshell', model: 'bellshell', side: 'enemy', hp: 1300, atk: 28, def: 10, spd: 9, skills: [], ai: ['pinch', 'rear', 'shell_ram', 'pinch', 'rear'],
+  { id: 'bellshell', name: 'Bellshell', model: 'bellshell', side: 'enemy', hp: 1300, atk: 28, def: 10, spd: 9, skills: [], ai: ['pinch', 'rear', 'shell_ram', 'pinch', 'rear'], chakraGain: 16,
     breakMax: 140, weakness: 'Soft underside while rearing',
     readNote: 'When it lifts to ring, its belly is bare: strike then, or lift it over. If it tolls, we lose our voices.' },
 ];

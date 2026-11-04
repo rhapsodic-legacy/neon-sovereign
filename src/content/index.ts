@@ -58,6 +58,10 @@ export const SPEAKERS: Record<string, { name: string; color: string }> = {
   STRANGER: { name: 'The Stranger', color: '#ffe9a8' },
   LEAGUES: { name: 'Leagues Soprano', color: '#ffe9a8' },
   VOICE: { name: 'Voice outside', color: '#d0d0d0' },
+  DWAYNE: { name: 'Dwayne', color: '#e0a080' },
+  'TAMMY\'S DAD': { name: "Tammy's Dad", color: '#9ac0e0' },
+  SUPERFAN: { name: 'Superfan', color: '#ff7ab0' },
+  'KINGS FAN': { name: 'Guy in a Static Kings Shirt', color: '#33e0ff' },
   NARRATOR: { name: '', color: '#ffffff' },
   LEDGER: { name: 'The Ledger', color: '#2b2b2b' },
 };

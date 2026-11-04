@@ -121,6 +121,10 @@ MAMA DEE [angry]: Everybody in the back! Now! Gil, put down the beer. ...Fine, b
 @cmd exit_npc gil left
 @cmd exit_npc spike left
 @cmd exit_npc lulu left
+@cmd exit_npc dwayne left
+@cmd exit_npc superfan left
+@cmd exit_npc kings_fan left
+@cmd exit_npc tammy_dad left
 @flag p.screams
 @cam focus roxy
 @emote roxy fire

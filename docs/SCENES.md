@@ -61,3 +61,7 @@ Battles live in `src/content/battles.ts`: units, skills, a title card (`title`, 
 triggers (`start`, `turn:<unit>`, `read`, `tell:<unit>`, `interrupt`, `cover`, `charge_land`, `hurt:<unit>`, `break`,
 `mute`, `heat_max`, `meltdown`, `lift_rear:<unit>`, `roxy_rex_hit`, `win`, `mercy`, `defeat`), each firing once with an
 optional tutorial `hint`, and balance `bands` per sim policy that the tests enforce. Run `npm run sim` to see them.
+
+## Speech bubbles (chatter)
+
+Lines that should play while the player keeps control (a band heckled by patrons, a room going about its night) are not scenes. They're **chatter tracks** on the map (`MapDef.chatter`, e.g. `src/content/chatter/wyvern.ts`): a list of `{ who, text, wait, cond?, flag?, sfx? }` lines over NPCs' heads, played in order while the track's `cond` holds, optionally looping. Time only passes in the field, so any scene pauses the room. A line's `flag` can change the world (a spill that makes a puddle appear), and triggers and objectives react as usual. Progress is saved in `state.chatter`.

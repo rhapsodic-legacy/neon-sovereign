@@ -255,3 +255,15 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-f
   .b-chip em { display: none; }
 }
 .portrait[data-emotion='scared'] { animation: shake 0.12s 6; }
+.prompt .cycle { margin-left: 10px; opacity: 0.8; font-size: 0.9em; }
+.b-heat.gold > div { background: linear-gradient(90deg, #fff6d0, #ffd34a, #fffbe8); }
+.b-heat.gold b { color: #fff; text-shadow: 0 0 3px #000, 0 0 2px #000; }
+.b-heat.black { background: rgba(255,255,255,0.22); }
+.b-heat.black > div { background: linear-gradient(90deg, #000, #16101e); box-shadow: inset 0 0 0 1px rgba(177,140,255,0.5); }
+.bubble { position: absolute; transform: translate(-50%, -100%); max-width: 260px; padding: 6px 10px 7px; background: #fff8f0; color: #1a0d1e; border-radius: 12px; font: 600 15px/1.25 'Rajdhani', sans-serif; box-shadow: 0 3px 0 rgba(0,0,0,0.35), 0 0 14px rgba(255,43,214,0.35); pointer-events: none; z-index: 4; transition: opacity 0.35s; text-align: center; }
+.bubble::after { content: ''; position: absolute; left: 50%; bottom: -8px; margin-left: -7px; border: 7px solid transparent; border-top-color: #fff8f0; border-bottom: 0; }
+.bubble b { display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #b0187e; }
+.bubble.fading { opacity: 0; }
+.bubble.hidden { display: none; }
+.title.warps .title-menu { max-height: 46vh; overflow-y: auto; gap: 4px; padding: 0 6px; }
+.title.warps .titem { padding: 8px 18px; font-size: 10px; }

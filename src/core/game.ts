@@ -24,6 +24,7 @@ export type GameEvent =
   | { type: 'player_move'; x: number; z: number }
   | { type: 'objective'; text: string }
   | { type: 'toast'; text: string }
+  | { type: 'bubble'; who: string; name: string; text: string }
   | { type: 'battle_start'; id: string }
   | { type: 'battle_end'; id: string; result: BattleResult }
   | { type: 'scene_start'; id: string }
@@ -98,10 +99,45 @@ export class Game {
   tick(dt: number, move: { x: number; z: number } = { x: 0, z: 0 }): boolean {
     this.state.playtime += dt;
     if (this.mode !== 'field') return false;
+    this.tickChatter(dt);
+    if (this.mode !== 'field') return false;
     const len = Math.hypot(move.x, move.z);
     if (len < 0.05) return false;
     const k = (Math.min(1, len) * WALK_SPEED * dt) / len;
     return movePlayer(this.state, this.map, move.x * k, move.z * k);
+  }
+
+  /** Speech bubbles: advance every chatter track whose cond holds. */
+  private tickChatter(dt: number): void {
+    const tracks = this.map.chatter;
+    if (!tracks) return;
+    const progress = (this.state.chatter ??= {});
+    let changed = false;
+    for (const tr of tracks) {
+      if (!evalCond(this.state, tr.cond)) continue;
+      const c = (progress[tr.id] ??= { i: 0, t: 0 });
+      if (c.i >= tr.lines.length) {
+        if (!tr.loop) continue;
+        c.i = 0;
+      }
+      const line = tr.lines[c.i];
+      c.t += dt;
+      if (c.t < (line.wait ?? 3)) continue;
+      c.t = 0;
+      c.i++;
+      if (line.cond && !evalCond(this.state, line.cond)) continue;
+      if (line.flag && !this.state.flags[line.flag]) {
+        this.state.flags[line.flag] = true;
+        changed = true;
+      }
+      if (line.sfx) this.emit({ type: 'sfx', id: line.sfx });
+      const npc = this.map.npcs.find((n) => n.id === line.who);
+      if (line.text && npc && evalCond(this.state, npc.cond)) this.emit({ type: 'bubble', who: npc.id, name: npc.name, text: line.text });
+    }
+    if (changed) {
+      this.refreshObjective();
+      this.checkTriggers();
+    }
   }
 
   // ---------- interaction ----------
@@ -110,10 +146,31 @@ export class Game {
     return interactables(this.state, this.map);
   }
 
+  /** Everything in reach right now, nearest first. */
+  inRange(): Interactable[] {
+    return this.nearby().filter((n) => n.distance <= INTERACT_RANGE);
+  }
+
+  /** The interactable the player picked by cycling (kept while it stays in reach). */
+  private picked: string | null = null;
+
   /** The interactable the player would use if they pressed the action button now. */
   focus(): Interactable | undefined {
-    const n = this.nearby()[0];
-    return n && n.distance <= INTERACT_RANGE ? n : undefined;
+    const near = this.inRange();
+    const picked = this.picked && near.find((n) => n.id === this.picked);
+    if (!picked) this.picked = null;
+    return picked || near[0];
+  }
+
+  /** Step the focus to the next (or previous) thing in reach, for when several overlap. */
+  cycleFocus(dir = 1): Interactable | undefined {
+    const near = this.inRange();
+    if (near.length < 2) return near[0];
+    const cur = this.focus();
+    const i = Math.max(0, near.findIndex((n) => n.id === cur?.id));
+    const next = near[(i + dir + near.length) % near.length];
+    this.picked = next.id;
+    return next;
   }
 
   /** Interact with a target by id (must be in range), or the focused one. */

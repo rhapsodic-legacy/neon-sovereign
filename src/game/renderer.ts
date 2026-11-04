@@ -161,6 +161,14 @@ export class FieldRenderer {
     }
   }
 
+  /** Screen position (CSS px) above an actor's head, for speech bubbles; undefined if not on this map. */
+  headScreenPos(id: string): { x: number; y: number } | undefined {
+    const p = this.actorPos(id);
+    const a = this.actors.get(id);
+    if (!p || (a && !a.rig.root.visible)) return undefined;
+    return this.project(p.x, 2.7, p.z);
+  }
+
   private actorPos(id: string): THREE.Vector3 | undefined {
     if (id === 'eddar') return this.player.root.position;
     return this.actors.get(id)?.rig.root.position;

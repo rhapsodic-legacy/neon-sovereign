@@ -21,6 +21,9 @@ export interface MenuActions {
   newGame(): void;
   hasSave(): boolean;
   toggleMute(): boolean;
+  /** Test warps (content/checkpoints.ts). */
+  checkpoints(): { id: string; label: string }[];
+  warpTo(id: string): void;
 }
 
 /** HTML overlay UI: dialogue, Ledger notes, choices, cards, prompts, objective, menus, title. */
@@ -40,7 +43,7 @@ export class UI {
   private toast = el('div', 'toast hidden');
   private menu = el('div', 'menu hidden');
   private title = el('div', 'title');
-  private help = el('div', 'help', 'WASD / Arrows: move · E / Enter / Space: talk & advance · Esc: menu · M: sound');
+  private help = el('div', 'help', 'WASD / Arrows: move · E / Enter / Space: talk & advance · Q: next thing in reach · Esc: menu · M: sound');
   private vision = el('div', 'vision hidden');
 
   private shownKey = '';
@@ -76,20 +79,71 @@ export class UI {
     this.shownKey = '';
   }
 
+  // ---------- speech bubbles ----------
+
+  private bubbles = new Map<string, { el: HTMLElement; ttl: number }>();
+
+  /** A speech bubble over an NPC's head (chatter). One per speaker: a new line replaces the old one. */
+  addBubble(who: string, name: string, text: string): void {
+    this.bubbles.get(who)?.el.remove();
+    const b = el('div', 'bubble', `<b>${escapeHtml(name)}</b>${escapeHtml(text)}`);
+    this.root.append(b);
+    this.bubbles.set(who, { el: b, ttl: 2.6 + text.length * 0.05 });
+  }
+
+  updateBubbles(dt: number, where: (id: string) => { x: number; y: number } | undefined, visible: boolean): void {
+    for (const [who, b] of this.bubbles) {
+      b.ttl -= dt;
+      const p = where(who);
+      if (b.ttl <= 0 || !p) {
+        b.el.remove();
+        this.bubbles.delete(who);
+        continue;
+      }
+      // keep the whole bubble on screen (the stage sits at the top edge of the Wyvern's camera)
+      const w = b.el.offsetWidth / 2 + 8;
+      const vw = this.root.clientWidth || window.innerWidth;
+      b.el.style.left = `${Math.min(vw - w, Math.max(w, p.x))}px`;
+      b.el.style.top = `${Math.max(b.el.offsetHeight + 46, p.y)}px`;
+      b.el.classList.toggle('hidden', !visible);
+      b.el.classList.toggle('fading', b.ttl < 0.4);
+    }
+  }
+
+  clearBubbles(): void {
+    for (const b of this.bubbles.values()) b.el.remove();
+    this.bubbles.clear();
+  }
+
   // ---------- title ----------
 
   private buildTitle(): void {
-    this.titleItems = [
-      { label: 'NEW GAME', run: () => this.actions.newGame() },
-      ...(this.actions.hasSave() ? [{ label: 'CONTINUE', run: () => { this.actions.load(); } }] : []),
-    ];
-    this.titleSel = this.titleItems.length > 1 ? 1 : 0;
+    this.titleItems = this.mainTitleItems();
+    this.titleSel = this.titleItems.length > 2 ? 1 : 0;
     this.title.innerHTML = `
       <div class="sky"><div class="sun"></div><div class="grid"></div></div>
       <div class="logo"><div class="logo-top">NEON</div><div class="logo-bottom">Sovereign</div></div>
       <div class="tagline">The prophecy named a hero. It forgot to mention the guy who does all the work.</div>
       <div class="title-menu"></div>
-      <div class="build">Build 0.3b · Prologue: the opening, inception to Bellshell · placeholder art &amp; music</div>`;
+      <div class="build">Build 0.3c · Prologue: the opening, inception to Bellshell · placeholder art &amp; music</div>`;
+    this.renderTitleMenu();
+  }
+
+  private mainTitleItems(): { label: string; run: () => void }[] {
+    return [
+      { label: 'NEW GAME', run: () => this.actions.newGame() },
+      ...(this.actions.hasSave() ? [{ label: 'CONTINUE', run: () => { this.actions.load(); } }] : []),
+      { label: 'TEST WARPS', run: () => this.showTitleWarps() },
+    ];
+  }
+
+  private showTitleWarps(): void {
+    this.titleItems = [
+      ...this.actions.checkpoints().map((c) => ({ label: c.label.toUpperCase(), run: () => this.actions.warpTo(c.id) })),
+      { label: 'BACK', run: () => { this.titleItems = this.mainTitleItems(); this.titleSel = 0; this.title.classList.remove('warps'); this.renderTitleMenu(); } },
+    ];
+    this.titleSel = 0;
+    this.title.classList.add('warps');
     this.renderTitleMenu();
   }
 
@@ -100,6 +154,7 @@ export class UI {
       const b = el('div', 'titem' + (i === this.titleSel ? ' sel' : ''), it.label);
       b.onclick = () => { this.titleSel = i; this.titleConfirm(); };
       m.append(b);
+      if (i === this.titleSel) requestAnimationFrame(() => b.scrollIntoView({ block: 'nearest' }));
     });
   }
 
@@ -150,7 +205,7 @@ export class UI {
 
   // ---------- per-frame ----------
 
-  update(dt: number, promptPos: { x: number; y: number } | null, promptText: string): void {
+  update(dt: number, promptPos: { x: number; y: number } | null, promptText: string, cycle: { index: number; count: number } | null = null): void {
     if (this.toastT > 0) {
       this.toastT -= dt;
       if (this.toastT <= 0) this.toast.classList.add('hidden');
@@ -162,7 +217,9 @@ export class UI {
       this.prompt.classList.remove('hidden');
       this.prompt.style.left = `${promptPos.x}px`;
       this.prompt.style.top = `${promptPos.y}px`;
-      this.prompt.innerHTML = `<span class="key">E</span> ${escapeHtml(promptText)}`;
+      this.prompt.innerHTML =
+        `<span class="key">E</span> ${escapeHtml(promptText)}` +
+        (cycle ? ` <span class="cycle"><span class="key">Q</span> next ${cycle.index}/${cycle.count}</span>` : '');
     } else this.prompt.classList.add('hidden');
 
     const v = g.view;
@@ -309,7 +366,7 @@ export class UI {
     if (this.menuOpen) this.renderMenu('main');
   }
 
-  private renderMenu(page: 'main' | 'ledger' | 'controls', msg = ''): void {
+  private renderMenu(page: 'main' | 'ledger' | 'controls' | 'warps', msg = ''): void {
     const g = this.game!;
     this.menu.innerHTML = '';
     const panel = el('div', 'mpanel');
@@ -321,9 +378,15 @@ export class UI {
       for (const e of [...entries].reverse()) list.append(el('div', 'mentry', escapeHtml(e.text)));
       panel.append(list);
       this.menuItems = [{ label: 'BACK', run: () => this.renderMenu('main') }];
+    } else if (page === 'warps') {
+      panel.append(el('div', 'mtitle', 'TEST WARPS'));
+      this.menuItems = [
+        ...this.actions.checkpoints().map((c) => ({ label: c.label.toUpperCase(), run: () => this.actions.warpTo(c.id) })),
+        { label: 'BACK', run: () => this.renderMenu('main') },
+      ];
     } else if (page === 'controls') {
       panel.append(el('div', 'mtitle', 'CONTROLS'));
-      panel.append(el('div', 'mtext', 'Move: WASD or arrow keys<br>Talk / examine / advance: E, Enter or Space<br>Pick a reply: arrows + Enter, number keys, or click<br>Battles: arrows + Enter to pick a command and a target, Esc to go back, A for Auto<br>Menu: Esc · Sound on/off: M<br><br>AI players: open the console and use <code>WIRE.describe()</code>, <code>WIRE.observe()</code> and <code>WIRE.act({...})</code>. See docs/WIRE.md.'));
+      panel.append(el('div', 'mtext', 'Move: WASD or arrow keys<br>Talk / examine / advance: E, Enter or Space<br>Several things in reach: Q picks the next one (Shift+Q goes back)<br>Pick a reply: arrows + Enter, number keys, or click<br>Battles: arrows + Enter to pick a command and a target, Esc to go back, A for Auto<br>Menu: Esc · Sound on/off: M<br><br>AI players: open the console and use <code>WIRE.describe()</code>, <code>WIRE.observe()</code> and <code>WIRE.act({...})</code>. See docs/WIRE.md.'));
       this.menuItems = [{ label: 'BACK', run: () => this.renderMenu('main') }];
     } else {
       panel.append(el('div', 'mtitle', 'PAUSED'));
@@ -336,6 +399,7 @@ export class UI {
         { label: 'LOAD', run: () => { const m = this.actions.load(); if (this.menuOpen) this.renderMenu('main', m); } },
         { label: 'LEDGER', run: () => this.renderMenu('ledger') },
         { label: 'CONTROLS', run: () => this.renderMenu('controls') },
+        { label: 'TEST WARPS', run: () => this.renderMenu('warps') },
         { label: this.audio.muted ? 'SOUND: OFF' : 'SOUND: ON', run: () => { this.actions.toggleMute(); this.renderMenu('main'); } },
       ];
     }

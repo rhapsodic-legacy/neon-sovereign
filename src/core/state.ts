@@ -29,6 +29,8 @@ export interface GameState {
   bgm: string;
   /** NPCs a scene has moved (`@cmd move_npc`), keyed "<map>:<npc>". Optional so older saves still load. */
   npcPos?: Record<string, Vec2>;
+  /** Chatter track progress: next line index and seconds waited. Optional so older saves still load. */
+  chatter?: Record<string, { i: number; t: number }>;
 }
 
 export function newGameState(seed = 1985): GameState {
