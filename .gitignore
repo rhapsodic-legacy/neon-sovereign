@@ -5,3 +5,10 @@ dist
 .env
 .env.*
 .tmp/
+
+# Godot
+godot/.godot/
+godot/**/*.import
+# generated temp audio (tools/temp_audio.py)
+godot/wyvern/audio/*.wav
+godot/out/

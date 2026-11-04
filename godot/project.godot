@@ -1,0 +1,16 @@
+; Neon Sovereign, Godot 4 project.
+config_version=5
+
+[application]
+config/name="Neon Sovereign"
+run/main_scene="res://wyvern/animatic.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+renderer/rendering_method="forward_plus"
+environment/volumetric_fog/volume_size=96
+environment/volumetric_fog/volume_depth=64
