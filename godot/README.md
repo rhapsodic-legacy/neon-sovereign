@@ -21,3 +21,18 @@ godot --path godot -- --frame=34.5
 
 `wyvern/animatic.gd` holds the whole thing as text: shot timings, speech bubbles,
 Eddar's route, the lights and the mix. The TypeScript build in `src/` is untouched.
+
+## Combat sandbox (THE SET v2)
+
+Jesse's Solo bar design from the combat doc: turn-based commands, plus Solo bars that act
+automatically and pause whenever a menu is open. Pick an encounter, a difficulty and how far into
+the story Eddar is, then fight. Numbers are placeholders; balance comes later.
+
+```bash
+godot --path godot res://combat/sandbox.tscn
+godot --headless --path godot --script res://tests/test_battle.gd   # core checks
+```
+
+- `combat/battle.gd`: the battle core (no nodes), used by the sandbox and the tests
+- `combat/content.gd`: the party, the dock thugs and the Beast
+- `combat/sandbox.gd`: the sandbox screen
