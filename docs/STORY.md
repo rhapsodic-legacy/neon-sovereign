@@ -45,6 +45,12 @@ A washed-up glam-metal paladin and former legend, with a towering silver mane, b
 
 ### PRINCESS LYRA SOLARIS (23)
 Heir to the sky-capital Solara. She wears a gown of silver light and a starlight veil, and she's sharp, poised and political. She **falls in love with the letters "Rex" sends her**, which Eddar writes, and **she chooses the Hero of Legend.** She works out that Rex didn't write them, but not that Eddar did. She admires Rex's willingness to stand against impossible odds, even at the cost of his life, and finds it attractive. But whenever he opens his mouth ("doll" and the like), she turns to ice. She finds out too late whose words she fell for.
+- **Habit:** she blows her bangs out of her eyes. At some point the ever-direct Sable asks her about it:
+  - Sable: "Why don't you use a headband?"
+  - Lyra: "Guys like it."
+  - Sable, matter-of-fact: "You could get any man in the world. Why do you care what they like?"
+  - Lyra: "This is less risky than talking to a dude... and finding out they're like Rex the buffoon, or Eddar the brooding menace, or Grubb the buffoon because he doesn't realise Rex is a buffoon... you get the point."
+  - Sable, smirking at Lyra, who is smirking back: "Telling them to blow off works for me."
 
 ### MAESTRO NOCTURNE, the Great Evil
 - **Look:** tall, with a mirror-chrome featureless mask and a long black coat crawling with silent static. He conducts with a baton of black light. His soldiers, **the Hush**, are masked knights who carry the **Dirge** with them: where they march, every song in the area collapses into one low, endless funeral drone, colours drain, and people stand frozen like statues, mouths open as if mid-song. (Players *hear* an area being taken: the town theme literally decays into the Dirge.)
@@ -61,7 +67,7 @@ A Bene Gesserit-style order of sisters in red, with ink-stained hands and scarle
 ```
 EDDAR ──▶ ROXY ──▶ REX ──▶ LYRA ──▶ "the letters" (secretly EDDAR)
   ▲                                       
-  └──── SABLE (has loved him for years; they finally kiss at the Grand Ball, Act V)
+  └──── SABLE (has loved him for years; they finally kiss at the Last Dance, Act V)
 ```
 **It must not be obvious who Eddar ends up with.** Sable is the slow burn: glances, hands that brush, interruptions, and one near-kiss after another. Along the way the player can pursue real romantic tension with **Roxy** and with **Princess Lyra**, up to a kiss with either one (see "Romance paths" below). That's deliberate. It makes the game morally grey, because Lyra is Rex's princess and Roxy was Rex's girl, and it keeps the Sable build-up tense right up until the dance.
 Eddar starts out wanting Roxy, who loves Rex. Rex wants Lyra. Lyra loves the man in the letters, and that man is Eddar. Sable, the one person who has watched over him all along, is the one he finally sees.
@@ -69,11 +75,11 @@ Eddar starts out wanting Roxy, who loves Rex. Rex wants Lyra. Lyra loves the man
 ---
 
 ## Romance paths (player choice, built up across Acts I–III)
-Romance choices are made in camp scenes, side quests and key dialogue. **Bonds** track them (DESIGN.md §5.2). The main beats stay fixed: Sable is where the story lands at the Grand Ball, and Jesse's ending is canon. Before that, nothing is settled, and the player can go as far as a kiss.
+Romance choices are made in camp scenes, side quests and key dialogue. **Bonds** track them (DESIGN.md §5.2). The main beats stay fixed: Sable is where the story lands at the Last Dance, and Jesse's ending is canon. Before that, nothing is settled, and the player can go as far as a kiss.
 - **Roxy: "Always There."** The tension is about timing. She's into anyone but him, until she isn't. There's a late-night rooftop after her disastrous fling with Jack Cutlass (Act II) and a moment after the Siege of Solara when she finally *sees* him (Act III). If the player leans in, the **kiss** happens backstage in Act III, on the night her band plays for the refugees. It's wonderful, and it's too late, and both of them know it. It feeds her song in the epilogue.
 - **Lyra: "The Letters."** This is the morally grey path. She fell in love with the letters Eddar wrote, and she's promised to the Hero of Legend. From Act III on, she suspects the truth. There's a balcony scene in Solara where she quotes a line and he finishes it. The player can choose **a kiss in the ruined palace library** (Act III), which is a betrayal of Rex, of her crown and of Sable's quiet hope. Nobody else sees it. Rex never finds out, unless the player tells him in Act V. That changes Rex's goodbye and the epilogue.
-- **Sable: the slow burn.** Glances, sparring that runs a beat too long, a hand on the rail, interruptions, and her refusal to say what she is. It pays off at the Grand Ball (Act V).
-- **Consequences:** if you kissed Roxy or Lyra, Sable notices. Expect a short, devastatingly blunt exchange in Act III ("You kissed her. You're allowed. I'm not anyone's to be loyal to."), different Grand Ball glances, and changed epilogue slides. None of these paths blocks the main story. They change what it costs.
+- **Sable: the slow burn.** Glances, sparring that runs a beat too long, a hand on the rail, interruptions, and her refusal to say what she is. It pays off at the Last Dance (Act V).
+- **Consequences:** if you kissed Roxy or Lyra, Sable notices. Expect a short, devastatingly blunt exchange in Act III ("You kissed her. You're allowed. I'm not anyone's to be loyal to."), different Last Dance glances, and changed epilogue slides. None of these paths blocks the main story. They change what it costs.
 
 ## PROLOGUE — "Soundcheck" (≈1.5 h)
 
@@ -150,13 +156,16 @@ Romance choices are made in camp scenes, side quests and key dialogue. **Bonds**
 
 **Goal:** end Nocturne. End the war. And, as Eddar now believes, end the Canticle himself.
 
-- **The Grand Ball — First Hurdle complete (Jesse, 2026-11-04).** There's massive build-up. Roxy and another musician (to be named) play the Ball, and the player can help both with their songs. Roxy's is super high-octane; his is fun and catchy. The scene plays like FFVIII's dance scene. Rex is getting nowhere with Lyra, who is casually dancing with other men and women: anyone but him.
-  - Rex sees a man who looks just like Nocturne, but in a James Bond tuxedo and without the black aura. The man has Lyra's full, flirty attention. Rex walks over, angry. When he gets close, the man says: "Ah, just the Champion I wanted to see." Lyra rolls her eyes and blows her bangs out of her face.
-  - The man vanishes into smoke and reappears on the raised stage where the other musician just was. The lights drop to romantic and Nocturne's aura returns (he keeps the tuxedo). He talks about keeping his word: a deal is a deal. And when The End of the night comes, it's best to have lived in the moment. Free. (Freedom is a big thing for him.)
+- **The Last Dance (also called the Grand Ball) — First Hurdle complete (Jesse, 2026-11-04).** It's now in Act V. Everyone thinks they've lost: Nocturne, the Scion of Silence whom the Hero of Legend always defeats, is going to win. People are furious. Why on earth is Rex the champion? He could never have beaten Nocturne, even if he hadn't traded the scrolls. Thunderhorn insists on one night off anyway: a ball in the ruined Amplitude stadium for soldiers, refugees and the party. It's the game's epic set piece, with massive build-up, played like FFVIII's dance scene. The player moves around and talks to people throughout. The stage carries on whether or not the player watches.
+  - **Roxy opens.** Her song is the intro cutscene: super high-octane and mostly humorous, playing out as the player mingles. After it, she keeps playing other songs until a silent trigger.
+  - **Thunderhorn's "One Word."** At the first trigger, Roxy actually exits the stage and Thunderhorn walks on and says a few opening remarks. The player can still move around; it's all just seen and heard if they watch. Then he premieres his ballad. It's much more real: about everything these heroes have been through, everything every hero since the beginning of time has been through, and what all people go through. What's the meaning of it all? One word (love). It's a much longer cutscene, but it still finishes with the player interacting with people. It's also the song that plays over the credits. After it, he plays other songs until a second silent trigger.
+  - Rex is getting nowhere with Lyra, who is casually dancing with other men and women: anyone but him.
+  - At the second trigger, Rex sees a man who looks just like Nocturne, but in a James Bond tuxedo and without the black aura. The man has Lyra's full, flirty attention. Rex walks over, angry. When he gets close, the man says: "Ah, just the Champion I wanted to see." Lyra rolls her eyes and blows her bangs out of her face.
+  - The man vanishes into smoke and reappears on the raised stage where Thunderhorn just was. The lights drop to romantic and Nocturne's aura returns (he keeps the tuxedo). He talks about keeping his word: a deal is a deal. And when The End of the night comes, it's best to have lived in the moment. Free. (Freedom is a big thing for him.)
   - He sings something like "Unchained Melody". Black tendrils force Lyra and Rex into a slow dance, and everyone else falls into slow dances too; most don't even notice the new singer. The heroes see Nocturne and are uneasy at first, then start dancing with each other.
   - Sable, who hasn't spoken to Eddar since the reveal, sits on a bench. A couple of men approach to ask her to dance, and an unseen force humorously shoves them aside. Eddar approaches: "My dear..." Her eyes go wide, and she eagerly accepts his hand.
   - Dance and romance play out with the lyrics, and visions pass of the bigger, cosmic picture: Nocturne's song of love and living in the now is the space between the notes that makes the music.
-  - At the end, **Eddar kisses Sable.** **Lyra kisses Rex.** Any other romances that have come to a head kiss too.
+  - At the end, **Eddar kisses Sable.** **Lyra kisses Rex.** Any other romances that have come to a head kiss too. If the player kissed Roxy or Lyra earlier, that history is in the room: a look from Lyra across the floor. Roxy watches Eddar and Sable, and finally understands what she missed. The Ledger: *"Entry #2,977: She said yes. I am suspending the Ledger pending review."*
 - **The confrontation.** Later, Leagues, Lyra and others confront Rex: "All these people will die, because of you. You sold the scrolls to the Scion of Silence."
 - **The twist: the scrolls never mattered.** Not long after, Nocturne interrupts and hands the scrolls back. "The scrolls are meaningless. I did what I did to prove a point. Taken away from this madness that's plagued our whole world for countless generations... look what you did? Danced, kissed, you were free..." He looks to Leagues: "How did you come to think that the scrolls had any meaning to me, or to anything? Is it written in the Verses that the scrolls have great meaning? They're scrolls. Not even originals." He points at Eddar: "That boy destroyed the originals years ago." It's a role reversal. For once Rex's blunder has no negative consequence, and it shows that people considered wise, Leagues the archetypal Wise Man, can be egregiously wrong.
 - **Third Hurdle — Seduced by the Dark.** Eddar stops holding back. He crushes a Hush army with a single word. He walks into the Rubric Abbey alone and forces Mother Superior Carmine and the whole order to their knees, then burns the Breeding Codex with violet fire while the sisters weep. He's magnificent and terrifying, and he's winning. **His friends become afraid of him.** Thunderhorn stops calling him "kid." Roxy can't meet his eyes. Lyra keeps the party between Eddar and the civilians. Only Sable stays close, and even she flinches once, when he raises his hand too fast. He sees her flinch. (Unknown to anyone, Sable is pregnant.)
@@ -202,11 +211,10 @@ Eddar is lying in the cathedral as the Dirge dies away and colour comes back. Ev
 ---
 
 ## Open questions from the 4 Nov rewrite
-Jesse's betrayal and Grand Ball beats (2026-11-04) replace the old Act III betrayal (Lyra kidnapped and traded for the Verses), the Lyra rescue from Nocturne's ship, and the Act IV Last Dance. These older beats now need Jesse's call:
-- **Thunderhorn's "One Word" premiere** was the centrepiece of the Last Dance. Does it move to the Grand Ball, somewhere else, or only to the credits? Is Thunderhorn the other musician at the Ball?
+Jesse's betrayal (2026-11-04) replaces the old Act III betrayal (Lyra kidnapped and traded for the Verses) and the Lyra rescue from Nocturne's ship. The Last Dance moves from Act IV to Act V. These older beats need Jesse's call:
+- **Thunderhorn's missing word:** the cast entry and the Epilogue say he can't find the word all game and only finds "love" at Eddar's death, and then sings it over the credits. Does he sing "love" at the Last Dance, or hum where it should be?
 - **Sable's secret** currently comes out by halves in Act III. Jesse's outline has her membership of the order revealed with Eddar's truth in Act IV. Does the Act III half-confession stay?
 - **How Lyra joins the party** was the rescue from Nocturne's ship, which is now cut.
 - **The Siege of Solara** fell "without the Verses". It now just falls. Does it need a new cause?
 - **Verse count:** Act II still has Nocturne taking "the fifth Verse", and the old betrayal traded "four Verses". Jesse's beat says "both verses of the Canticle", which matches the Prologue (two verses).
 - **Nocturne quotes the Canticle's last page** in the Act V Reveal, after calling the scrolls meaningless. Does that line stay as is?
-
