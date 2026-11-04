@@ -78,10 +78,10 @@ He's not lucky. He's the end of the world.
 |---|---|---|---|
 | **Eddar Soipon** (19, protagonist) | Lean, sharp features, dark hair in his eyes, patched denim jacket, fingerless gloves, pencil behind ear, notebook; eyes flicker violet in anger; later a violet aura and floating debris | Dry, quick, under-the-breath wit; endlessly curious questions; kind to strangers; sharp to the powerful. **The Unfairness Ledger** (handwritten margin notes). | Resonance mage: Harmony vs. Dissonance. |
 | **Rex Valor** (22, Hero of Legend) | Huge, golden quiff, white leather jacket with gold pauldrons, lightning lance, poses with cape | Third person, catchphrases, jock bravado; sweet when he forgets to perform. "Nobody pushes Adder around but me." | Showboat charger/tank; Hype; late-game **Legend** form. |
-| **Sable** (25) | Tall and lithe: form-fitting black under long black trench-coat-like garments, a mask covering her whole face, long neon-silver hair left free; twin neon blade-staff; Rubric sigil hidden under the coat. Unnamed ("Woman in the Mask") until the player learns her name. Foreboding and mysterious, never a traditional antagonist | No filter, short declaratives, never lies but omits. | Stance monk; counters; guards Eddar. |
+| **Sable** (25) | Tall and lithe: form-fitting black under long black trench-coat-like garments, a mask covering her whole face, long neon-silver hair left free; no weapon (a sorceress of sorts; glossy black bodysuit, matte trench); Rubric sigil hidden under the coat. Unnamed ("Woman in the Mask") until the player learns her name. Foreboding and mysterious, never a traditional antagonist | No filter, short declaratives, never lies but omits. | Stance monk; counters; guards Eddar. |
 | **Roxy Vega** (21) | Red/black leather jacket, ripped tights, flame high-tops, ponytail that ignites, flame-red guitar-axe | Fast, sarcastic, big heart, temper; talks about her brothers; falls hard and loud. | Fire rocker; Heat gauge; meltdown solos. |
 | **Sir Vance Thunderhorn** (54) | Silver mane, battered chrome plate with lightning chest, flying-V axe, scarf, sunglasses at night | Power-ballad lyrics, stadium hype, sudden tenderness. **Quest: write one last soul-lifting ballad, "One Word"**, gathered from the journey; the peak of the chorus is missing one word ("love"), found at Eddar's death. | Bard-paladin; Set List → The Solo. |
-| **Princess Lyra Solaris** (23) | Silver-light gown, starlight veil, white-gold braid crown, mirror-parasol | Velvet court diction with blades; quotes "Rex's" letters. | Royal commander; spends gold; Decrees. |
+| **Princess Lyra Solaris** (23) | Red Tron-inspired bodysuit out in the world (silver-light gown and starlight veil for special occasions), white-gold braid crown, Tron-style throwing disc | Velvet court diction with blades; quotes "Rex's" letters. | Royal commander; spends gold; Decrees. |
 | **Maestro Nocturne** (villain, ~50) | Mirror-chrome mask, black coat of crawling static, baton of black light; unmasked: scarred, tired, handsome | Elegant, musical metaphors, honest; never lies. | Act II, V (×2) bosses. |
 | **Mother Superior Carmine** (Rubric) | Ancient, scarlet hood, ink-black hands, a quill-staff | Gentle certainty; terrifying calm. | Act IV boss. |
 | **Jack Cutlass** (pirate captain) | Eyepatch with neon iris, airship captain's coat, cutlass with a tape-deck hilt | Swagger. | Act II rival/boss/ally. |
@@ -177,7 +177,7 @@ He's not lucky. He's the end of the world.
 | **Sable** | **Stance** (Still / Flow / Storm) + Breath | Stance swaps rewrite her moves: counters & parry / evasion & multi-hit / big damage no defence. **Plain Truth** strips buffs. | Guards Eddar: counters any attack aimed at him. Unfiltered: no debuffs, only direct answers. |
 | **Roxy** | **Heat** (0–100; rises when she's hit or a friend is) | Fast striker; consecutive-turn combos; 100 Heat → **Meltdown Solo** (huge fire AoE, then Burnt Out). Vent heat to one target. | Temper = power. Heat rises fastest when *Rex* is hit (Acts I–II), later when *Eddar* is (Act IV+) — her heart, shown mechanically. |
 | **Thunderhorn** | **Set List** (queue songs; 4th = **The Solo**) | Ballads heal, Anthems buff, Shred damages, Feedback debuffs; order changes the Solo. **"One Word" verses** found through the story unlock new Solo variants; the finished ballad (final fight) is his ultimate. | Lost voice: Solo can **miss the high note** until his Act III moment, then never again. |
-| **Lyra** (joins Act III) | **Treasury** (party gold) | **Decree** (ally takes an extra turn now), **Bribe** (enemy skips/leaves; cost scales), **Royal Guard** summon, **Mirror Parasol** reflect. | Rich and political; pays for power. Decree on Rex +50% (love). |
+| **Lyra** (joins Act III) | **Treasury** (party gold) | **Decree** (ally takes an extra turn now), **Bribe** (enemy skips/leaves; cost scales), **Royal Guard** summon, **Mirror Disc** reflect. | Rich and political; pays for power. Decree on Rex +50% (love). |
 | **Guests** | Jack Cutlass (Act II), Mama Dee (Prologue cameo) | | |
 
 ### 6.2b Chakra energy (Jesse, 2026-11-04)
@@ -227,7 +227,7 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - **Mixtapes** (skill boards): cassette-shaped, A-side/B-side branches, ~40 nodes; cost **Tracks** from battle. Eddar's Mixtape has a **Harmony side** and a **Dissonance side**.
 - Gear: Weapon, Armor (jacket/robe/plate), Accessory, **Charm** (upside + downside).
 - Items: Cola / Diet Cola / Turbo Cola (HP), Glowstick (MP), **1-Up** (revive), Static Filter (cure Glitch/Mute), Earplugs (resist Stilled), Flash Bomb, Mirror Ball, Mixtape (camp rest).
-- Weapons (8 tiers + ultimate each): Eddar: Mop → **"The Ledger"** (a floating notebook that cuts like a blade); Rex: Volt Lance → **"Lance of Legend"**; Sable: twin-staff → **"Dusk & Dawn"**; Roxy: Flame Guitar → **"Wildfire"**; Thunderhorn: Flying-V → **"The High Note"**; Lyra: Parasol → **"Solara's Heart"**.
+- Weapons (8 tiers + ultimate each): Eddar: Mop → **"The Ledger"** (a floating notebook that cuts like a blade); Rex: Volt Lance → **"Lance of Legend"**; Sable: no weapon, ever (sorcery; her upgrade path is TBD); Roxy: Flame Guitar → **"Wildfire"**; Thunderhorn: Flying-V → **"The High Note"**; Lyra: Throwing Disc → **"Solara's Heart"**.
 - Currency: **Tokens**. Shops: pawnshop, smith, tailor, record store (songs/spells), Cola stands.
 
 ---
@@ -269,7 +269,7 @@ Prologue: magenta/cyan neon on night sea. Act I: purple-orange desert, gold casi
 Neon slash arcs with hitstop; Roxy's flames + ember + heat shimmer and Meltdown fire ring; Rex's procedural lightning lance and charge glow; Thunderhorn's equalizer bars and sound rings, lighter flames on The Solo; Sable's afterimage dashes; Lyra's arcing gold coins and mirror shimmer; **Hush** = colour drains from the hit area, audio muffles, crack-of-silence; **Eddar Harmony** = soft white-violet rings, floating debris, slow-motion lift; **Eddar Dissonance** = violet lightning, chromatic tearing, screen-shake, debris orbit; **Da Capo** = time-reverse effect, white light, petals of paper with red ink turning black. Damage numbers in arcade pixel font; "BREAK!" neon sign flicker.
 
 ### 8.6 Animation
-FFVII+: idles, walk/run, wind-ups, hit reacts, KOs, unique victory poses (Eddar jots in the Ledger and pockets the pencil; Rex flexes and points at camera; Sable bows; Roxy power-chord with flaming hair; Thunderhorn knee-slide; Lyra opens parasol and sighs at gold spent).
+FFVII+: idles, walk/run, wind-ups, hit reacts, KOs, unique victory poses (Eddar jots in the Ledger and pockets the pencil; Rex flexes and points at camera; Sable bows; Roxy power-chord with flaming hair; Thunderhorn knee-slide; Lyra catches her returning disc and sighs at gold spent).
 
 ---
 

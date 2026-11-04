@@ -30,7 +30,7 @@ Halcyon has a lot of neon, and nobody has ever been free. Nobody has noticed tha
 - **New:** the Rubric names Rex **the Hero of Legend**, and he is spectacularly bad at it. He's vain, he chases women, he parties, he shows up hungover to destiny, and he'd rather win the princess than save the world. Underneath all that is a guy who's terrified of not being enough, and who only ever had one person he could be honest with: the kid he bullies.
 
 ### SABLE, the ronin monk (25)
-She arrives in town on a black light-cycle, wearing monk's wraps, a black visor and cropped silver hair, with a staff that splits into twin neon blades. She has no filter: "You're staring. Either say something or stop."
+She arrives in town on a black light-cycle, in a glossy black bodysuit under a matte black trench coat, with long white-silver hair. She's a sorceress of sorts and carries no weapon, ever. She has no filter: "You're staring. Either say something or stop."
 - **Secret:** she's a **Rubric sister**. She survived the day Eddar, at six, destroyed the temple she was a novice in. For thirteen years she has been his secret watcher, ordered to report on him and to "silence" him if he ever woke up. She has never told him any of this. She has also never filed a report that wasn't a lie to protect him.
 - She officially comes to Solace Bay to escort the Hero of Legend. Unofficially, she's there because Eddar's power is waking up.
 
@@ -44,7 +44,7 @@ A washed-up glam-metal paladin and former legend, with a towering silver mane, b
 - **His quest: one last ballad.** Thunderhorn has spent fifteen years trying to write **the one** — a mega, soul-lifting power ballad that will make a stadium of strangers hold hands. He scribbles lyrics on napkins, armor plates, and other people's maps. He gathers it from the journey: a line from Roxy's fight, a chord from the Reef, a verse from watching Eddar and Sable on the deck. **The ballad is missing one word** at the peak of the chorus. He can't find it all game. (It's "love." He finds it at Eddar's death — see the Epilogue.) When he premieres the ballad at the Last Dance, he still doesn't know it, but each time he goes to sing the word, something visual fills the screen, such as two people kissing or other acts of love, so the viewer knows what it is.
 
 ### PRINCESS LYRA SOLARIS (23)
-Heir to the sky-capital Solara. She wears a gown of silver light and a starlight veil, and she's sharp, poised and political. She **falls in love with the letters "Rex" sends her**, which Eddar writes, and **she chooses the Hero of Legend.** She works out that Rex didn't write them, but not that Eddar did. She admires Rex's willingness to stand against impossible odds, even at the cost of his life, and finds it attractive. But whenever he opens his mouth ("doll" and the like), she turns to ice. She finds out too late whose words she fell for.
+Heir to the sky-capital Solara. She's sharp, poised and political. Out in the world she wears a red, Tron-inspired bodysuit, because she likes the attention, and fights with a throwing disc (also Tron-inspired). Her gown of silver light and starlight veil are for special occasions only. She **falls in love with the letters "Rex" sends her**, which Eddar writes, and **she chooses the Hero of Legend.** She works out that Rex didn't write them, but not that Eddar did. She admires Rex's willingness to stand against impossible odds, even at the cost of his life, and finds it attractive. But whenever he opens his mouth ("doll" and the like), she turns to ice. She finds out too late whose words she fell for.
 - **Habit:** she blows her bangs out of her eyes. At some point the ever-direct Sable asks her about it:
   - Sable: "Why don't you use a headband?"
   - Lyra: "Guys like it."
@@ -139,7 +139,7 @@ Romance choices are made in camp scenes, side quests and key dialogue. **Bonds**
 - **Sable's secret comes out.** Eddar asks her where he was born. She tells him half: she's a Rubric sister, assigned to watch him since he was six, and ordered to "silence" him if he ever woke up. She tells him she lied in every report to keep him safe. He believes her, and it still breaks something. **She doesn't tell him what happened when he was six.** She can't make herself say it.
 - **The Siege of Solara.** Solara falls to the Hush. In a stunning set piece, Eddar holds a collapsing airship dock in the air with his mind while civilians escape, and he nearly dies doing it. Thunderhorn finally hits the high note to bring Eddar back from the edge, and it's the best moment of his life. That night he writes the ballad's second verse. Roxy fights beside Eddar the whole way, and starts to see him.
 - **Lyra joins the party.** On the escape, she reads a note in Eddar's handwriting and goes very quiet. She doesn't say anything yet.
-- **Act end:** the Rubric arrive with an armada of red-sailed ships to "reclaim the instrument." They mean Eddar. Sable draws her blades on her own order.
+- **Act end:** the Rubric arrive with an armada of red-sailed ships to "reclaim the instrument." They mean Eddar. Sable turns her power on her own order.
 
 ## ACT IV — "Dissonance" (≈7 h)
 
