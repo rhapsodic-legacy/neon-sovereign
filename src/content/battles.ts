@@ -38,11 +38,11 @@ const units: UnitDef[] = [
   { id: 'eddar', name: 'Eddar', model: 'eddar', side: 'party', hp: 130, atk: 8, def: 4, spd: 11, skills: ['lid_bash', 'read', 'lift', 'patch', 'defend'] },
   { id: 'rex', name: 'Rex', model: 'rex', side: 'party', hp: 240, atk: 15, def: 9, spd: 9, skills: ['strike', 'charge', 'showboat', 'defend'], traits: ['big_brother'] },
   { id: 'roxy', name: 'Roxy', model: 'roxy', side: 'party', hp: 160, atk: 13, def: 5, spd: 13, skills: ['axe_riff', 'meltdown', 'defend'], traits: ['heat'] },
-  { id: 'vinnie', name: 'Vinnie', model: 'vinnie', side: 'enemy', hp: 140, atk: 12, def: 4, spd: 10, skills: [], ai: ['jab', 'wind_up', 'jab'],
+  { id: 'vinnie', name: 'Vinnie', model: 'vinnie', side: 'enemy', hp: 140, atk: 14, def: 4, spd: 10, skills: [], ai: ['jab', 'wind_up', 'jab'],
     breakMax: 60, weakness: 'Hates being interrupted', readNote: 'He breathes before he swings. When he winds up, the next blow is heavy. Lift him off his feet first.' },
-  { id: 'brick', name: 'Brick', model: 'brick', side: 'enemy', hp: 180, atk: 12, def: 8, spd: 8, skills: [], ai: ['shove', 'shove', 'jab'],
+  { id: 'brick', name: 'Brick', model: 'brick', side: 'enemy', hp: 180, atk: 14, def: 8, spd: 8, skills: [], ai: ['shove', 'shove', 'jab'],
     breakMax: 70, weakness: 'Slow. Big hits break him', readNote: 'A wall with opinions. He goes for whoever looks weakest, which is, regrettably, me.' },
-  { id: 'moss', name: 'Moss', model: 'moss', side: 'enemy', hp: 100, atk: 11, def: 3, spd: 12, skills: [], ai: ['hook_swipe', 'hook_swipe', 'jab'],
+  { id: 'moss', name: 'Moss', model: 'moss', side: 'enemy', hp: 100, atk: 13, def: 3, spd: 12, skills: [], ai: ['hook_swipe', 'hook_swipe', 'jab'],
     breakMax: 40, weakness: 'Fragile', readNote: 'Quick hands, glass jaw. The hook is for show; the show is for him.' },
   { id: 'bellshell', name: 'Bellshell', model: 'bellshell', side: 'enemy', hp: 1300, atk: 28, def: 10, spd: 9, skills: [], ai: ['pinch', 'rear', 'shell_ram', 'pinch', 'rear'],
     breakMax: 140, weakness: 'Soft underside while rearing',
@@ -57,8 +57,7 @@ export const dockCrew: BattleDef = {
   party: ['eddar', 'rex'],
   enemies: ['vinnie', 'brick', 'moss'],
   // The tutorial must be winnable by mashing; reading and lifting should make it clean.
-  // Jesse's 0.3 playtest: it felt harder than the boss, so the crew hit softer now.
-  bands: { smart: [0.95, 1], attack: [0.9, 1], random: [0.1, 0.5] },
+  bands: { smart: [0.95, 1], attack: [0.85, 1], random: [0, 0.4] },
   flag: 'p.dock_fight_won',
   after: 'prologue.after_dock_fight',
   barks: {
