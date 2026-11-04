@@ -35,7 +35,7 @@ She arrives in town on a black light-cycle, wearing monk's wraps, a black visor 
 - She officially comes to Solace Bay to escort the Hero of Legend. Unofficially, she's there because Eddar's power is waking up.
 
 ### ROXANNE "ROXY" VEGA (21)
-- **Look:** red-and-black leather jacket, ripped tights, flame-wheeled roller skates, and a big 80s side-ponytail that **literally ignites** when she's angry. She plays a flame-red guitar that's also a weapon.
+- **Look:** red-and-black leather jacket, ripped tights, flame-pattern high-top sneakers (never roller skates), and a big 80s ponytail that **literally ignites** when she's angry. She plays a flame-red guitar that's also a weapon.
 - **Fixed motivation:** she's the frontwoman of **Roxy & the Wildfires**, a bar band with a real shot at greatness. Since her dad left, she has been sending half of every paycheck home to her mom and three little brothers. She has no patience because she has never had time for any. She's *not* entitled. She's exhausted, ambitious and fiercely loyal, and she's the one who stands up for Eddar when Rex isn't around.
 - **Why "anyone but him":** Roxy falls for drama: the dangerous, the loud, the guys who might wreck her. First Rex, then a pirate airship captain, then Thunderhorn's swaggering former bassist. Eddar is "the one guy who's always there," which to Roxy means family, not romance. She only understands what that meant too late, and she writes the song for his funeral.
 
