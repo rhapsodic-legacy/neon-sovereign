@@ -1,0 +1,256 @@
+# PROLOGUE — "Soundcheck", part 3: the Champion, the song, the screams and the Bellshell.
+# Canon: the storyboard doc (v2). No Hush and no Nocturne anywhere in the prologue: the threat tonight is maddened monsters.
+# Leagues Soprano speaks grand, rhythmic and slightly too loud, like a sermon at a jazz club.
+
+@scene prologue.champion
+# PLOT: Mama Dee tries to throw out the freeloader; Leagues names Rex the Champion of All Peoples, then plays "Burn Forever" and tells the Canticle.
+# CHARACTER: Rex's delight; the room's disbelief; Roxy's "No offence, Eddar"; Eddar's grace in being overlooked. The prophecy is shown, never announced.
+@bgm wyvern_soundcheck
+@cam focus leagues
+NARRATOR: Back inside. Mama Dee stands over the corner booth, arms folded.
+MAMA DEE [angry]: Last time, sugar. You buy a drink, or you walk.
+STRANGER: I do not drink. I listen.
+MAMA DEE: Listening's a two-drink minimum.
+STRANGER: Then I shall listen for free.
+MAMA DEE: Rex, honey. Throw this freeloader out.
+REX [smug]: On it.
+@cmd move_npc rex 4.7 1.4
+NARRATOR: He cracks his knuckles and slides across the floor like he's on rails.
+@sfx organ
+@fx eye_flash leagues
+@cam shake
+NARRATOR: The stranger rises. His eyes blaze white, and from nowhere comes one low organ chord. The whole bar hears it.
+STRANGER: You.
+REX: ...Me?
+STRANGER: The pauldron. The jaw. The terrible, magnificent hair. It is you. The Champion of All Peoples. The Hero of Legend, as the Canticle calls him.
+REX: ...I'm the Hero of Champions?
+STRANGER: It is you, and it can be no one else. You are the great One, the Champion of All Peoples, the Hero of Legend that the Canticle foretold millennia ago!
+REX [smile]: Whoa, whoa, whoa. Finally, somebody says it.
+@cam focus gil
+GIL: How much did he pay you, pal?
+MAMA DEE: Rex Valor, if you hired a mime to flatter you in my bar, you're paying his tab.
+REX: Rex didn't hire nobody! ...Rex should've, though. This is great.
+REX [smug]: Hero of All Champions, Adder. Of ALL of 'em. Princesses dig champions, right? That's like the main thing they dig.
+EDDAR: In every story I've read, yes. Though seldom for long.
+@cam focus spike
+SPIKE: Saving the world. From what, his reflection?
+LULU: Is it like the festival? Does he have to punch a meteor?
+@cam focus roxy
+ROXY [angry]: Oh, PLEASE. Rex? Champion of All Peoples? Eddar makes a more believable champion than Rex, sheesh. No offence, Eddar.
+EDDAR: None taken. A champion is the one man a frightened world agrees to stand behind. I'd make a poor wall, Roxy. Rex at least has the width.
+@cam focus leagues
+? "You told me to piss off." -> told {if:seen.prologue.leagues>=2}
+? Say nothing. -> song
+* told
+EDDAR: You told me to piss off.
+STRANGER: I did. You didn't. Remember that.
+* song
+STRANGER: You doubt. Good. Doubt is a rest in the music. It makes the next note louder.
+@flag p.leagues_song
+@cmd move_npc leagues 4.6 0.6
+@cmd move_npc leagues 4.6 -1.1
+@cmd move_npc leagues 7.2 -1.1
+NARRATOR: He lifts the spare guitar off the wall.
+MAMA DEE [angry]: That's decorative!
+@cmd move_npc leagues 1.6 -2.8
+@cmd move_npc leagues 1.6 -3.9
+NARRATOR: He walks on stage, plugs into Roxy's amp, the one Eddar punched, and plays.
+@bgm burn_forever
+@fx gold_threads leagues
+@cam focus roxy
+NARRATOR: It's something no one in Solace Bay has ever heard: a jazz-cathedral guitar line that bends time. Light pours off him in gold threads and finds Spike, Lulu and Roxy.
+@fx eye_flash band
+NARRATOR: Their eyes flash white. Spike's bass drops in, then Lulu's drums, then Roxy screams into a second lead line that answers his. The Wildfires become something enormous.
+@fx vision on
+@card The Canticle of Life, Verse 1 of 2
+NARRATOR: Red ink on endless scrolls. A city of bells. A crowd singing at sunrise.
+STRANGER [vo]: Before the first city, there was the first song, and every living thing was a verse of it. The Rubric wrote it down in red and called it the Canticle.
+STRANGER [vo]: And the Canticle says that when the music thins, when the birds forget their tunes and the sea forgets its rhythm, the Scion of Silence will come walking.
+NARRATOR: A black stain of quiet creeps across a map. The birds fall still.
+STRANGER [vo]: Not an army. Not a storm. A quiet that eats the song from the inside. Steel cannot cut it. Prayer cannot reach it.
+STRANGER [vo]: Only one hand may still it: the Champion of All Peoples, the Hero of Legend, named when the Silence wakes.
+STRANGER [vo]: So it has been since the world and its lifeblood, the music, began. The Silence rises. The Champion answers. The Champion prevails. Always.
+STRANGER [vo]: In every age, the people forgot. They made a party of it, and called it Save the World. And in every age, the Silence came back, to see whether they still meant it.
+@fx vision off
+@fx gold_threads off
+@sfx big_chord
+@cam shake
+NARRATOR: The song ends on a chord that rattles every bottle in the bar. Silence. Then the whole room cheers, even Mama Dee.
+@sfx cheer
+@bgm wyvern_live
+@cam focus roxy
+@emote roxy fire
+ROXY [smile]: THAT. That was "Burn Forever"! I wrote that LAST NIGHT, on a napkin, in the bath... never mind where.
+ROXY [smile]: It needs TWO lead guitars. We only have one. It was IMPOSSIBLE, and you just FINISHED it, Leagues guy!
+LEAGUES: Leagues Soprano.
+ROXY: How do I write a song last night that only becomes possible tonight? That's MAGIC.
+LEAGUES: Not magic at all. Prophecy. The Canticle tells that a Soprano would open the way for the One to see who he is. Your song was the door, Miss Vega. I only turned the handle.
+ROXY [smile]: Okay, the Rex part is still a joke. But play the heat with us. Please. Please, please, please. My hair's doing it again, I'm so excited.
+@emote roxy fire
+NARRATOR: Her hair is indeed on fire, but in a happy way.
+LEAGUES: I would be honoured. But I must go before the bells. I'll meet you there.
+REX [smug]: The Hero of All Peoples. Say it again, robe guy. Slower.
+MAMA DEE [angry]: It's Hero of LEGEND, you fool!
+LEDGER: Entry #2,208: Tonight, Rex Valor was named the Hero of all the world. I wrote his love letters this evening. I suppose I'll write his legend too, and sign it with his name.
+@flag p.champion
+@end
+
+@scene prologue.screams
+# PLOT: Monsters off the docks; a masked woman walks in and looks at Eddar first; Leagues bows to her; the Bellshell breaks through the front window, and the trio choose to stand.
+# CHARACTER: The masked woman's cold certainty; Rex's oblivious claim; real terror, then love, before any flair. Nobody here is a hero yet.
+@sfx scream
+@bgm monster_pulse
+NARRATOR: Outside, a scream, then many. Something howls like feedback through a broken speaker. The room tone drains away, and a low, uneasy pulse replaces it.
+VOICE: Monsters! They're coming off the docks!
+@sfx door
+@flag p.sable_in
+@cmd enter_npc sable front
+@cam focus sable
+NARRATOR: The front door swings open. A woman walks in: tall, lithe, in spray-on black under a long black trench that moves like smoke.
+NARRATOR: A mask covers her whole face. Her hair doesn't hide at all. It falls down her back, long and neon-silver.
+NARRATOR: She looks at only one person in the room: Eddar.
+MASK: So you're the One? The One who'll save all peoples? Let's see, Champion.
+REX [smug]: This dweeb? Ha! No, lady with a mask on. I'm the Champion of Champions, the Hero of Princess's hearts.
+@cam focus leagues
+LEAGUES: The Champion of All Peoples. The Hero of Legend.
+NARRATOR: The mysterious man with a symphony of notes on his moth-eaten coat bows dramatically at the woman in the mask.
+NARRATOR: She gives him the smallest nod in return, and pays him no further attention.
+@cam focus mama_dee
+MAMA DEE [angry]: Everybody in the back! Now! Gil, put down the beer. ...Fine, bring the beer, just MOVE.
+@cmd exit_npc mama_dee left
+@cmd exit_npc gil left
+@cmd exit_npc spike left
+@cmd exit_npc lulu left
+@cmd exit_npc dwayne left
+@cmd exit_npc superfan left
+@cmd exit_npc kings_fan left
+@cmd exit_npc tammy_dad left
+@flag p.screams
+@cam focus roxy
+@emote roxy fire
+NARRATOR: Roxy rips her flying-V from its case. Its headstock is an axe blade.
+ROXY [angry]: Nobody wrecks my heat night. NOBODY.
+@cam focus sable
+NARRATOR: The masked woman turns her head, slowly, to Rex.
+MASK: You're... the one?
+REX [smug]: You got it, doll.
+MASK: This is... irrelevant. People won't save themselves. Get to it, champions.
+@cmd exit_npc sable front
+@flag p.sable_gone
+@flag p.leagues_gone
+NARRATOR: She's gone. When Eddar looks back at the stage, so is the man in the moth-eaten coat. The alley door is still swinging.
+EDDAR: Champions, she said. Plural.
+REX [smug]: She meant me twice.
+ROXY [angry]: Did that girl just walk into my venue and BOSS me?
+EDDAR: Mama Dee's venue.
+ROXY [angry]: NOT THE POINT, EDDAR.
+@sfx crab_clang
+@cam shake
+NARRATOR: The front window bows inward.
+@sfx glass
+@fx shatter window
+@flag p.bellshell_in
+@cmd enter_npc bellshell window
+@cam focus bellshell
+NARRATOR: Then it bursts. A crab the size of a car drags itself through the glass. Its shell is shaped like a ship's bell, cracked down one side, and it clangs with every step.
+@emote bellshell rear
+EDDAR [scared]: WHAT THE?! Gaaaaaaaah!
+@cmd move_player -2.0 -0.8
+NARRATOR: Eddar runs for the back, after everyone else.
+@cmd move_npc roxy -2.6 -1.2
+ROXY [scared]: MAMA DEEEEEE! I'm coming!
+@cam focus rex
+@cmd move_npc rex 3.0 1.4
+REX [angry]: I'm the Champion of Heroes! Rex doesn't run!
+NARRATOR: Rex plants his feet in front of the crab. Alone.
+@emote bellshell settle
+@cam focus roxy
+NARRATOR: Eddar and Roxy stop. They look at each other.
+ROXY [scared]: What is that moron doing? I can't... I can't let him face that thing alone.
+ROXY: I want you to know, I think you're cute. A loser. But cute.
+NARRATOR: She wipes away a tear.
+ROXY: Can't hold that over me when I'm dead.
+@cmd move_npc roxy 3.8 0.6
+NARRATOR: She runs back to Rex.
+NARRATOR: Eddar nods to no one, and grabs a mic stand.
+EDDAR [scared]: I... uh... Well. We're about to go into the undiscovered country.
+EDDAR: Roxy. Rex. I love you. Just know that.
+@cam focus rex
+@cmd move_player 2.1 1.1
+NARRATOR: He takes his place beside Rex.
+ROXY: Love you too, hon.
+REX: The Hero of All Champions loves you both. A lot.
+@sfx crab_clang
+@emote bellshell rear
+@cam shake
+NARRATOR: The Bellshell lunges.
+@join roxy
+@battle bellshell
+@end
+
+@scene prologue.bellshell_mercy
+# PLOT: The fight ends in mercy: Roxy's furious chord rings true by accident, and the Bellshell answers and goes home to the sea. The trio are alive, and they can't quite believe it.
+# CHARACTER: Rex claims the win with shaking hands; Roxy's tenderness snaps back into armour; Eddar gives the credit away; Rex takes the lead.
+@cam focus bellshell
+@sfx crab_clang
+NARRATOR: The Bellshell pins Roxy against the stage, its cracked bell clanging inches from her face.
+ROXY [angry]: Fine! You want NOISE? HERE'S NOISE!
+@sfx big_chord
+@emote roxy fire
+NARRATOR: Roxy slams her guitar in pure fury, and one clean chord rings out.
+@sfx bell_true
+@emote bellshell calm
+NARRATOR: The Bellshell stops. Its cracked bell answers with a single true note. It backs out through the broken window and scuttles toward the sea.
+@cmd exit_npc bellshell front
+@flag p.bellshell_gone
+@cam focus rex
+REX: Wait... I did it? I beat that giant bell crab thing? I really am the Champion of All Songs...
+NARRATOR: Roxy pats him on the back.
+ROXY: Your hands are shaking.
+REX: I'm just loosening them.
+NARRATOR: He turns away.
+EDDAR: Great job, guys. We live to see another day, thanks to Roxy. And Rex.
+@cam focus roxy
+ROXY [smile]: And you. You've got something in you, kid.
+EDDAR: You mean cutie...
+ROXY [angry]: SHUT UP, LOSER!
+@cam focus rex
+REX [smile]: Yeah! ...Let's go grab Mama Dee.
+@cmd move_npc rex 0.0 -1.0
+@card END OF BUILD 0.3 — THE SIDE ROOM, THE STAIRS AND THE MAIN DRAG COME NEXT
+@end
+
+@scene prologue.bellshell_look
+# CHARACTER: Eddar faced with something that should not exist.
+EDDAR [scared]: It's the size of a car. It's shaped like a bell. Neither of those things should be true of a crab.
+@end
+
+@scene prologue.rex_after
+# CHARACTER: Rex, newly named, insufferable and still a little bit decent.
+@if seen.prologue.rex_after>=1
+REX [smug]: Champion of All Peoples. Champion of All... Rex is gonna need a bigger pauldron.
+EDDAR: And a smaller head, but one miracle at a time.
+@end
+@endif
+REX [smile]: You see that, Adder? Rex walks in, monster walks out. That's what champions do. It's in the Canticle. Probably.
+EDDAR: It's in the Canticle that the monster left. The Canticle is unclear on whose chord it was.
+REX: Rex's chord. Spiritually.
+@end
+
+@scene prologue.roxy_after
+# CHARACTER: Roxy shaken and thrilled at once; the fire and the fear under it.
+@if seen.prologue.roxy_after>=1
+ROXY: Spike and Lulu are in the back with Mama Dee. Mikey's at home with the twins. He's fine. He's FINE. He has the boots.
+EDDAR: He has the boots, and a sister who just out-shouted a bell the size of a car. He's the safest boy in the Bay.
+@end
+@endif
+@emote roxy fire
+ROXY [angry]: It wrecked the WINDOW, Eddar. On HEAT NIGHT. If Velvet Kane shows up and the place looks like a shipwreck, I am going to fight the ocean.
+EDDAR: I'd back you, Roxy. The ocean's never once been in a fight with you.
+@end
+
+@scene prologue.sable
+# CHARACTER: The masked woman doesn't make small talk, and Eddar notices.
+MASK: ...
+EDDAR: She looks at me the way one reads a sentence twice, to be sure of its meaning.
+@end

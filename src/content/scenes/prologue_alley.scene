@@ -1,0 +1,177 @@
+# PROLOGUE — "Soundcheck", part 2: the alley behind the Pink Wyvern, and the first fight.
+# Canon: the storyboard doc (v2). Rex is a Danny Zuko greaser: "Whoa, whoa, whoa", "dweeb", "doll", third person when impressed.
+# Objectives come from src/content/objectives.ts; repeat examines branch on seen.<scene id>.
+
+@scene prologue.the_letter
+# PLOT: The Cyrano letters (Rex can't read), Rex's "only I bully Adder" code, and the dock crew's grudge that starts the first fight.
+# CHARACTER: Rex's ego and buried decency; Eddar's talent, wit and quiet nerve when he climbs out of the bin to stand beside him.
+@bgm alley_rex
+@cam focus rex
+NARRATOR: Fryer steam and sea salt. Rex Valor leans on the dumpster like it owes him rent, combing his pompadour. Grubb holds the mirror.
+REX [smug]: Whoa, whoa, whoa. Adder. My man. My scribe. My little pencil.
+EDDAR: Rex. In an alley, of your own free will. Has the boardwalk run out of mirrors?
+REX: Rex goes where Rex is needed, dweeb. And tonight Rex needs a letter.
+GRUBB: Rex needs a letter!
+REX: Thanks, Grubb.
+NARRATOR: The comb pauses.
+REX [smug]: Princess Lyra. Solara. Sky city. Hair like a sunset on a Tuesday. When I win the Great Fracas, she's gonna have a letter from me in her hand.
+REX: Which is soon. Any day now. So. Pencil out. "Dear Princess. You're hot."
+EDDAR: A noble opening. Brief, like a lightning strike, and about as subtle.
+? Write it beautifully. -> beautiful {harmony:+1}
+? Write it beautifully, with one small joke at Rex's expense. -> joke {bond_rex:-1}
+? Write exactly what he said. -> literal {bond_rex:-2}
+* literal
+EDDAR: "Dear Princess. You're hot." Signed, Rex. Shall I read it back?
+REX: ...
+REX [hurt]: Adder. Rex pays you three tokens a letter 'cause Rex is a GENEROUS LEGEND, not 'cause he wants to sound like Grubb.
+GRUBB: Hey.
+REX: Do it right, dweeb.
+@goto beautiful
+* joke
+@flag p.joke
+EDDAR: Writing. "...and though I am but a humble jouster, with hair no mortal comb has ever tamed..."
+REX [smile]: Ha! That's good. That's true. Keep that.
+* beautiful
+EDDAR: "Princess. They say the sky above Solara never truly darkens, that your towers hold the last of every sunset like a held breath."
+EDDAR: "I have never seen it. Yet I think I know the feeling, for there are people who enter a room, and the night forgets itself."
+GRUBB: ...Whoa.
+REX [hurt]: ...Yeah. Yeah, that's what Rex meant. Seal it, Adder. Rex's eyes are tired.
+@sfx coins
+@set tokens += 4
+@set bond_rex += 1
+NARRATOR: He pays four tokens. Then he lifts Eddar by the jacket, one-handed, and posts him into the trash barrel like a letter.
+@sfx barrel
+@cam shake
+EDDAR: Ah. The traditional postage.
+REX [smug]: Can't break tradition on festival night, Adder. Bad luck.
+@flag p.vinnie_in
+@cam focus vinnie
+VINNIE: HA! Look at mop boy! In the BIN, where he LIVES!
+NARRATOR: Rex turns. Slowly. He snaps the comb shut.
+REX: Hey.
+REX [angry]: Hey. Nobody pushes Adder around but me.
+@sfx punch
+@cam shake
+NARRATOR: One punch. Vinnie is suddenly lying down, elsewhere, reconsidering his life.
+REX [smug]: You're welcome, dweeb.
+GRUBB: You're welcome, dweeb!
+@flag p.letter_done
+@flag p.crew_in
+@cam focus vinnie
+NARRATOR: Vinnie staggers up. Behind him, two more dockworkers fill the alley mouth: Brick, who is a wall, and Moss, who carries a hook for some reason.
+VINNIE [angry]: Big man with a pauldron. Let's see you do that to three of us.
+REX [smug]: Whoa, whoa, whoa. Three? On the Valor? That's not a fight, that's a fan club.
+GRUBB: I'll... hold your drink, Rex!
+@cmd exit_npc grubb back
+@flag p.grubb_fled
+NARRATOR: Grubb flees, holding no drink.
+@sfx clunk
+NARRATOR: The barrel lid clangs. Eddar climbs out, picks a dented trash-can lid off the cobbles, and holds it like a shield.
+EDDAR: I'd counsel peace, gentlemen. But I see your minds are made, and the alley, alas, is narrow.
+REX: Adder? Get back in the bin, I got this.
+EDDAR: You've got two of them, Rex. I'll keep the third from your back. It's only arithmetic.
+@battle dock_crew
+@end
+
+@scene prologue.after_dock_fight
+# PLOT: The crew flees; Rex heads inside first, and the player walks Eddar back in under their own steam.
+# CHARACTER: Rex's backhanded respect; Eddar's grace and his ache, in the Ledger.
+@bgm alley_rex
+VINNIE [angry]: This ain't over, mop boy!
+EDDAR: It rarely is, Vinnie. That's the tragedy of it.
+@cmd exit_npc vinnie back
+@cmd exit_npc brick back
+@cmd exit_npc moss back
+@flag p.crew_fled
+@sfx coins
+@set tokens += 6
+REX [smile]: Not bad, Adder. You hit like a librarian, but you hit like a smart librarian.
+EDDAR: High praise, from a man who's never met one.
+REX [smug]: C'mon. Rex is thirsty, and Mama Dee's got a corner booth with my name on it. Probably. Rex should check.
+@sfx door
+@cmd exit_npc rex front
+@flag p.rex_went_in
+LEDGER: Entry #2,207: Fought three men in an alley with a bin lid, beside the man who put me in the bin. Life is not a story; a story would be ashamed of such symmetry.
+@end
+
+@scene prologue.vinnie
+# CHARACTER: a bully's bully, horizontal; Eddar is kind to him anyway. (Reachable only if the player walks over before the crew arrives.)
+VINNIE: Ugh. Is the alley supposed to be spinning?
+EDDAR: Only on festival night. Stay down, Vinnie. Something tells me your friends will be along to collect you.
+@end
+
+@scene prologue.dock_crew
+# CHARACTER: two more mouths for Vinnie's grudge.
+BRICK: ...
+EDDAR: Brick says nothing. Brick doesn't need to. Brick is a sentence with no verbs.
+@end
+
+@scene prologue.dumpster
+# CHARACTER: Eddar's dry dignity.
+@if seen.prologue.dumpster>=1
+EDDAR: Trash: out. Dignity: also out, but in a separate bag.
+@end
+@endif
+@sfx trash
+EDDAR: Rex leaned on this like it owed him rent. It does, in a sense. We all owe this dumpster something.
+@end
+
+@scene prologue.barrel
+# CHARACTER: running gag; Eddar's grace under humiliation.
+@if p.letter_done
+@if seen.prologue.barrel>=2
+EDDAR: Some men have a family crest. I have a barrel. Same thing, structurally.
+@end
+@endif
+EDDAR: My barrel. We've been through a lot together. More than I've been through with most people.
+@end
+@endif
+EDDAR: A trash barrel. Clean, as trash barrels go. Rex has standards.
+@end
+
+@scene prologue.cat
+# CHARACTER: Eddar's gentleness. Encore will matter later (she always comes back).
+@if p.crew_fled
+@if seen.prologue.cat>=1
+EDDAR: Encore yawns. Somewhere in that yawn is a review of my footwork, and it isn't kind.
+@end
+@endif
+EDDAR: Encore. She was right here the whole time, wasn't she? Three men, one bin lid, a near-death experience...
+EDDAR: ...and she watched the entire thing from her crate like it was the late show, and the late show was a rerun.
+@end
+@endif
+@if seen.prologue.cat>=1
+EDDAR: Encore blinks at me, slowly. In cat, that's either "I love you" or "you are furniture." I'll take either.
+@end
+@endif
+EDDAR: The black cat. Mama Dee calls her Encore, because she always comes back.
+EDDAR: She judges me less than everyone inside. I bring her fish.
+@end
+
+@scene prologue.box_home
+# CHARACTER: Eddar's quiet decency; Solace Bay has people with less than a mop and a barrel.
+@if seen.prologue.box_home>=1
+EDDAR: I'll leave it be. A man's home is his castle, even when the castle is cardboard and the moat is a puddle.
+@end
+@endif
+EDDAR: A fridge box, turned on its side out of the rain. There's a blanket inside, folded with real care, and a tin cup.
+EDDAR: Somebody lives here. Somebody with even less than a mop and a barrel, and they still fold the blanket.
+@end
+
+@scene prologue.exit_sign
+# CHARACTER: the quiet ache under the jokes.
+@if seen.prologue.exit_sign>=1
+EDDAR: It flickers on the X. EIT. Even the way out isn't sure of itself tonight.
+@end
+@endif
+EDDAR: A neon EXIT sign, buzzing pink. Every night it tells me there's a way out. Every night I go back inside.
+@end
+
+@scene prologue.alley_mouth
+# PLOT: Soft wall. Before the Bellshell: festival crowds. After: the Main Drag, which is the next storyboard.
+@if p.bellshell_done
+EDDAR: The Main Drag, and screaming all down it. Every way out of here leads into that. (The Main Drag opens in the next build.)
+@end
+@endif
+EDDAR: Out there it's all paper meteors and people practising their applause. Mama Dee would find me. She always finds me.
+@end

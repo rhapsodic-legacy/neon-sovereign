@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Monoton&family=Kaushan+Script&family=Rajdhani:wght@500;600;700&family=Press+Start+2P&display=swap');
+
+:root {
+  --pink: #ff2bd6;
+  --cyan: #33e0ff;
+  --gold: #ffd24a;
+  --violet: #b18cff;
+  --ink: #0b0412;
+  --panel: rgba(14, 6, 26, 0.88);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: 'Rajdhani', system-ui, sans-serif; color: #fff; }
+#app { position: fixed; inset: 0; }
+#app canvas { display: block; width: 100%; height: 100%; }
+.ui { position: absolute; inset: 0; pointer-events: none; user-select: none; }
+.ui > * { pointer-events: auto; }
+.hidden { display: none !important; }
+
+/* ---------- scanlines over everything (subtle CRT) ---------- */
+.ui::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+}
+
+/* ---------- dialogue ---------- */
+.dialogue { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); width: min(980px, calc(100% - 32px)); }
+.dbox {
+  position: relative; padding: 22px 26px 22px 128px; min-height: 132px;
+  background: linear-gradient(180deg, rgba(30, 10, 50, 0.92), rgba(10, 4, 20, 0.95));
+  border: 2px solid var(--cyan); border-radius: 6px;
+  box-shadow: 0 0 18px rgba(51, 224, 255, 0.45), inset 0 0 24px rgba(255, 43, 214, 0.12);
+}
+.dbox::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(255, 43, 214, 0.35); border-radius: 4px; pointer-events: none; }
+.nameplate {
+  position: absolute; top: -18px; left: 120px; padding: 3px 14px; font: 700 18px 'Rajdhani'; letter-spacing: 2px; text-transform: uppercase;
+  background: var(--ink); border: 2px solid var(--c, #fff); color: var(--c, #fff); border-radius: 3px; box-shadow: 0 0 10px var(--c, #fff);
+}
+.portrait {
+  position: absolute; left: 18px; top: 18px; width: 92px; height: 92px; border-radius: 50%;
+  display: grid; place-items: center; font: 400 44px 'Monoton', cursive; color: var(--c);
+  background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.12), rgba(0,0,0,0.6));
+  border: 3px solid var(--c); box-shadow: 0 0 16px var(--c);
+}
+.portrait[data-emotion='angry'] { animation: shake 0.3s 2; }
+.dtext { font: 600 24px/1.35 'Rajdhani'; text-shadow: 0 1px 0 #000; min-height: 66px; }
+.more { position: absolute; right: 18px; bottom: 10px; color: var(--cyan); opacity: 0; }
+.more.on { opacity: 1; animation: bob 0.8s infinite; }
+
+/* ---------- narrator ---------- */
+.narrator {
+  position: absolute; left: 50%; bottom: 60px; transform: translateX(-50%); width: min(860px, calc(100% - 32px));
+  text-align: center; font: italic 500 24px/1.4 'Rajdhani'; color: #f3e6ff;
+  text-shadow: 0 0 12px rgba(177, 140, 255, 0.9), 0 2px 0 #000;
+  background: linear-gradient(90deg, transparent, rgba(10, 4, 20, 0.75) 15%, rgba(10, 4, 20, 0.75) 85%, transparent); padding: 14px 40px;
+}
+
+/* ---------- the Ledger (handwritten notebook) ---------- */
+.ledger {
+  position: absolute; right: 6%; bottom: 120px; width: min(420px, calc(100% - 32px)); padding: 16px 22px 26px 46px;
+  transform: rotate(-2.2deg); color: #23233a; font: 600 27px/1.25 'Caveat', cursive;
+  background: repeating-linear-gradient(180deg, #fffbe6 0 30px, #b9d3f0 30px 31px), #fffbe6;
+  border-left: 3px solid #ff6b8a; box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.2);
+  animation: ledger-in 0.35s ease-out;
+}
+.ledger::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; border-left: 2px dashed rgba(255, 107, 138, 0.35); }
+.ledger-head { font: 700 14px 'Rajdhani'; letter-spacing: 3px; color: #8a2a4a; margin-bottom: 4px; }
+.ledger-more { position: absolute; right: 14px; bottom: 6px; opacity: 0; color: #8a2a4a; font-size: 18px; }
+.ledger-more.on { opacity: 1; animation: bob 0.8s infinite; }
+
+/* ---------- choices ---------- */
+.choices { position: absolute; left: 50%; bottom: 190px; transform: translateX(-50%); display: flex; flex-direction: column; gap: 8px; width: min(720px, calc(100% - 32px)); }
+.choice {
+  padding: 10px 16px; font: 600 22px 'Rajdhani'; cursor: pointer; background: var(--panel);
+  border: 2px solid rgba(255, 43, 214, 0.4); border-radius: 4px; transition: all 0.12s;
+}
+.choice .num { display: inline-block; width: 26px; color: var(--pink); font-family: 'Press Start 2P'; font-size: 12px; }
+.choice.sel { border-color: var(--pink); background: rgba(70, 10, 60, 0.92); box-shadow: 0 0 14px rgba(255, 43, 214, 0.6); transform: translateX(8px); }
+
+/* ---------- title card ---------- */
+.card { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(40,10,60,0.85), rgba(0,0,0,0.96)); display: grid; place-items: center; animation: fadein 0.6s; }
+.card-text {
+  font: 400 clamp(22px, 4vw, 54px) 'Monoton', cursive; text-align: center; padding: 0 5vw; line-height: 1.3;
+  background: linear-gradient(180deg, #fff 0%, #9be8ff 45%, #ff4fd8 55%, #ffd24a 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 43, 214, 0.7));
+}
+
+/* ---------- prompt / objective / toast ---------- */
+.prompt {
+  position: absolute; transform: translate(-50%, -100%); padding: 4px 10px; font: 700 16px 'Rajdhani'; letter-spacing: 1px; white-space: nowrap;
+  background: var(--panel); border: 1px solid var(--cyan); border-radius: 3px; box-shadow: 0 0 10px rgba(51, 224, 255, 0.5); pointer-events: none;
+}
+.prompt .key { display: inline-block; padding: 0 6px; margin-right: 6px; background: var(--cyan); color: var(--ink); border-radius: 2px; }
+.objective {
+  position: absolute; left: 20px; top: 18px; max-width: min(520px, calc(100% - 40px)); padding: 8px 14px; font: 600 19px 'Rajdhani';
+  background: var(--panel); border-left: 4px solid var(--gold); box-shadow: 0 0 12px rgba(0,0,0,0.6);
+}
+.objective.pulse { animation: pulse 1.2s; }
+.otag { font: 10px 'Press Start 2P'; color: var(--gold); margin-right: 8px; }
+.toast {
+  position: absolute; left: 50%; top: 22%; transform: translateX(-50%); font: 400 clamp(20px, 3vw, 38px) 'Kaushan Script', cursive; color: #fff;
+  text-shadow: 0 0 10px var(--pink), 0 0 30px var(--pink); animation: fadein 0.5s;
+}
+.help { position: absolute; right: 16px; top: 16px; font: 600 13px 'Rajdhani'; color: rgba(255,255,255,0.55); text-align: right; pointer-events: none; }
+
+/* ---------- pause menu ---------- */
+.menu { position: absolute; inset: 0; background: rgba(5, 0, 12, 0.7); display: grid; place-items: center; backdrop-filter: blur(3px); }
+.mpanel { width: min(560px, calc(100% - 32px)); max-height: 86vh; overflow: auto; padding: 26px; background: var(--panel); border: 2px solid var(--pink); border-radius: 6px; box-shadow: 0 0 30px rgba(255, 43, 214, 0.5); }
+.mtitle { font: 400 30px 'Monoton'; color: var(--pink); text-shadow: 0 0 10px var(--pink); margin-bottom: 8px; }
+.mstat, .mtext { font: 500 18px/1.5 'Rajdhani'; color: #ddd; margin-bottom: 14px; }
+.mtext code { color: var(--cyan); }
+.mitems { display: flex; flex-direction: column; gap: 6px; }
+.mitem { padding: 8px 14px; font: 700 20px 'Rajdhani'; letter-spacing: 2px; cursor: pointer; border: 1px solid transparent; border-radius: 3px; }
+.mitem.sel, .mitem:hover { border-color: var(--cyan); background: rgba(51, 224, 255, 0.12); color: var(--cyan); }
+.mmsg { margin-top: 12px; color: var(--gold); font: 600 17px 'Rajdhani'; }
+.mledger { max-height: 50vh; overflow: auto; margin-bottom: 14px; padding: 10px 16px; background: #fffbe6; color: #23233a; border-radius: 3px; }
+.mentry { font: 600 22px/1.25 'Caveat'; padding: 6px 0; border-bottom: 1px solid #b9d3f0; }
+
+/* ---------- title screen ---------- */
+.title { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: #0b0016; transition: opacity 0.9s; overflow: hidden; }
+.title.fade { opacity: 0; pointer-events: none; }
+.title .sky { position: absolute; inset: 0; background: linear-gradient(180deg, #0b0016 0%, #2a0845 40%, #7a1b6e 58%, #ff4f8b 66%, #12002a 66.2%); }
+.title .sun {
+  position: absolute; left: 50%; top: 34%; width: min(46vw, 460px); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%;
+  background: linear-gradient(180deg, #ffe66b 0%, #ff8a3c 45%, #ff2b8a 75%);
+  -webkit-mask: linear-gradient(180deg, #000 0 52%, transparent 52% 55%, #000 55% 62%, transparent 62% 66%, #000 66% 72%, transparent 72% 77%, #000 77% 82%, transparent 82% 88%, #000 88% 92%, transparent 92%);
+          mask: linear-gradient(180deg, #000 0 52%, transparent 52% 55%, #000 55% 62%, transparent 62% 66%, #000 66% 72%, transparent 72% 77%, #000 77% 82%, transparent 82% 88%, #000 88% 92%, transparent 92%);
+  filter: drop-shadow(0 0 40px rgba(255, 79, 139, 0.8));
+}
+.title .grid {
+  position: absolute; left: -50%; right: -50%; bottom: 0; height: 34%;
+  background-image: linear-gradient(var(--pink) 2px, transparent 2px), linear-gradient(90deg, var(--pink) 2px, transparent 2px);
+  background-size: 60px 60px; transform: perspective(300px) rotateX(60deg); transform-origin: top; animation: grid 1.2s linear infinite;
+  filter: drop-shadow(0 0 6px var(--pink)); opacity: 0.8;
+}
+.logo { position: relative; text-align: center; margin-top: -8vh; }
+.logo-top {
+  font: 400 clamp(54px, 11vw, 140px) 'Monoton'; line-height: 0.9; letter-spacing: 6px;
+  background: linear-gradient(180deg, #fff 0%, #bdf4ff 40%, #1b8fd6 50%, #fff 52%, #ff9ae6 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 14px rgba(51, 224, 255, 0.8));
+}
+.logo-bottom { font: 400 clamp(44px, 8vw, 104px) 'Kaushan Script'; color: var(--pink); margin-top: -0.25em; transform: rotate(-6deg); text-shadow: 0 0 10px var(--pink), 0 0 40px var(--pink), 3px 3px 0 #fff3; }
+.tagline { position: relative; font: italic 600 clamp(15px, 2vw, 21px) 'Rajdhani'; color: #ffe6f7; text-shadow: 0 2px 6px #000; padding: 0 16px; text-align: center; }
+.title-menu { position: relative; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.titem { font: 12px 'Press Start 2P'; padding: 12px 26px; text-align: center; cursor: pointer; color: #fff; background: rgba(10, 0, 20, 0.6); border: 2px solid rgba(51, 224, 255, 0.4); }
+.titem.sel { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 16px rgba(51, 224, 255, 0.7); animation: blink 1s steps(2) infinite; }
+.build { position: absolute; bottom: 14px; font: 600 13px 'Rajdhani'; color: rgba(255,255,255,0.5); }
+
+@keyframes bob { 50% { transform: translateY(3px); } }
+@keyframes shake { 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+@keyframes fadein { from { opacity: 0; } }
+@keyframes ledger-in { from { opacity: 0; transform: rotate(-8deg) translateY(30px); } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 rgba(255, 210, 74, 0); } 30% { box-shadow: 0 0 24px rgba(255, 210, 74, 0.9); } }
+@keyframes grid { to { background-position: 0 60px; } }
+@keyframes blink { 50% { opacity: 0.7; } }
+
+@media (max-width: 640px) {
+  .dbox { padding: 18px 16px 18px 16px; }
+  .portrait { display: none; }
+  .nameplate { left: 12px; }
+  .dtext { font-size: 19px; }
+  .help { display: none; }
+  .ledger { right: 16px; bottom: 150px; font-size: 22px; }
+}
+
+/* ---------- the Canticle vision (cutscene overlay) ---------- */
+.vision { position: absolute; inset: 0; pointer-events: none; backdrop-filter: sepia(0.85) hue-rotate(-28deg) saturate(1.6) contrast(1.15); background: radial-gradient(ellipse at center, rgba(120, 20, 10, 0.05) 30%, rgba(40, 0, 0, 0.75) 100%); animation: fadein 1.4s; }
+.vision::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(150, 20, 20, 0.07) 0 2px, transparent 2px 28px); animation: scroll-ink 9s linear infinite; }
+@keyframes scroll-ink { to { background-position: 0 -280px; } }
+.dialogue.vo .dbox { background: rgba(30, 6, 4, 0.82); border-color: #ffd36b; }
+.dialogue.vo .dtext { font-style: italic; color: #ffe9c2; }
+
+/* ---------- THE SET: battle screen ---------- */
+.battle { position: absolute; inset: 0; pointer-events: none; }
+.battle > * { pointer-events: auto; }
+.b-labels, .b-floaters { position: absolute; inset: 0; pointer-events: none !important; }
+.b-timeline { position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; gap: 4px; align-items: center; padding: 8px 6px; background: var(--panel); border: 1px solid rgba(255, 43, 214, 0.5); border-radius: 4px; }
+.b-tl-label { font: 9px 'Press Start 2P'; color: var(--gold); margin-bottom: 2px; }
+.b-chip { position: relative; width: 36px; height: 36px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--c); background: rgba(0,0,0,0.6); font: 700 18px 'Rajdhani'; color: var(--c); }
+.b-chip.enemy { border-radius: 6px; }
+.b-chip em { position: absolute; left: 44px; font: 600 12px 'Rajdhani'; font-style: normal; color: #ccc; white-space: nowrap; text-shadow: 0 1px 3px #000; }
+.b-chip.now { box-shadow: 0 0 12px var(--c); transform: scale(1.15); }
+.b-chip.preview { border-style: dashed; opacity: 0.85; box-shadow: 0 0 10px var(--cyan); }
+.b-party { position: absolute; right: 18px; bottom: 18px; display: flex; flex-direction: column; gap: 8px; width: min(320px, 44vw); }
+.b-member { padding: 8px 12px; background: var(--panel); border-left: 4px solid var(--c); border-radius: 3px; }
+.b-member.now { box-shadow: 0 0 16px var(--c); }
+.b-member.ko { opacity: 0.45; }
+.b-mname { font: 700 19px 'Rajdhani'; color: var(--c); letter-spacing: 1px; }
+.b-hp, .b-heat, .b-ehp, .b-break { position: relative; height: 8px; background: rgba(255,255,255,0.12); border-radius: 2px; overflow: hidden; margin-top: 4px; }
+.b-hp > div { height: 100%; background: linear-gradient(90deg, #3bff9a, #33e0ff); transition: width 0.3s; }
+.b-hp > div.low { background: linear-gradient(90deg, #ff3b5c, #ff9a3c); }
+.b-hpnum { font: 600 14px 'Rajdhani'; color: #ddd; text-align: right; }
+.b-heat { height: 12px; }
+.b-heat > div { height: 100%; background: linear-gradient(90deg, #ff9a3c, #ff2a00); transition: width 0.3s; }
+.b-heat b { position: absolute; inset: 0; font: 700 10px 'Rajdhani'; letter-spacing: 1px; text-align: center; line-height: 12px; }
+.st { font: 700 10px 'Rajdhani'; font-style: normal; padding: 1px 4px; margin-left: 4px; border-radius: 2px; background: #333; color: #fff; vertical-align: middle; }
+.st.mute { background: #6a2bd6; } .st.guard { background: #1b6fa5; } .st.charging { background: #b58a00; } .st.taunt { background: #a5521b; }
+.st.rearing { background: #d65a2b; } .st.broken { background: var(--gold); color: #000; }
+.b-menu { position: absolute; left: 18px; bottom: 18px; width: min(300px, 44vw); padding: 10px; background: var(--panel); border: 2px solid var(--cyan); border-radius: 4px; box-shadow: 0 0 18px rgba(51, 224, 255, 0.4); }
+.b-menu-head { font: 700 20px 'Rajdhani'; color: var(--c); letter-spacing: 2px; margin-bottom: 6px; }
+.b-cmd { padding: 6px 10px; font: 700 19px 'Rajdhani'; cursor: pointer; border-radius: 3px; }
+.b-cmd .num { display: inline-block; width: 22px; font: 10px 'Press Start 2P'; color: var(--pink); }
+.b-cmd small { margin-left: 8px; font: 600 13px 'Rajdhani'; color: #ff9a9a; }
+.b-cmd.sel { background: rgba(51, 224, 255, 0.15); color: var(--cyan); transform: translateX(6px); }
+.b-cmd.blocked { opacity: 0.45; }
+.b-help { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); max-width: min(460px, 34vw); padding: 8px 14px; background: var(--panel); border-radius: 3px; font: 600 16px 'Rajdhani'; color: #eee; text-align: center; }
+.b-label { position: absolute; transform: translate(-50%, -100%); min-width: 120px; text-align: center; }
+.b-label.party { min-width: 0; }
+.b-ename { font: 700 16px 'Rajdhani'; text-shadow: 0 2px 4px #000, 0 0 8px #000; }
+.b-ehp { height: 6px; width: 120px; margin: 3px auto 0; }
+.b-ehp > div { height: 100%; background: #ff3b5c; transition: width 0.3s; }
+.b-ehp.unknown > div { background: #774050; }
+.b-ehpnum { font: 600 12px 'Rajdhani'; color: #ddd; text-shadow: 0 1px 3px #000; }
+.b-break { height: 4px; width: 120px; margin: 3px auto 0; }
+.b-break > div { height: 100%; background: var(--gold); }
+.b-break.on > div { animation: blink 0.3s steps(2) infinite; }
+.b-intent { margin-top: 3px; font: 700 13px 'Rajdhani'; color: var(--cyan); text-shadow: 0 1px 3px #000; }
+.b-intent.heavy { color: #ff7a5a; animation: blink 0.8s steps(2) infinite; }
+.b-target { font-size: 22px; color: var(--gold); text-shadow: 0 0 8px var(--gold); animation: bob 0.6s infinite; }
+.b-float { position: absolute; transform: translate(-50%, -50%); font: 400 26px 'Press Start 2P'; color: #fff; text-shadow: 3px 3px 0 #000; animation: float-up 1.3s ease-out forwards; white-space: nowrap; }
+.b-float.hurt { color: #ff5a6a; }
+.b-float.crit { color: #ffd24a; font-size: 32px; }
+.b-float.heal { color: #6bff9a; }
+.b-float.tag, .b-float.skill { font: 700 20px 'Rajdhani'; letter-spacing: 2px; color: var(--cyan); }
+.b-float.skill { color: #fff; background: rgba(0,0,0,0.6); padding: 2px 10px; border: 1px solid var(--pink); }
+.b-float.break { color: var(--gold); font-size: 28px; }
+@keyframes float-up { 0% { opacity: 0; transform: translate(-50%, -20%) scale(0.6); } 15% { opacity: 1; transform: translate(-50%, -60%) scale(1.15); } 100% { opacity: 0; transform: translate(-50%, -190%) scale(1); } }
+.b-bark { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); width: min(600px, calc(100% - 700px)); min-width: min(520px, calc(100% - 32px)); padding: 12px 18px; background: var(--panel); border: 2px solid var(--c); border-radius: 4px; box-shadow: 0 0 16px var(--c); }
+.b-bark-name { font: 700 16px 'Rajdhani'; letter-spacing: 2px; color: var(--c); }
+.b-bark-text { font: 600 22px/1.3 'Rajdhani'; }
+.b-hint { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.25); font: 600 17px 'Rajdhani'; color: #ffe9a8; }
+.b-hint span { font: 9px 'Press Start 2P'; color: #000; background: var(--gold); padding: 3px 5px; margin-right: 6px; }
+.b-bark .more { position: absolute; right: 12px; bottom: 6px; }
+.b-card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: radial-gradient(ellipse at center, rgba(60, 0, 40, 0.55), rgba(0, 0, 0, 0.92)); animation: fadein 0.3s; }
+.b-card-title {
+  font: 400 clamp(46px, 10vw, 130px) 'Monoton'; letter-spacing: 4px; transform: skewX(-8deg);
+  background: linear-gradient(180deg, #fff 0%, #ffe9a8 40%, #b5651d 50%, #fff3 52%, #ff4fd8 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 18px rgba(255, 120, 40, 0.8)); animation: slam 0.5s cubic-bezier(.2,1.6,.4,1);
+}
+.b-card-tag { font: 400 clamp(20px, 3vw, 36px) 'Kaushan Script'; color: #ffe6f7; text-shadow: 0 0 12px var(--pink); animation: fadein 1.2s; }
+@keyframes slam { from { transform: skewX(-8deg) scale(2.4); opacity: 0; } }
+.b-banner { position: absolute; left: 0; right: 0; top: 34%; text-align: center; padding: 18px; background: linear-gradient(90deg, transparent, rgba(10, 0, 20, 0.9), transparent); }
+.b-banner-text { font: 400 clamp(40px, 8vw, 96px) 'Monoton'; color: var(--gold); text-shadow: 0 0 20px var(--gold); }
+.b-banner.mercy .b-banner-text { color: #9be8ff; text-shadow: 0 0 20px var(--cyan); }
+.b-banner.defeat .b-banner-text { color: #ff4f6a; text-shadow: 0 0 20px #ff4f6a; }
+.b-banner-sub { font: 600 20px 'Rajdhani'; color: #eee; }
+.b-auto { position: absolute; right: 18px; top: 14px; font: 9px 'Press Start 2P'; padding: 6px 8px; background: var(--panel); border: 1px solid #555; cursor: pointer; color: #aaa; }
+.b-speed { right: 172px; }
+.b-auto.on { color: var(--gold); border-color: var(--gold); box-shadow: 0 0 10px var(--gold); }
+@media (max-width: 640px) {
+  .b-help { display: none; }
+  .b-party { width: 46vw; }
+  .b-menu { width: 46vw; }
+  .b-chip em { display: none; }
+}
+.portrait[data-emotion='scared'] { animation: shake 0.12s 6; }
+.prompt .cycle { margin-left: 10px; opacity: 0.8; font-size: 0.9em; }
+.b-heat.gold > div { background: linear-gradient(90deg, #fff6d0, #ffd34a, #fffbe8); }
+.b-heat.gold b { color: #fff; text-shadow: 0 0 3px #000, 0 0 2px #000; }
+.b-heat.black { background: rgba(255,255,255,0.22); }
+.b-heat.black > div { background: linear-gradient(90deg, #000, #16101e); box-shadow: inset 0 0 0 1px rgba(177,140,255,0.5); }
+.bubble { position: absolute; transform: translate(-50%, -100%); max-width: 260px; padding: 6px 10px 7px; background: #fff8f0; color: #1a0d1e; border-radius: 12px; font: 600 15px/1.25 'Rajdhani', sans-serif; box-shadow: 0 3px 0 rgba(0,0,0,0.35), 0 0 14px rgba(255,43,214,0.35); pointer-events: none; z-index: 4; transition: opacity 0.35s; text-align: center; }
+.bubble::after { content: ''; position: absolute; left: 50%; bottom: -8px; margin-left: -7px; border: 7px solid transparent; border-top-color: #fff8f0; border-bottom: 0; }
+.bubble b { display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #b0187e; }
+.bubble.fading { opacity: 0; }
+.bubble.hidden { display: none; }
+.title.warps .title-menu { max-height: 46vh; overflow-y: auto; gap: 4px; padding: 0 6px; }
+.title.warps .titem { padding: 8px 18px; font-size: 10px; }

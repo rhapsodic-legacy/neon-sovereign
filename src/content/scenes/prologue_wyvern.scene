@@ -1,0 +1,550 @@
+# PROLOGUE — "Soundcheck", part 1: the Pink Wyvern before doors.
+# Canon: the storyboard doc (v2) and docs/STORY.md. Tone: PG-13, funny first, true second.
+# Objectives are derived from flags (src/content/objectives.ts), so chores work in any order.
+# Repeat talks never repeat: talk scenes branch on seen.<scene id> (times played before).
+# Eddar's voice: Shakespeare's music, Tennyson's longing, Nietzsche's edge. Never pompous, never pathetic.
+
+@scene prologue.intro
+# PLOT: Cold open (Jesse's draft 2): the title card, then control goes straight to the player. The band's pep talk and the patrons' heckling play out in speech bubbles (chatter/wyvern.ts) while Eddar mops.
+# CHARACTER: Eddar says nothing here. He's the mop boy, and the room doesn't see him.
+@bgm wyvern_soundcheck
+@card THE PINK WYVERN — SAVE THE WORLD NIGHT
+@flag p.intro
+@end
+
+@scene prologue.stranger_in
+# PLOT: The main puddles are done, and the stranger (Leagues) walks in through the locked front door.
+# CHARACTER: Nobody notices but Eddar, and nobody would believe him.
+@sfx door
+@flag p.leagues_in
+@cmd enter_npc leagues front
+@cam focus leagues
+NARRATOR: The front door, which is locked, opens. A man walks past the bar without looking at it and sits in the dark corner booth.
+NARRATOR: Nobody looks up.
+@end
+
+@scene prologue.leagues
+# PLOT: The stranger (Leagues Soprano) sits in the corner, says nothing, then "Piss off." Plants his later line "You didn't."
+# CHARACTER: Eddar's courtesy and wit under rejection; Leagues' foreboding, rude stillness.
+@if seen.prologue.leagues>=3
+EDDAR: Some doors are bolted from the inside. I'll not knock thrice on a man.
+@end
+@endif
+@if seen.prologue.leagues>=2
+EDDAR: I only meant...
+STRANGER: I told you to piss off.
+EDDAR: And so you did, twice. A refrain. I'll leave you to your chorus.
+LEDGER: Entry #2,205: A man came in through a locked door and told me, twice, to piss off. I have been told so before, but never by anyone whose eyes were lit from within. One wonders what he saw that made him look away.
+@end
+@endif
+@if seen.prologue.leagues>=1
+EDDAR: The notes on your robe. Is that a song? It looks like one someone stopped halfway through.
+STRANGER: Piss off.
+@end
+@endif
+NARRATOR: A robe the moths have feasted on for a century. Gold notes, faded to the colour of old teeth, crawl across it. Beneath it, a breastplate as black as a closed piano lid.
+NARRATOR: His eyes are white, and they are lit.
+? "Nice robe. I like it." -> robe
+? "Doors aren't open yet, friend." -> doors
+? "Can I get you anything?" -> anything
+* robe
+EDDAR: Nice robe. I like it. Moth-eaten is very in this year.
+@goto stare
+* doors
+EDDAR: Doors aren't open yet, friend. Though I see the door disagreed.
+@goto stare
+* anything
+EDDAR: Can I get you anything? Water? A menu? A reason?
+* stare
+NARRATOR: He looks at Eddar for a long moment. He says nothing.
+@end
+
+@scene prologue.puddle_1
+# PLOT: Chore 1/3. CHARACTER: meek; he barely speaks yet.
+@sfx mop
+EDDAR: Cola. Lime. Something that glows.
+@flag p.puddle_1
+@set puddles += 1
+@end
+
+@scene prologue.puddle_2
+# PLOT: Chore 2/3. CHARACTER: a little petty, very quietly.
+@sfx mop
+EDDAR: This one looks like Rex. ...I'll take my time.
+@flag p.puddle_2
+@set puddles += 1
+@end
+
+@scene prologue.puddle_3
+# PLOT: Chore 3/3. CHARACTER: the band loves him in their careless way.
+@sfx mop
+EDDAR: A perfect spiral. On purpose.
+ROXY [smile]: You're welcome!
+@flag p.puddle_3
+@set puddles += 1
+@end
+
+@scene prologue.lulu_puddle
+# PLOT: Lulu's cola by the stage draws Eddar over; mopping it gets Roxy's attention (her bubble calls him over next).
+# CHARACTER: Eddar is meek. Lulu is sweet to him, and he deflects it.
+@sfx mop
+LULU: You're a saint, Eddar.
+EDDAR: A saint who mops floors.
+LEDGER: Entry #2,204: Mopped the stage at six. At five past, the band, in their infinite and terrible wisdom, baptised it anew in cola. O tempora, o mores, o Lulu.
+@flag p.lulu_mopped
+@end
+
+@scene prologue.spill_a
+# PLOT: A patron spill. Mopping it achieves nothing: somebody always spills again.
+@sfx mop
+@unflag p.spill_a
+@end
+
+@scene prologue.spill_b
+# PLOT: A patron spill. Mopping it achieves nothing: somebody always spills again.
+@sfx mop
+@unflag p.spill_b
+@end
+
+@scene prologue.spill_c
+# PLOT: A patron spill. Mopping it achieves nothing: somebody always spills again.
+@sfx mop
+@unflag p.spill_c
+@end
+
+@scene prologue.roxy
+# PLOT: Introduce Roxy's stakes (Velvet Kane, the Grand Stadium, her brothers) and the amp hum.
+# CHARACTER: big, theatrical, all-in; the fire is fear in a leather jacket. Eddar's quiet devotion.
+@if !p.lulu_mopped
+ROXY [angry]: Not now, Eddar! I'm VISUALISING!
+@end
+@endif
+@if p.amp_fixed
+@if talk.roxy_after>=1
+ROXY [smile]: Stop hovering, lucky charm. You'll jinx her. Go be lucky at somebody else.
+@end
+@endif
+ROXY [smile]: Listen to her, Eddar. Clean as a church bell. If we don't win tonight, it won't be the amp's fault. It'll be Spike's.
+SPIKE: Fair.
+@set talk.roxy_after += 1
+@end
+@endif
+@if p.amp_hum_back
+ROXY [angry]: Three bars, Eddar. I got THREE BARS of glory and then BZZZ, like the universe clearing its throat AT me.
+EDDAR: Ground loops are like grudges. They hide, and they come back.
+ROXY [angry]: Then find it before Velvet Kane walks in and hears my destiny GARGLING.
+@emote roxy fire
+@end
+@endif
+@if p.amp_checked
+ROXY [angry]: Eddar. Amp. Eddar. AMP. I'm drawing you a MAP with my EYES.
+@end
+@endif
+@cam focus roxy
+@sfx amp_buzz
+@emote roxy fire
+ROXY [angry]: NO. No, no, no, no, NO. Do you HEAR that? That is the sound of my DESTINY being GARGLED by a TOASTER.
+EDDAR: A sixty-cycle hum, Roxy. It means no malice. It's only the world, clearing its throat.
+ROXY [angry]: Then tell the world to clear it SOMEWHERE ELSE! If we win tonight's heat, we play the Grand Stadium. Ten thousand people, and Velvet Kane with a pen that can change our LIVES.
+SPIKE: Hair.
+ROXY [angry]: My hair is EXPRESSING ITSELF, Spike!
+? "Let me look at it." -> look
+? "Your hair is a fire hazard." -> hazard {bond_roxy:-1}
+? "What happens if you win?" -> win {bond_roxy:+1}
+* win
+NARRATOR: Her fire gutters low.
+ROXY: If we win, my brothers get shoes that fit before the next growth spurt. Mikey's wearing my old boots, Eddar. They've got flames on them. He's nine.
+EDDAR: Then the amp will not hum. I swear it on the boots.
+@flag p.mikey_boots
+@goto charm
+* hazard
+EDDAR: Your hair, Roxy, is less a hairstyle than a weather warning.
+ROXY [angry]: And your mouth is about to be a CRIME SCENE. Fix. The. Amp.
+@goto done
+* look
+EDDAR: Let me look at it. Two minutes. Perhaps three, if it's shy.
+* charm
+ROXY [smile]: You're my lucky charm, you know that? Now GO. BE. LUCKY.
+* done
+@flag p.amp_checked
+@end
+
+@scene prologue.amp
+# PLOT: Two-stage amp puzzle. The ground lift holds for three bars; the real fix is a punch, with a violet flare nobody sees (T4).
+# CHARACTER: competence, then a rare loss of temper; Roxy's forehead kiss.
+@if !p.amp_checked
+EDDAR: "Property of Roxy Vega. Touch it and die." A fair contract. I'll ask her first.
+@end
+@endif
+@if p.amp_fixed
+@if seen.prologue.amp>=3
+EDDAR: There's a dent shaped like my knuckles in the casing. Roxy hasn't noticed. Roxy will notice.
+@end
+@endif
+EDDAR: Purring now, like a cat that has eaten a smaller, louder cat.
+@end
+@endif
+@if p.amp_hum_back
+@goto round_two
+@endif
+@sfx amp_buzz
+EDDAR: The tubes glow like a row of patient saints, and the cables sit true. And yet the hum persists, like a regret.
+* first_try
+? Flip the ground lift. -> lift {harmony:+1}
+? Replace the power tube. -> tube
+* tube
+@sfx clunk
+EDDAR: A new tube. Same hum, two tokens poorer. Wisdom is expensive, and it comes in glass.
+@set tokens -= 2
+@goto first_try
+* lift
+@sfx switch
+NARRATOR: Click. The hum drops away.
+ROXY [smile]: Oh. OH. Okay! Count it in, Lulu!
+@sfx guitar_riff
+NARRATOR: Roxy tears into the riff. One bar. Two. The neon over the stage brightens. On the third bar...
+@sfx amp_buzz
+NARRATOR: ...the hum comes back louder, like it went out for reinforcements.
+ROXY [angry]: EDDAR!
+@emote roxy fire
+SPIKE: Hair.
+ROXY [angry]: I KNOW ABOUT THE HAIR, SPIKE!
+@flag p.amp_hum_back
+@end
+* round_two
+@sfx amp_buzz
+EDDAR: The ground was a bandage. The hum comes from within: the transformer, singing to itself.
+? Swap the fuse. -> fuse
+? Tighten the mounts. -> mounts
+* fuse
+@sfx clunk
+EDDAR: A new fuse. The same song. Fuses never sing; they only die.
+@goto temper
+* mounts
+@sfx clunk
+EDDAR: Tight. Tighter. Tightest. Still humming. It isn't loose. It's merely rude.
+* temper
+EDDAR: Thirty minutes to doors. A woman with a pen. A boy of nine in his sister's burning boots. And you, smug little coil, humming as though none of it matters.
+EDDAR: Hear me, then. It matters.
+? Hit it. -> punch
+? Count to ten. Then hit it. -> punch {harmony:+1}
+* punch
+@sfx punch
+@fx violet eddar
+@cam shake
+NARRATOR: He punches the transformer. For half a heartbeat the dent glows violet. Then it's just a dent.
+NARRATOR: The hum stops like a needle lifted from a record. Nobody sees the light, not even Eddar, who is busy shaking out his hand.
+SPIKE: Did you just punch Roxy's amp?
+EDDAR: A diagnostic tap.
+SPIKE: It worked.
+EDDAR: Most diagnostics do, if you mean them.
+@flag p.amp_fixed
+@unflag p.amp_hum_back
+@cam focus roxy
+@sfx guitar_riff
+ROXY [smile]: Is that... OH. That's CLEAN. Sweet screaming amplifiers, LISTEN to her! C'mere, lucky charm!
+@emote roxy kiss
+NARRATOR: She kisses his forehead and is back at the mic before he can blink.
+LEDGER: Entry #2,206: Forehead. Again. Not the cheek, or the mouth... The brow is a fine and sacred country, I am told; but I should dearly like, one day, to visit the capital.
+@end
+
+@scene prologue.trash_call
+# PLOT: Both chores done: Mama Dee sends Eddar out back. The stranger looks at someone for the first time.
+# CHARACTER: Mama Dee's gravel and honey; Leagues' attention, unexplained.
+@cam focus mama_dee
+MAMA DEE: Eddar! Trash. Alley. Now, before the doors open and the whole Bay smells my kitchen.
+EDDAR: The glamour of it all.
+@cam focus leagues
+NARRATOR: In the corner booth, the stranger's white eyes follow Eddar to the back door. It is the first time he has looked at anyone.
+@flag p.trash_called
+@end
+
+@scene prologue.mama_dee
+# CHARACTER: Mama Dee — owner, gravel and honey, the only adult who looks out for Eddar. No freeloaders on festival night.
+@if p.trash_called
+MAMA DEE: Back door, sugar. Trash. And if Rex Valor's out there, you walk past him like he's weather.
+EDDAR: Weather doesn't usually put me in a barrel.
+MAMA DEE: Then you ain't seen weather in Solace Bay.
+@end
+@endif
+@if seen.prologue.mama_dee>=2
+MAMA DEE: I love you like the son I had the good sense not to have. Go do something.
+@end
+@endif
+@if seen.prologue.mama_dee>=1
+MAMA DEE: See that one in the corner? Walked in through a locked door and ain't bought so much as a water. Soon as I've got two hands free, he's buying or he's leaving.
+@if seen.prologue.leagues>=2
+EDDAR: He told me to piss off. Twice, with conviction.
+MAMA DEE: Then he's got manners and no money. Worst kind.
+@endif
+@end
+@endif
+MAMA DEE: Festival night, sugar. Every bar in the Bay's running a heat, and every fool in the Bay thinks he can sing. You keep that floor dry, and I'll keep the fools paying.
+EDDAR: "Save the World," say the posters. A bold claim for a contest judged by applause.
+MAMA DEE: Honey, the world don't need saving. It needs a cover charge.
+@end
+
+@scene prologue.spike
+# CHARACTER: Spike — bass; deadpan; secretly fond of Eddar.
+@if p.amp_fixed
+@if talk.spike_after>=1
+SPIKE: Still not telling her. My silence is a gift. Gifts can be withdrawn.
+@end
+@endif
+SPIKE: I didn't tell her you punched the amp. I want that on the record. I'm holding it over you for life.
+@set talk.spike_after += 1
+@end
+@endif
+@if seen.prologue.spike>=2
+SPIKE: Three visits. We're basically married. I get the jukebox in the divorce.
+@end
+@endif
+@if seen.prologue.spike>=1
+SPIKE: If we win, Roxy wants a tour. If we lose, Roxy wants revenge. Either way, I'm carrying an amp up some stairs.
+@end
+@endif
+SPIKE: Bass player life. Nobody hears you, but everybody notices when you stop.
+EDDAR: Like a heartbeat.
+SPIKE: ...I was gonna say plumbing. But sure. Heartbeat.
+@end
+
+@scene prologue.lulu
+# CHARACTER: Lulu — drums; sunny chaos. PLOT: the festival was once real; plants the song with a missing line.
+@if seen.prologue.lulu>=2
+LULU: If anybody ever picks a drummer for anything, I'm going to cry.
+@end
+@endif
+@if seen.prologue.lulu>=1
+LULU: Gran had a song about it. One verse is short, like somebody cut a line out.
+EDDAR: A song with a wound in it. Those are the ones that last.
+LULU: Drummers hate a missing beat. You can feel it in your teeth.
+@end
+@endif
+LULU: Did you know Save the World used to be a real thing? Like, old-old. My gran said they used to pick a champion, and everybody sang till sunrise.
+EDDAR: Every festival is a funeral for something we've forgotten.
+LULU: ...That's so sad. Do you want a gummy?
+@end
+
+@scene prologue.gil
+# CHARACTER: barfly with micro-stories. PLOT: plants the masked woman's arrival in town, and Leagues' kind.
+@if seen.prologue.gil>=2
+GIL: I've told you all I know. At my age, that's mostly the names of horses that lost.
+@end
+@endif
+@if seen.prologue.gil>=1
+GIL: That fella in the corner. I've seen his kind once before, forty years back, on a pier in the fog. He played a horn until the fog cleared, then walked into the sea.
+GIL: Didn't drown. He just... left.
+@end
+@endif
+GIL: Saw a woman ride in this afternoon. Black light-cycle, a black mask, silver hair right down her back. Looked at every face on the boardwalk like she was reading a list.
+EDDAR: And did she find the name she sought?
+GIL: Kid, everybody's looking for someone. Most of us are just looking for the bathroom.
+@end
+
+@scene prologue.jukebox
+# PLOT: The living soundtrack: pick the room's song. CHARACTER: Rex's ego (Valor Forever), Eddar's quiet skill.
+@if seen.prologue.jukebox>=1
+EDDAR: Rex has queued "Valor Forever (Demo)" four times. Rex has recorded a demo.
+@else
+EDDAR: Every record in here is older than I am, except the one I fixed. I won't say which. It knows.
+@endif
+? "Neon Heart" -> neon
+? "Halcyon Days" -> halcyon
+? "Dockside Shuffle" -> dockside
+? "Burn Slow" (the Wildfires' demo) -> burn
+? "Valor Forever (Demo)" -> valor
+? Leave it. -> leave
+* neon
+@bgm juke_neon_heart
+EDDAR: A love song for people who've never been loved back. The Bay's favourite.
+@end
+* halcyon
+@bgm juke_halcyon
+EDDAR: Scratched on the chorus. I could fix it. I won't. Some songs should keep their scars.
+@end
+* dockside
+@bgm juke_dockside
+EDDAR: Written for dockworkers, by a man who'd never lifted anything heavier than a grudge.
+@end
+* burn
+@bgm juke_burn_slow
+ROXY [smile]: Eddar, you ANGEL.
+@end
+* valor
+@bgm juke_valor
+SPIKE: Oh no.
+LULU: Oh NO.
+GIL: Turn it off, kid. I'm begging you.
+EDDAR: Art, Nietzsche said, is what keeps us from dying of the truth. He never heard this one.
+@end
+* leave
+@end
+
+@scene prologue.front_door
+# PLOT: Explains why the front is locked; points at the real exit. After the Bellshell: the Main Drag is the next build.
+@if p.bellshell_done
+EDDAR: Out there, the Main Drag, and the whole Bay running down it. I can hear the Static Hounds from here. (The Main Drag opens in the next build.)
+@end
+@endif
+EDDAR: Locked until doors. Mama Dee's rule: nobody in till the floor's clean, and nobody out till the trash is.
+EDDAR: The trash goes out the back. Stage right, under the pink EXIT sign.
+@end
+
+@scene prologue.back_door_locked
+# PLOT: Gate the alley until the chores are done; say what's missing.
+@if puddles>=3
+EDDAR: Not yet. Mama Dee wants the floor done before the trash.
+@end
+@endif
+MAMA DEE: Floor first, sugar! I can hear your shoes sticking from here!
+@end
+
+# ---------------------------------------------------------------- discoverables
+
+@scene prologue.poster_save
+# PLOT: The festival, and that it's older than anyone thinks.
+@if seen.prologue.poster_save>=1
+EDDAR: The small print: "Est. time immemorial. No refunds." Even eternity has a returns policy.
+@end
+@endif
+EDDAR: SAVE THE WORLD. A cartoon guitarist punching a meteor. "Heats tonight in every club. Final at the Grand Stadium."
+@end
+
+@scene prologue.poster_rex
+# PLOT: Rex's legend before we meet him; the crown to come.
+@if seen.prologue.poster_rex>=1
+EDDAR: The crown is in gold pen. Rex drew it himself. Prophecy, it seems, is a do-it-yourself affair.
+@end
+@endif
+EDDAR: "REX VALOR: UNDEFEATED." Someone has drawn a crown on him.
+@end
+
+@scene prologue.chalkboard
+# PLOT: Stakes, and a running gag (Gary) for the Main Drag.
+@if seen.prologue.chalkboard>=1
+EDDAR: Underneath, smaller: "Who is Gary?" Underneath that, smaller still: "Nobody knows who Gary is."
+@end
+@endif
+EDDAR: "TONIGHT: SAVE THE WORLD HEAT. Roxy and the Wildfires versus the Velvet Undertow versus Gary."
+@end
+
+@scene prologue.window
+# PLOT: The city outside, festive and unaware.
+@if seen.prologue.window>=1
+EDDAR: A thousand people out there, singing a song whose words they've forgotten. I envy them, a little.
+@end
+@endif
+EDDAR: The boardwalk is all red streamers and paper meteors. Somebody's selling Canticle cocktails: half rum, half prophecy.
+@end
+
+@scene prologue.window_broken
+# CHARACTER: Eddar's eye for the beauty in wreckage.
+@if seen.prologue.window_broken>=1
+EDDAR: Mama Dee will want the glass swept. I'd sweep it now, but the glass is the least broken thing in Solace Bay tonight.
+@end
+@endif
+EDDAR: Glass across four tables, and one perfect crab-shaped hole. Somewhere out there, a glazier is about to have the best night of his life.
+@end
+
+@scene prologue.spare_guitar
+# PLOT: Plants Leagues' guitar.
+@if seen.prologue.spare_guitar>=1
+EDDAR: There's one gold thread caught in the tuning pegs. I don't remember putting it there.
+@end
+@endif
+EDDAR: The spare guitar on the wall. "Decorative," says Mama Dee. Nobody has ever played it. Dust on every string.
+@end
+
+@scene prologue.lost_found
+# PLOT: The Cyrano letters, before the alley reveals them. Choice: keep it (Lyra pays it off in Act III).
+@if p.letter_kept
+EDDAR: The box is lighter by one heart. Mine.
+@end
+@endif
+@if p.letter_returned
+EDDAR: One glove, three picks, and my own heart, signed by another man. Still there.
+@end
+@endif
+EDDAR: One glove. Three picks. And a love letter in my own handwriting, signed "Rex."
+EDDAR: "Your eyes are two lanterns on a dark sea." I wrote that in March. He must have dropped it on the way to the post.
+? Put it back. -> back
+? Keep it. -> keep
+* back
+EDDAR: Some mail shouldn't be returned to sender.
+@flag p.letter_returned
+@end
+* keep
+EDDAR: Into my pocket, then. It's in better company.
+@flag p.letter_kept
+@give rex_letter 1
+@end
+
+@scene prologue.tip_jar
+# CHARACTER: Mama Dee's warmth; the band's tiny fame.
+@if seen.prologue.tip_jar>=1
+EDDAR: Mama Dee had a hundred of these buttons made. Ninety-nine remain.
+@end
+@endif
+EDDAR: Four tokens and a button: "I SURVIVED THE WILDFIRES."
+@end
+
+@scene prologue.amp_manual
+# CHARACTER: his competence and his ache.
+@if seen.prologue.amp_manual>=1
+EDDAR: A note in the margin, in my hand: "Ground loops hide. So do I." I don't remember writing it. I remember meaning it.
+@end
+@endif
+EDDAR: The amp manual, dog-eared and annotated. I read amp manuals for fun. Pity me if you must, but do it quietly.
+@end
+
+@scene prologue.set_list
+# PLOT: Sets up Leagues' song ("Burn Forever" needs two leads); plants Thunderhorn's ballad ("One Word?").
+@if seen.prologue.set_list>=1
+EDDAR: Crossed out at the bottom: "One Word?" She never told me what the word was.
+@end
+@endif
+EDDAR: "Burn Slow. Burn Medium. Burn Fast. Burn Forever (??? needs 2 leads)." The question marks are underlined three times.
+@end
+
+# ---------------------------------------------------------------- patrons
+
+@scene prologue.dwayne
+# CHARACTER: a heckler who thinks he's the funniest man in the Bay. Eddar is meek with him.
+@if seen.prologue.dwayne>=1
+DWAYNE: Still here, mop guy? I'm WATCHING the BAND.
+@end
+@endif
+DWAYNE: Hey, you're blocking Roxy. Move it, mop guy.
+EDDAR: Sorry.
+@end
+
+@scene prologue.superfan
+# CHARACTER: she's here for the Wildfires, and nobody else exists.
+@if seen.prologue.superfan>=1
+SUPERFAN: Shh! Spike's tuning! This is a SACRED moment!
+@end
+@endif
+SUPERFAN: Do you work here? Can you get me Roxy's guitar pick? No? Then why are you TALKING to me?
+@end
+
+@scene prologue.kings_fan
+# CHARACTER: one man's lonely crusade for 'Neon Nights'.
+@if seen.prologue.kings_fan>=1
+KINGS FAN: They're gonna play it. I can feel it. Tonight's the night.
+@end
+@endif
+KINGS FAN: You think they'll play 'Neon Nights'? You should ask 'em. They listen to you, right?
+EDDAR: Nobody listens to me.
+KINGS FAN: Yeah. Figured.
+@end
+
+@scene prologue.tammy_dad
+# CHARACTER: a proud, slightly sad dad; grounded among the hecklers.
+@if seen.prologue.tammy_dad>=1
+TAMMY'S DAD: She's eleven. She plays the recorder. Badly. I tell her she's a natural.
+@end
+@endif
+TAMMY'S DAD: My daughter Tammy loves this band. Couldn't get her a ticket. So I came and I'm gonna tell her ALL about it.
+EDDAR: She's lucky.
+@end
+
