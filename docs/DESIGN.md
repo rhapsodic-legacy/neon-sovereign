@@ -212,6 +212,14 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - **Eddar's isolation, shown mechanically.** Early on his energy ability builds so slowly he rarely combos with anyone. In Act III he starts gelling with the team's timing. In Acts IV and V he builds lots of energy, but his energy ability always unleashes with his auto-attack, which makes him very hard to combo with again; by then he's very strong on his own.
 - First taught in the Static Hound fight.
 
+### 6.2h Early-game hero roles (Jesse, 2026-11-05)
+- **Rex** is all-round amazing: he is the Hero of Legend.
+- **Roxy** is an imprecise but heavy damage dealer.
+- **Grubb** should feel like the healer.
+- **Eddar** should make the player think "Why is this guy in the party? He sucks." He's meant to feel like a wimp at the start. His only real strength is his music press, which reflects an enemy attack (so it's really the enemy that's strong).
+  - **Patch** heals Rex for 35% and everyone else for 25% (Sable will get 35% later). May need more tuning.
+  - **Absorbing lots of energy from enemies** (§6.2b) is not innate: it's an upgrade on his Destiny path (not an Ability, so every player is offered it).
+
 ### 6.2f Musical monsters: resonance, Hush aura and aggro (Jesse, 2026-11-05)
 - **Musical monsters feel different from regular ones:** mechanic-heavy and music-heavy. Rockstars in the party and warp-in effects will make them easier later (§13.6), countered by the rising Hush.
 - **Warp-in:** alongside the title-card saying, a dark aura flares, scaled to how far the Hush has spread. Early on it's minimal, and while it is, the creature can't select its Hush/darkness attacks at all.
@@ -224,10 +232,11 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 
 ### 6.2g Interrupts and music presses (Jesse, 2026-11-05)
 - **Interrupts don't cost a turn.** If a creature is interrupted (by Eddar's interrupt or anything else) and it isn't Broken, on its turn it simply picks one of its regular abilities instead of the big wind-up. Only an interrupt that also Breaks it costs it the turn. (Losing the turn every time made wind-up abilities a liability for the creature.)
+- **Press timing (Jesse, 2026-11-05):** the 2.5-second press window opens when the attacker *announces* the attack. Interrupts (e.g. Eddar's Null) happen later, on someone's turn. So presses and interrupts never clash: a player can press during the announcement and still interrupt the attack.
 - **Music presses are per hero, not per monster.** During certain enemy attacks (e.g. the Static Hound's White Noise Howl, Broadcast and especially its Hush attack, Dead Channel), a circle in each party hero's chakra colour appears (gold for Rex, black for Eddar). The player can press as many as they like, but not simultaneously: presses need a small gap (about 0.25 s, to be tuned; it's not meant to punish, only to stop mashing all buttons at once). Music rings out from each hero pressed and their boon unfurls. Each hero's press works **once per turn**, so in a big chaotic fight with many creatures opening windows, the player has to pick where to spend them. A skilled player can hit all five once there are five in the party.
 - **Press effects so far** (the other heroes later):
   - **Grubb:** heals all allies for 3% HP. If Aubade is in the party, she gains **Hardened** for the duration of the attack: Guard, and no new debuffs or DoTs. (He has the hots for her in the story.)
-  - **Roxy:** the attacker takes a hit from her: her basic attack as fire damage, plus her basic attack as music damage.
+  - **Roxy:** one random enemy (not necessarily the attacker) takes her basic attack as fire damage, plus her basic attack as music damage.
   - **Eddar:** Rex gains **Resist** for the duration of the attack (50% damage from all types). As Sable and Eddar grow close in the story, she gains it too if she's in the party. If Rex isn't in the party, Eddar gets it instead. Also, one random enemy suffers the damage the attack inflicts (ignored if the attack does no damage).
   - **Rex:** he taunts that creature (its next attack targets him), his energy goes up a bit, and he attacks it (if he's Charged, the Charge applies to this attack).
 - This updates the older rule that music presses are never damage (Roxy's and Eddar's presses now deal damage).
