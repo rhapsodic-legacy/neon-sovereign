@@ -241,7 +241,7 @@ Musical monsters are creatures of legend nobody can explain; scary monsters live
 
 **Scary monsters (outside).**
 - **Marsh Prowler:** bite and Berserk rules in §6.5b.
-- **Harbour Lamprey:** scary. Lunges from the dock water, grabs one hero and drags them out of the turn order until someone hits them free.
+- **Harbour Lamprey:** scary. Like an electric eel, it shocks anyone who hits it with a physical melee attack: a strong lightning hit back on the attacker. It doesn't touch turn order (the Drum Toad already does that). It teaches that some monsters are better fought with other kinds of attack: Eddar's and Grubb's magic, or Roxy and Rex throwing items such as grenades.
 - **Drain Rats:** the player's first many-versus-few fight, before anyone has an AoE attack.
 - **Stiltwalker:** a true giant, about 10 ft tall, and a glass cannon. It teaches that at least one fast character matters.
   - Several together usually all act first, and they're smart: they all target the same hero, whoever gets the least physical defence **from items** (not whoever has the lowest physical defence stat).
