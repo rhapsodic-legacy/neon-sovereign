@@ -17,8 +17,8 @@ const only = argOf('fight');
 
 export const TWEAKS: Record<string, HeroTweaks> = {
   base: {},
-  patch25: { patchHeal: 0.25 },
-  black_x2: { blackFeedMul: 2 },
+  patch35_all: { patchHeal: 0.35 },
+  eddar_destiny_upgrade: { blackEnemyUpgrade: true },
   no_big_brother: { noBigBrother: true },
   rex_hp_80: { rexHpMul: 0.8 },
   charge_x3: { chargeMul: 3 },

@@ -80,8 +80,10 @@ export interface FightHooks {
 }
 
 export interface HeroTweaks {
-  patchHeal?: number; // default 0.35
+  patchHeal?: number; // overrides: Rex 0.35, others 0.25 (DESIGN §6.2h)
   blackFeedMul?: number; // multiplies Eddar's black-chakra intake
+  /** Eddar's Destiny upgrade: takes in 90% of enemy energy gains instead of 30% (DESIGN §6.2h). */
+  blackEnemyUpgrade?: boolean;
   noBigBrother?: boolean;
   rexHpMul?: number;
   chargeMul?: number; // default 2
@@ -251,7 +253,7 @@ export class SoloBattle {
       }
       case 'patch': {
         const ally = c.target ? this.get(c.target) : undefined;
-        if (ally && ally.alive) this.heal(ally, Math.round(ally.maxHp * (tw.patchHeal ?? 0.35)));
+        if (ally && ally.alive) this.heal(ally, Math.round(ally.maxHp * (tw.patchHeal ?? (ally.id === 'rex' ? 0.35 : 0.25))));
         break;
       }
       case 'defend':
@@ -338,15 +340,47 @@ export class SoloBattle {
       const rex = this.get('rex');
       if (rex && rex.alive && !rex.broken) t = rex;
     }
-    let mul = this.enemyMul(u, solo);
-    const dmg = this.dealDamage(u, t, a, mul);
+    const dmg = this.dealDamage(u, t, a, this.enemyMul(u, solo));
     this.afterHeroHit(t);
     return dmg;
   }
 
-  /** AoE on the whole party, opening a music-press window (DESIGN §6.2g) when `press` is set. */
-  enemyAoe(u: Fighter, a: Attack, press: boolean): number {
-    if (press) this.openPresses(u);
+  /**
+   * The attacker announces a big attack: the 2.5 s music-press window opens now (DESIGN §6.2g). Rex's and Roxy's presses
+   * resolve at once; Eddar's (Resist for Rex, and reflecting the damage onto a random enemy) waits for the attack to land,
+   * and is lost if the attack is interrupted.
+   */
+  announce(u: Fighter): void {
+    const used = ['eddar', 'rex', 'roxy'].filter((id) => this.get(id)?.alive).slice(0, this.presses);
+    this.pressesUsed += used.length;
+    if (used.includes('eddar')) u.meta.pressEddar = 1;
+    if (used.includes('rex')) {
+      const rex = this.get('rex')!;
+      rex.statuses.taunt = Math.max(rex.statuses.taunt ?? 0, 1);
+      this.addEnergy(rex, 10);
+      this.partyAttack(rex, u, { name: 'Press: Rex', power: 1.0, breakPower: 10 }, false);
+    }
+    if (used.includes('roxy')) {
+      const roxy = this.get('roxy')!;
+      const foes = this.enemies();
+      const t = foes[Math.floor(this.rng.next() * foes.length)];
+      if (t) {
+        this.partyAttack(roxy, t, { name: 'Press: Roxy fire', power: 0.95, type: 'fire' }, false);
+        this.partyAttack(roxy, t, { name: 'Press: Roxy sound', power: 0.95, type: 'sound' }, false);
+      }
+    }
+  }
+
+  /** AoE on the whole party; applies Eddar's press if one was made when it was announced. */
+  enemyAoe(u: Fighter, a: Attack): number {
+    const eddarPress = !!u.meta.pressEddar;
+    u.meta.pressEddar = 0;
+    this.pressBuff = {};
+    if (eddarPress) {
+      const rex = this.get('rex');
+      if (rex && rex.alive) this.pressBuff.rex = 0.5;
+      else this.pressBuff.eddar = 0.5;
+    }
     let total = 0;
     const mul = this.enemyMul(u, false);
     let firstDmg = 0;
@@ -356,7 +390,11 @@ export class SoloBattle {
       total += d;
       this.afterHeroHit(t);
     }
-    if (press) this.closePresses(u, firstDmg);
+    this.pressBuff = {};
+    if (eddarPress && firstDmg > 0) {
+      const foes = this.enemies();
+      if (foes.length) this.rawDamage(foes[Math.floor(this.rng.next() * foes.length)], firstDmg);
+    }
     return total;
   }
 
@@ -366,46 +404,6 @@ export class SoloBattle {
     // Unplugged (assumption, not canon): enemies hit 25% softer.
     if (this.d === 1) mul *= 0.75;
     return mul;
-  }
-
-  private openPresses(_u: Fighter): void {
-    this.pressBuff = {};
-    const order = ['eddar', 'rex', 'roxy'].filter((id) => this.get(id)?.alive);
-    const used = order.slice(0, this.presses);
-    this.pressesUsed += used.length;
-    for (const id of used) {
-      if (id === 'eddar') {
-        const rex = this.get('rex');
-        if (rex && rex.alive) this.pressBuff.rex = 0.5;
-        else this.pressBuff.eddar = 0.5;
-      }
-    }
-    this.pressBuff.__used = used.length;
-    (this.pressBuff as Record<string, number>).__mask = (used.includes('eddar') ? 1 : 0) | (used.includes('rex') ? 2 : 0) | (used.includes('roxy') ? 4 : 0);
-  }
-
-  private closePresses(u: Fighter, firstDmg: number): void {
-    const mask = this.pressBuff.__mask ?? 0;
-    this.pressBuff = {};
-    if (mask & 1 && firstDmg > 0) {
-      const foes = this.enemies();
-      if (foes.length) this.rawDamage(foes[Math.floor(this.rng.next() * foes.length)], firstDmg);
-    }
-    if (mask & 2) {
-      const rex = this.get('rex');
-      if (rex && rex.alive && u.alive) {
-        rex.statuses.taunt = Math.max(rex.statuses.taunt ?? 0, 1);
-        this.addEnergy(rex, 10);
-        this.partyAttack(rex, u, { name: 'Press: Rex', power: 1.0, breakPower: 10 }, false);
-      }
-    }
-    if (mask & 4) {
-      const roxy = this.get('roxy');
-      if (roxy && roxy.alive && u.alive) {
-        this.partyAttack(roxy, u, { name: 'Press: Roxy fire', power: 0.95, type: 'fire' }, false);
-        this.partyAttack(roxy, u, { name: 'Press: Roxy sound', power: 0.95, type: 'sound' }, false);
-      }
-    }
   }
 
   private afterHeroHit(t: Fighter): void {
@@ -458,7 +456,7 @@ export class SoloBattle {
     u.energy = Math.min(100, u.energy + n);
     const gained = u.energy - before;
     if (gained <= 0 || u.chakra === 'black') return;
-    const share = (u.side === 'party' ? 0.3 : 0.9) * (this.opts.tweaks?.blackFeedMul ?? 1);
+    const share = (u.side === 'party' || !this.opts.tweaks?.blackEnemyUpgrade ? 0.3 : 0.9) * (this.opts.tweaks?.blackFeedMul ?? 1);
     for (const e of this.fighters) if (e.alive && e.chakra === 'black' && e.energy < 100) e.energy = Math.min(100, e.energy + gained * share);
   }
 

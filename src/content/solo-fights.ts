@@ -207,6 +207,7 @@ export function houndHooks(opts: SimOptions): FightHooks {
       return b.rng.next() >= 0.5;
     },
     onInterrupted(b, u) {
+      u.meta.pressEddar = 0; // nothing lands, so nothing to reflect
       u.intent = 'static_bite'; // picks a regular ability instead of the howl
       u.intentTarget = randomHero(b);
       u.meta.interrupted = 1;
@@ -221,7 +222,7 @@ export function houndHooks(opts: SimOptions): FightHooks {
       }
       if (u.meta.windup) {
         u.meta.windup = 0;
-        b.enemyAoe(u, { name: 'White Noise Howl', power: 0, pctMax: 0.25, type: 'sound' }, true);
+        b.enemyAoe(u, { name: 'White Noise Howl', power: 0, pctMax: 0.25, type: 'sound' });
         if (!u.statuses.hollowed) u.hp = Math.min(u.maxHp, u.hp + Math.round(u.maxHp * 0.25));
       } else {
         let move = u.intent!;
@@ -237,8 +238,11 @@ export function houndHooks(opts: SimOptions): FightHooks {
           u.meta.revealedUntil = 0;
         } else if (move === 'howl') {
           u.meta.windup = 1;
+          b.announce(u); // the press window opens on the announcement
+
         } else if (move === 'broadcast') {
-          b.enemyAoe(u, { name: 'Broadcast', power: 1.6, type: 'sound' }, true);
+          b.announce(u);
+          b.enemyAoe(u, { name: 'Broadcast', power: 1.6, type: 'sound' });
           for (const p of b.party()) if (!p.statuses.guard) p.statuses.static = 1;
         }
       }
