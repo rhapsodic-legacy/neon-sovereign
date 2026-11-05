@@ -26,7 +26,7 @@ Halcyon has a lot of neon, and nobody has ever been free. Nobody has noticed tha
 - **What the bullies call him:** "Adder." It's a twist of his name and a joke about how harmless he is, and it becomes very unfunny by Act V.
 
 ### REX VALOR, the bully and Hero of Legend (22)
-*Kept exactly as written.* Huge, gorgeous, a golden quiff and a white leather jacket with gold pauldrons. He carries a lightning lance, he's a three-time Grand Joust champion, and he refers to himself in the third person ("Rex doesn't *do* 'no'."). He shoves Eddar into trash barrels, and lays out anyone *else* who tries: "Nobody pushes Adder around but me." **He can't read.** He pays Eddar to write his love letters to Princess Lyra.
+*Kept exactly as written.* Huge, gorgeous, a golden quiff and a white leather jacket with gold pauldrons. He fights with his fists, "Ol' One and Two" (Jesse, 2026-11-05: no lance; it's called jousting because a bout opens with a straight-armed fist bump, like crossed lances), he's a three-time Grand Joust champion, and he refers to himself in the third person ("Rex doesn't *do* 'no'."). He shoves Eddar into trash barrels, and lays out anyone *else* who tries: "Nobody pushes Adder around but me." **He can't read.** He pays Eddar to write his love letters to Princess Lyra.
 - **New:** the Rubric names Rex **the Hero of Legend**, and he is spectacularly bad at it. He's vain, he chases women, he parties, he shows up hungover to destiny, and he'd rather win the princess than save the world. Underneath all that is a guy who's terrified of not being enough, and who only ever had one person he could be honest with: the kid he bullies.
 
 ### SABLE, the ronin monk (25)
