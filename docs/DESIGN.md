@@ -215,6 +215,11 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 
 ### 6.5b Monster families and Hush clearing (Jesse, 2026-11-05)
 - **Monster families, FF-style.** One model, several versions: the bipedal werewolf of the marshes (the **Marsh Prowler**; it is NOT the monster that breaks into the Pink Wyvern, which is a musical monster, Jesse 2026-11-05; black fur, pale blue eyes, an oversized slavering jaw) returns as the Swamp Prowler, the Badlands Prowler and so on, with different fur, a darker aura and so on.
+- **Marsh Prowler kit (Jesse, 2026-11-05).** It mixes turn-based abilities with bite attacks from its Solo bar, so who it's targeting matters. Reading it says so: if it's targeting you, keep your guard up.
+  - **Bite** inflicts **Berserk** for 1 turn: the afflicted hero's regular attack and any auto (Solo) attacks that come up hit a random target, which can be themselves, an ally or an enemy.
+  - **Guard stops it.** A hero who is Defending, or has Guard from a spell, item or effect (Guard is what Defend applies), isn't Berserked by the bite. A cryptic line ("Insanity thwarted" or similar) tells the player Guard worked.
+  - **Taunt** forces its target and also puts Guard on the taunter, as Defend would.
+  - **Big Brother:** if Rex takes a hit meant for Eddar, he counts as guarding. So Rex makes these fights much easier: he can just keep taunting.
 - **No "weaker because it's earlier" versions.** The Marsh Prowler is not magically weaker than the Badlands Prowler. Every member of a family grows stronger as the Hush takes more of the world. Later fights are harder because more creatures fight together, mixing turn-based and Solo-bar (timed) attacks and abilities, not because the same animal is simply boosted elsewhere.
 - **Hush clearing gates difficulty.** World and side-quest content that defeats the Hush makes the fights ahead easier. How much the player is expected to clear rises with difficulty:
   - **Unplugged (easy):** the player can skip all of it and still progress.
