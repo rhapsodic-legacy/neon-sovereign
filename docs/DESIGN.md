@@ -200,6 +200,7 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - **Static Hound** (prologue): Enhance at **50% HP**.
 
 ### 6.2e Combo Unleash (Jesse, 2026-11-05)
+- **Chakras:** seven heroes take the seven colours, plus Rex (gold-white, all) and Eddar (black, none). So far Roxy is red (she literally lights on fire) and Grubb is yellow (action).
 - When a character unleashes an energy ability and another hero's energy bar is also full, both unleash together and add a **bonus combo effect**: each chakra adds its own.
   - **Roxy (red):** bonus AoE damage.
   - **Rex (gold-white):** the buffs last one extra turn.
@@ -209,6 +210,16 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - **Rex's blood gives life:** while choosing combo Unleashes, Rex can sacrifice HP to fill the rest of his energy bar.
 - **Eddar's isolation, shown mechanically.** Early on his energy ability builds so slowly he rarely combos with anyone. In Act III he starts gelling with the team's timing. In Acts IV and V he builds lots of energy, but his energy ability always unleashes with his auto-attack, which makes him very hard to combo with again; by then he's very strong on his own.
 - First taught in the Static Hound fight.
+
+### 6.2f Musical monsters: resonance, Hush aura and aggro (Jesse, 2026-11-05)
+- **Musical monsters feel different from regular ones:** mechanic-heavy and music-heavy. Rockstars in the party and warp-in effects will make them easier later (§13.6), countered by the rising Hush.
+- **Warp-in:** alongside the title-card saying, a dark aura flares, scaled to how far the Hush has spread. Early on it's minimal, and while it is, the creature can't select its Hush/darkness attacks at all.
+- **Resonance sources.** Instruments near a musical monster respond to it with brief notes, its wild energy visibly lessens, and some of its most powerful attacks become unselectable. Never explained; the visual is intuitive. Sources in Solace Bay: the Pink Wyvern's instruments and amps, a Cyber Market shop selling wind chimes and drums, the Town Circle bell tower, and an old piano on the upper deck of a boat moored at the docks. Not possible against the Bellshell.
+- **Purpose:** musical monsters can be hard without being impossible for un-upgraded heroes or inept players. It matters most at the very start; after a few upgrades it's less necessary.
+- **Aggro.** Static Hounds have a huge aggro range and charge the player. The player can lead one to a resonance source (e.g. in front of the Pink Wyvern) and fight it there. The first Static Hound (inside the Wyvern) is easier for this reason; ones fought away from sources are harder.
+- **Ecology.** Regular monsters interact with each other (a Marsh Prowler chases off a Tross) but avoid the musical ones. Musical monsters stop by each other "for a note" but ignore regular monsters.
+- **Drain Rats:** the first group, right outside the bar, is just a few; after that one fight they're always met in larger swarms.
+- Static Hound and Drain Rat move sets: proposals in the doc "Static Hound and Drain Rat move sets (draft)" (https://claude.ai/artifact/Bgy8Yy1fRKRBx7GdEVMudS), not canon yet.
 
 ### 6.3 Relationship reactions & Duets
 - Barks and procs from bonds/story state (Rex covers Eddar early; Sable counters for Eddar; Roxy's Heat follows her heart; party members hesitate — small delay — on turns after Eddar's Dissonance spikes in Act V: fear, shown mechanically).
