@@ -391,6 +391,27 @@ From Jesse's 0.3 playtest (2026-11-04), not built yet:
 - **Early patrons** in the Wyvern's cold open once real assets exist.
 - **Muffled screams and monster roars** through the walls during the screams scene, once real audio exists.
 
+## 13.6 Recorded for later: Rockstars, Bouncers and Eddar (Jesse, 2026-11-05)
+Jesse recorded this for later. It is not scheduled work.
+
+- **The cast is nine:** Eddar, Rex, Roxy, Sable, Leagues, Grubb, Thunderhorn, Lyra and Aubade.
+- **Three hidden hero types:**
+  - **Rockstars:** Roxy, Thunderhorn, Aubade (vocalist) and Leagues.
+  - **Bouncers:** Rex, Grubb, Lyra and Sable.
+  - **Other:** Eddar alone.
+- **Never explained to the player.** A Rockstar in the battle party triggers certain effects: visual, audio and battle-related. Bouncers trigger their own. Eddar is a can of whoop-ass by himself but provides no group effect, which fits how he sits outside the system and the Canticle.
+- **Full-type parties:**
+  - Four Bouncers: they all get combat lines, and their stacked effects transcend into something else, like a phalanx.
+  - Four Rockstars: the same, but the opposite, like a nuclear explosion.
+- **Why:** it's a cool feature in itself. It drives home how different Eddar is from everyone in the Canticle, and it gives the player different ways to experience battles.
+- **After the credits:**
+  - Chapter select.
+  - Awards and unlocks for beating things with certain members in the group. They tend to align with Rockstars and Bouncers, and include winning without Eddar, especially in NG+.
+- **NG+:**
+  - The whole story is about 95% the same, with tougher foes and a few extras here and there.
+  - Most fights let the player pick any fighters, not just the current group.
+  - Part of the extra 5% is humorous fourth-wall-breaking lines, as if the characters notice ("Wait... why is the princess here helping us fight the Bellshell?").
+
 ## 14. Open Questions for Jesse
 1. Rex calls Eddar **"Adder"** (twist of his name; snake joke that turns ominous). Is that what you meant, or is "Adder" his real name?
 2. Title: keep **Neon Sovereign** or something tied to the new story (e.g., **"Red Ink"**, **"Da Capo"**, **"The Unsung"**)?
