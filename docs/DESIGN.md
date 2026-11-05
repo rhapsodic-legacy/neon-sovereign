@@ -187,6 +187,29 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - **Eddar: black**, because he is the Bringer of Final End: nothing, the absence of light. He gains energy **whenever anyone else gains energy in their own chakra**: a little from friends (30% of their gain) and far more from enemies (90% of an enemy's gain; each enemy has a `chakraGain` per attack, bigger for bigger foes). Early on he fills slower than the others but steadily; as bosses get bigger his energy spikes. In the final two acts, bosses should only be beatable by non-veteran players with Eddar in the party (to be tuned later).
 - Both Rex's and Eddar's mechanics get more complex once the rest is polished. In build 0.3c the gold and black meters fill but nothing spends them yet (their specials are still to be designed).
 
+### 6.2c Combat basics taught in the alley (Jesse, 2026-11-05)
+- **Two layers.** Chosen actions are turn-based. Every fighter also has auto-actions on a visible timer (the Solo bar): the faster a fighter, the faster their timer. Each character has their own auto-action options, changeable during or outside a fight (character menu). Starting options are just **regular attack** and **Defend**.
+- **Always-on extras.** Some heroes have extra actions that ignore every cooldown and work as long as they aren't incapacitated, e.g. Rex's **Big Brother**.
+- **Signature actions:** Eddar can **Read** opponents, Rex can **Charge**, and so on.
+- **Energy abilities** run off the ability gauge (chakra, §6.2b). Everyone has energy, enemies included (the dockworkers too).
+
+### 6.2d Enhanced: the "second half" of a fight (Jesse, 2026-11-05)
+- Some fights have a second half. When it triggers, the enemies become **Enhanced**: they hit harder, new attacks appear, and their random quips change.
+- Triggers vary by fight: reaching turn X (e.g. the 4th), damage received, damage dealt, HP thresholds, etc.
+- **The player is never told about Enhance.** They work it out from the changed dialogue, the harder hits and the new attacks.
+- **Static Hound** (prologue): Enhance at **50% HP**.
+
+### 6.2e Combo Unleash (Jesse, 2026-11-05)
+- When a character unleashes an energy ability and another hero's energy bar is also full, both unleash together and add a **bonus combo effect**: each chakra adds its own.
+  - **Roxy (red):** bonus AoE damage.
+  - **Rex (gold-white):** the buffs last one extra turn.
+  - **Eddar (black):** the debuffs last one extra turn.
+  - **Grubb (yellow):** everyone gets Haste for a turn. Grubb's energy ability itself is an AoE heal (20% HP) that also clears all debuffs.
+- **UI (like FFVII Ever Crisis):** when one character's special is ready on their turn, they can choose to activate it. If anyone else's is ready, the player gets about a **5-second window** to choose theirs as well, or just click **Unleash**.
+- **Rex's blood gives life:** while choosing combo Unleashes, Rex can sacrifice HP to fill the rest of his energy bar.
+- **Eddar's isolation, shown mechanically.** Early on his energy ability builds so slowly he rarely combos with anyone. In Act III he starts gelling with the team's timing. In Acts IV and V he builds lots of energy, but his energy ability always unleashes with his auto-attack, which makes him very hard to combo with again; by then he's very strong on his own.
+- First taught in the Static Hound fight.
+
 ### 6.3 Relationship reactions & Duets
 - Barks and procs from bonds/story state (Rex covers Eddar early; Sable counters for Eddar; Roxy's Heat follows her heart; party members hesitate — small delay — on turns after Eddar's Dissonance spikes in Act V: fear, shown mechanically).
 - **Duets** (both turns; unlocked by story + bonds):
@@ -228,6 +251,12 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
   - **Symphony (hardest):** below **95%** cleared, later fights become "one suboptimal move and the party wipes".
   - **100% cleared** earns a reward and an award.
 - **Hush clearing carries over.** Most of it saves to NG+ and chapter select (§13.6), so a player who starts over or jumps to a chapter doesn't have to clear it again, but can take the challenges on again if they wish.
+
+### 6.5d The alley fight: tutorial spec (Jesse, 2026-11-05)
+- Rex and Eddar vs **three dockworkers**. The tutorial is spread over **at least three to four turns**, so the first turn is never an information dump. It covers everything in §6.2c.
+- The player learns what everything does before the fight gets punishing: around turn 4 the dockworkers become Enhanced (§6.2d).
+- **Barks.** Early on they trash-talk. Once Enhanced, their random quips turn angry, e.g. "No one makes me spit my own blood!", "Hey, these guys are kinda' tough. Even the weedy git.", "You guys are gunna' pay for that!"
+- Longer than a normal fight so the player gets a feel for it, but not overly hard. **Even on Symphony**, a player who doesn't waste turn-based abilities survives. Rex and Eddar pair immaculately: Rex protects Eddar, and Eddar heals.
 
 ### 6.5c Solace Bay bestiary (Jesse, 2026-11-05)
 Musical monsters are creatures of legend nobody can explain; scary monsters live outside and someone (usually Eddar) knows what they are (STORY.md).
