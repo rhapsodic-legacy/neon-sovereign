@@ -229,6 +229,36 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
   - **100% cleared** earns a reward and an award.
 - **Hush clearing carries over.** Most of it saves to NG+ and chapter select (§13.6), so a player who starts over or jumps to a chapter doesn't have to clear it again, but can take the challenges on again if they wish.
 
+### 6.5c Solace Bay bestiary (Jesse, 2026-11-05)
+Musical monsters are creatures of legend nobody can explain; scary monsters live outside and someone (usually Eddar) knows what they are (STORY.md).
+
+**Musical monsters.** Each one alone wipes a party that only uses regular attacks and no abilities, the Bellshell most of all. Two or more in one fight is extremely hard. That's avoidable: they're not frequent and they move on regular loops. Beating the Bellshell makes them leave town.
+- **Static Hound:** a pony-sized creature of legend made of living TV static (its howl has static in it). It breaks into the Pink Wyvern.
+- **Bellshell:** the docks mini-boss (giant hermit crab in a harbour bell).
+- **Tin Gull:** attacks the whole party (AoE). Chimes hang from its feathered crest so it looks musical. Its attack also stops a hero's auto-attack (Solo bar) timer for X seconds, longer as the Hush grows stronger.
+- **Drum Toad:** off-beat thumping that scrambles the turn order (Jesse loves the effect).
+- **Lamp Moths:** unchanged (not fought; 14 to calm).
+
+**Scary monsters (outside).**
+- **Marsh Prowler:** bite and Berserk rules in §6.5b.
+- **Harbour Lamprey:** scary. Lunges from the dock water, grabs one hero and drags them out of the turn order until someone hits them free.
+- **Drain Rats:** the player's first many-versus-few fight, before anyone has an AoE attack.
+- **Stiltwalker:** a true giant, about 10 ft tall, and a glass cannon. It teaches that at least one fast character matters.
+  - Several together usually all act first, and they're smart: they all target the same hero, whoever gets the least physical defence **from items** (not whoever has the lowest physical defence stat).
+  - When a hero falls to 0 HP, they retreat on their next action, auto or turn-based, so there's no reward for beating them.
+  - One alone is usually fine: early on they can't one-shot a hero. Avoid groups without a fast character (which the player won't have early on).
+  - Strategy for two: strip Rex of armour-granting items and make sure everyone else has some. They'll target Rex, whose HP survives two hits.
+- **Hollow Tross:** stygian-winged, two-headed albatrosses known for attacking small fishing boats at sea. (Not "crows": too familiar.)
+  - Easy in a direct fight. But if the player fights anything else, even the Bellshell, within a certain distance of one, it joins after the first round from behind with a free Ambush attack.
+  - Usually not on the player's path: they watch eerily from rooftops. Grubb can scare one off with a blast of magic (a visual effect), and it flies somewhere else.
+  - However many the player defeats, more keep turning up: the number stays the same, it doesn't grow. They're a real pain.
+  - Once the Bellshell is beaten and the musical monsters leave, the Tross leave too. An NPC says they don't like being around so many bigger, hungry monsters.
+- **Murk Behemoth:** like a giant brute crossed with a swamp creature: hunched, oversized muscles, festooned with weeds and dead plants, about 20 ft tall.
+  - It stands just outside the front entrance (the side facing the marsh). Optional, and very challenging.
+  - It's nearly impossible before the Bellshell is beaten, because Hollow Tross keep joining the fight.
+  - There's a reward and award for beating it, and another for beating it before the Bellshell.
+  - Looking at it, Eddar breaks the fourth wall in one brief prosaic line, roughly: "Sometimes things are best left for The Encore."
+
 ### 6.6 Autoplay
 - **Tactics** per character (up to 6 if/then rules, presets). **AUTO** (A) and **1×/2×/4×** speed (S). Auto runs normal fights and Cartridge runs; bosses allowed with warning.
 - **Attract Mode** on the field: auto-walk a loop and auto-fight until a stop condition (level, HP, item, alignment change risk).
@@ -423,7 +453,7 @@ Jesse recorded this for later. It is not scheduled work.
 - **After the credits:**
   - Chapter select.
   - Awards and unlocks for beating things with certain members in the group. They tend to align with Rockstars and Bouncers, and include winning without Eddar, especially in NG+.
-- **NG+:**
+- **NG+ is called The Encore** (Jesse, 2026-11-05):
   - The whole story is about 95% the same, with tougher foes and a few extras here and there.
   - Most fights let the player pick any fighters, not just the current group.
   - Part of the extra 5% is humorous fourth-wall-breaking lines, as if the characters notice ("Wait... why is the princess here helping us fight the Bellshell?").
