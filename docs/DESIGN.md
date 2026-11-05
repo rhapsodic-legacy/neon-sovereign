@@ -219,7 +219,17 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - **Aggro.** Static Hounds have a huge aggro range and charge the player. The player can lead one to a resonance source (e.g. in front of the Pink Wyvern) and fight it there. The first Static Hound (inside the Wyvern) is easier for this reason; ones fought away from sources are harder.
 - **Ecology.** Regular monsters interact with each other (a Marsh Prowler chases off a Tross) but avoid the musical ones. Musical monsters stop by each other "for a note" but ignore regular monsters.
 - **Drain Rats:** the first group, right outside the bar, is just a few; after that one fight they're always met in larger swarms.
-- Static Hound and Drain Rat move sets: proposals in the doc "Static Hound and Drain Rat move sets (draft)" (https://claude.ai/artifact/Bgy8Yy1fRKRBx7GdEVMudS), not canon yet.
+- Static Hound and Drain Rat kits: §6.5e.
+
+### 6.2g Interrupts and music presses (Jesse, 2026-11-05)
+- **Interrupts don't cost a turn.** If a creature is interrupted (by Eddar's interrupt or anything else) and it isn't Broken, on its turn it simply picks one of its regular abilities instead of the big wind-up. Only an interrupt that also Breaks it costs it the turn. (Losing the turn every time made wind-up abilities a liability for the creature.)
+- **Music presses are per hero, not per monster.** During certain enemy attacks (e.g. the Static Hound's White Noise Howl, Broadcast and especially its Hush attack, Dead Channel), a circle in each party hero's chakra colour appears (gold for Rex, black for Eddar). The player can press as many as they like, but not simultaneously: presses need a small gap (about 0.25 s, to be tuned; it's not meant to punish, only to stop mashing all buttons at once). Music rings out from each hero pressed and their boon unfurls. Each hero's press works **once per turn**, so in a big chaotic fight with many creatures opening windows, the player has to pick where to spend them. A skilled player can hit all five once there are five in the party.
+- **Press effects so far** (the other heroes later):
+  - **Grubb:** heals all allies for 3% HP. If Aubade is in the party, she gains **Hardened** for the duration of the attack: Guard, and no new debuffs or DoTs. (He has the hots for her in the story.)
+  - **Roxy:** the attacker takes a hit from her: her basic attack as fire damage, plus her basic attack as music damage.
+  - **Eddar:** Rex gains **Resist** for the duration of the attack (50% damage from all types). As Sable and Eddar grow close in the story, she gains it too if she's in the party. If Rex isn't in the party, Eddar gets it instead. Also, one random enemy suffers the damage the attack inflicts (ignored if the attack does no damage).
+  - **Rex:** he taunts that creature (its next attack targets him), his energy goes up a bit, and he attacks it (if he's Charged, the Charge applies to this attack).
+- This updates the older rule that music presses are never damage (Roxy's and Eddar's presses now deal damage).
 
 ### 6.3 Relationship reactions & Duets
 - Barks and procs from bonds/story state (Rex covers Eddar early; Sable counters for Eddar; Roxy's Heat follows her heart; party members hesitate — small delay — on turns after Eddar's Dissonance spikes in Act V: fear, shown mechanically).
@@ -268,6 +278,32 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - The player learns what everything does before the fight gets punishing: around turn 4 the dockworkers become Enhanced (§6.2d).
 - **Barks.** Early on they trash-talk. Once Enhanced, their random quips turn angry, e.g. "No one makes me spit my own blood!", "Hey, these guys are kinda' tough. Even the weedy git.", "You guys are gunna' pay for that!"
 - Longer than a normal fight so the player gets a feel for it, but not overly hard. **Even on Symphony**, a player who doesn't waste turn-based abilities survives. Rex and Eddar pair immaculately: Rex protects Eddar, and Eddar heals.
+
+### 6.5e Static Hound and Drain Rat kits (Jesse, 2026-11-05)
+Approved from the draft doc (https://claude.ai/artifact/Bgy8Yy1fRKRBx7GdEVMudS) with Jesse's changes. Numbers are to be tuned only when balance opens.
+
+**Static Hound** (musical; a mini-boss in its own right if the player doesn't interrupt White Noise Howl).
+- **Static Bite** (turn-based): single-target damage plus **Static**: the hero's Solo bar is hidden behind snow, and their next auto-action fizzles (100%). Defend or Guard blocks it.
+- **Channel Flip** (auto): it blinks to a new spot; its next target is re-rolled and only Read shows it. **Any debuffs and DoTs on it disappear.**
+- **White Noise Howl** (turn-based, telegraphed one turn ahead): AoE Sound damage of 25%, and the hound heals for 25%. Players will usually interrupt it.
+- **Broadcast** (turn-based): huge AoE plus Static on everyone. Locked near resonance sources (§6.2f).
+- **Dead Channel** (turn-based, Hush): a powerful ability; Mute plus Silence damage scaling with the Hush. Locked while the Hush is minimal.
+- **Auto-ability:** fast, as it's a fast animal. A regular attack (same damage as Static Bite) that heals it for 25% of the damage dealt.
+- **Energy:** every turn-based action fills its bar by 10% (Unplugged), 15% (Guitar Solo), 20% (Headliner) or 25% (Symphony); 5 points less each near a resonance source such as the Pink Wyvern. When full, its next turn-based action is **Interference**: any musical boons in effect halt and must be restarted; music buffs on the heroes are removed (Guard from Defend stays, for example); all heroes take a DoT of 5% per turn for 5 turns, starting that turn. While its gauge is full (until its next turn), its auto-abilities deal 10 + 2 × (difficulty level)% more damage (14% on Guitar Solo).
+- **Hush effect:** the more the Hush has spread, the faster its auto-ability fills and triggers, the more HP it has, and every ability adds Silence damage (even Channel Flip, hitting whoever it targets after the flip). The harder the difficulty, the stronger this effect.
+- **Enhanced** at 50% HP: Signal Split (a flickering after-image; each regular attack has a 50% chance to hit it for nothing; Read reveals the real one for the round; AoE hits both).
+- **Music presses** open during White Noise Howl, Broadcast and especially Dead Channel (§6.2g).
+- **Ending:** the Pink Wyvern fight keeps its mercy ending (Roxy's chord).
+
+**Drain Rats** (scary; not the top of the food chain).
+- **Nip** (auto, fast): small damage.
+- **Pile On** (turn-based): damage rises with each rat on the same target. They go for whoever has the **lowest starting (max) HP**: the weakest-looking target. Taunt and Big Brother break it up.
+- **Bristle** (turn-based, telegraphed): spines up for a turn (melee attackers take damage) and it **throws quills**, ranged damage to one hero, so it's never a free turn.
+- **Scatter** (passive): when one falls, the rest speed up for a turn.
+- **Energy attack:** when the gauge fills, a Pile On against the hero with the **lowest current HP** (the most wounded).
+- **Hush attack, Rabid Madness:** interruptible. AoE Silence damage (scales with the Hush) to every hero, plus Poison and Berserk. Music presses open.
+- **Hush effect:** all attacks deal bonus Silence damage, scaling with the Hush.
+- Ecology: a nearby Prowler or Tross can scare them off.
 
 ### 6.5c Solace Bay bestiary (Jesse, 2026-11-05)
 Musical monsters are creatures of legend nobody can explain; scary monsters live outside and someone (usually Eddar) knows what they are (STORY.md).
