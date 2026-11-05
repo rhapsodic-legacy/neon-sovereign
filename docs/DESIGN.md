@@ -213,6 +213,17 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - To keep the final fight fair: from Act II on, at least one boss per act is designed to be best solved *without* relying on Eddar (teaches the other kits), and the game nudges via Cartridge challenges that ban Eddar.
 - Modes: Story / Arcade (default) / Hardcore. Retry-from-boss-start always offered.
 
+### 6.5b Monster families and Hush clearing (Jesse, 2026-11-05)
+- **Monster families, FF-style.** One model, several versions: the bipedal werewolf the heroes first face (the **Marsh Prowler**, black fur, pale blue eyes, an oversized slavering jaw) returns as the Swamp Prowler, the Badlands Prowler and so on, with different fur, a darker aura and so on.
+- **No "weaker because it's earlier" versions.** The Marsh Prowler is not magically weaker than the Badlands Prowler. Every member of a family grows stronger as the Hush takes more of the world. Later fights are harder because more creatures fight together, mixing turn-based and Solo-bar (timed) attacks and abilities, not because the same animal is simply boosted elsewhere.
+- **Hush clearing gates difficulty.** World and side-quest content that defeats the Hush makes the fights ahead easier. How much the player is expected to clear rises with difficulty:
+  - **Unplugged (easy):** the player can skip all of it and still progress.
+  - **Guitar Solo (normal):** skipping it is possible, but it plays like a self-imposed "low level challenge" (like clearing FFVII in under 50 levels). For a challenge less punishing than Headliner, clear at least **50%**.
+  - **Headliner (hard):** expect players to clear at least **75%** unless they want Symphony-level punishment.
+  - **Symphony (hardest):** below **95%** cleared, later fights become "one suboptimal move and the party wipes".
+  - **100% cleared** earns a reward and an award.
+- **Hush clearing carries over.** Most of it saves to NG+ and chapter select (§13.6), so a player who starts over or jumps to a chapter doesn't have to clear it again, but can take the challenges on again if they wish.
+
 ### 6.6 Autoplay
 - **Tactics** per character (up to 6 if/then rules, presets). **AUTO** (A) and **1×/2×/4×** speed (S). Auto runs normal fights and Cartridge runs; bosses allowed with warning.
 - **Attract Mode** on the field: auto-walk a loop and auto-fight until a stop condition (level, HP, item, alignment change risk).
