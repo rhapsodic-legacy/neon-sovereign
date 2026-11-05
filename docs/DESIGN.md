@@ -364,11 +364,23 @@ Musical monsters are creatures of legend nobody can explain; scary monsters live
      - Sources: magazines bought in shops (e.g. a vinyl record shop), teachers (e.g. Three-Clear Fixer), and so on.
      - **Notes.** Upgrades sit on an ability as Notes, up to **5 Notes per ability** for now. A new Note costs X points plus 5 more for every Note already on that ability. Example: Rex's Charge has one Note (3× damage instead of 2×). From a magazine he learns an upgrade that makes the bonus last 2 rounds instead of 1. He adds a second Note and puts it there, so Charge now does 3× and lasts 2 turns.
      - Very customisable, and abusable, which is recommended for Symphony.
+- **Character screen (Jesse, 2026-11-05).** One button opens it (like FFVII's triangle), with panels for Destiny, Upgrades, Items, Abilities and so on.
+- **Equipment is homogeneous (Jesse, 2026-11-05).** Each hero keeps one weapon and one outfit all game (no different electrostaffs for Aubade). Gear never changes; what changes is what's slotted into it, which shows as different glows and effects.
+- **Upgrades are motes of musical energy**, not suits of armour, shields or guitars. Names are musical, including Earth pieces that are public domain and off-trademark (e.g. "Eine Kleine Nachtmusik").
+  - **Octave-based types.** Each upgrade has a solfège note (Do, Re/"Rey", Mi/"Me", Fa, So, La, Ti) that sets its type (e.g. Re = damage). Not chakra colours: Final Fantasy's materia already uses those, so they'd be too recognisable. Types combo with each other (e.g. damage + AoE).
+  - **Placement is free.** An upgrade can go anywhere, and its description says when it isn't applicable and what it does instead. Example: *"Eine Kleine Nachtmusik" (Re): the character deals extra X music damage with any attack that deals music damage (or with the weapon it's attached to, or melee, etc.). Note: grants +5 HP instead if not placed in a weapon.*
+  - **Loadouts.** Each hero starts with their own slots on their gear. Vance has a LOT of armour and can put a lot into it; Aubade's staff has a lot of upgrade potential. Slots expand through Destiny and, more rarely, Abilities (hard to find, or earned by finishing something difficult outside the main story).
+  - **Expansion extends, never transforms.** More slots push a hero further in the directions they already show (Vance even more survivable), not into something radically different.
+- **Disposable items are powerful (Jesse, 2026-11-05)**, e.g. Ruby Ray.
+  1. The player always has a reason to collect **Tine** (the currency): disposables help move fights.
+  2. They never become pointless, unlike the early potion in many RPGs that keeps dropping long after magic has outclassed it.
+  3. They give an optional challenge and an easy way to grease hard fights. **Awards** for beating each mini-boss and boss without using a disposable; and a player who's stuck can nuke a fight with their stored 99 Ruby Rays.
+  - **Mimic.** Some enemies (especially later bosses), on Headliner and Symphony, have Mimic: whenever the player uses an item, the enemy uses it too.
 - **Auto options, one per path.** For players who don't want to experiment, or who want the battles as intended (on Normal): **Optimal** for equipment (the best available item for that hero is equipped) and **Predestined** for Destiny, Music and Abilities (upgrades follow each hero's character as expressed in the story).
 - Gear: Weapon, Armor (jacket/robe/plate), Accessory, **Charm** (upside + downside).
 - Items: Cola / Diet Cola / Turbo Cola (HP), Glowstick (MP), **1-Up** (revive), Static Filter (cure Glitch/Mute), Earplugs (resist Stilled), Flash Bomb, Mirror Ball, Mixtape (camp rest).
 - Weapons (8 tiers + ultimate each): Eddar: Mop → **"The Ledger"** (a floating notebook that cuts like a blade); Rex: no weapon, just his fists, "Ol' One and Two" (glove/knuckle upgrades TBD; "jousting" is named for the opening straight-armed fist bump, Jesse 2026-11-05); Sable: no weapon, ever (sorcery; her upgrade path is TBD); Roxy: Flame Guitar → **"Wildfire"**; Thunderhorn: Flying-V → **"The High Note"**; Lyra: Throwing Disc → **"Solara's Heart"**; Aubade: **electrostaff** (not a sorcerer like Sable: she slows, stuns and counters enemies; Jesse 2026-11-05).
-- Currency: **Tokens**. Shops: pawnshop, smith, tailor, record store (songs/spells), Cola stands.
+- Currency: **Tine** (Jesse, 2026-11-05; was Tokens). Shops: pawnshop, smith, tailor, record store (songs/spells), Cola stands.
 
 ---
 
