@@ -80,7 +80,7 @@ He's not lucky. He's the end of the world.
 | **Rex Valor** (22, Hero of Legend) | Huge, golden quiff, white leather jacket with gold pauldrons, fights with his fists ("Ol' One and Two"; no lance), poses with cape | Third person, catchphrases, jock bravado; sweet when he forgets to perform. "Nobody pushes Adder around but me." | Showboat charger/tank; Hype; late-game **Legend** form. |
 | **Sable** (25) | Tall and lithe: form-fitting black under long black trench-coat-like garments, a mask covering her whole face, long neon-silver hair left free; no weapon (a sorceress of sorts; glossy black bodysuit, matte trench); Rubric sigil hidden under the coat. Unnamed ("Woman in the Mask") until the player learns her name. Foreboding and mysterious, never a traditional antagonist | No filter, short declaratives, never lies but omits. | Stance monk; counters; guards Eddar. |
 | **Roxy Vega** (21) | Red/black leather jacket, ripped tights, flame high-tops, ponytail that ignites, flame-red guitar-axe | Fast, sarcastic, big heart, temper; talks about her brothers; falls hard and loud. | Fire rocker; Heat gauge; meltdown solos. |
-| **Sir Vance Thunderhorn** (54) | Silver mane, battered chrome plate with lightning chest, flying-V axe, scarf, sunglasses at night | Power-ballad lyrics, stadium hype, sudden tenderness. **Quest: write one last soul-lifting ballad, "One Word"**, gathered from the journey; the peak of the chorus is missing one word ("love"), found at Eddar's death. | Bard-paladin; Set List → The Solo. |
+| **Sir Vance Thunderhorn** (54) | Silver mane, Rambo-style action-hero build (Jesse, 2026-11-06; was overweight), battered chrome plate with lightning chest that opens at the front like a vest, flying-V axe, scarf, sunglasses at night | Power-ballad lyrics, stadium hype, sudden tenderness. **Quest: write one last soul-lifting ballad, "One Word"**, gathered from the journey; the peak of the chorus is missing one word ("love"), found at Eddar's death. | Bard-paladin; Set List → The Solo. |
 | **Princess Lyra Solaris** (23) | Red Tron-inspired bodysuit out in the world (silver-light gown and starlight veil for special occasions), gold-blonde braid crown with loose bangs (gold, not platinum, so she never reads as one of the silver-haired program survivors), Tron-style throwing disc | Velvet court diction with blades; quotes "Rex's" letters. | Royal commander; spends gold; Decrees. |
 | **Maestro Nocturne** (villain, ~50) | Mirror-chrome mask, black coat of crawling static, baton of black light; unmasked: scarred, tired, handsome | Elegant, musical metaphors, honest; never lies. | Act II, V (×2) bosses. |
 | **Mother Superior Carmine** (Rubric) | Ancient, scarlet hood, ink-black hands, a quill-staff | Gentle certainty; terrifying calm. | Act IV boss. |
@@ -181,6 +181,11 @@ He's not lucky. He's the end of the world.
 | **Lyra** (joins Act III) | **Treasury** (party gold) | **Decree** (ally takes an extra turn now), **Bribe** (enemy skips/leaves; cost scales), **Royal Guard** summon, **Mirror Disc** reflect. | Rich and political; pays for power. Decree on Rex +50% (love). |
 | **Guests** | Jack Cutlass (Act II), Mama Dee (Prologue cameo) | | |
 
+### 6.2a Heroes' notes replace chakras (Jesse, 2026-11-06)
+- Everything else in Neon Sovereign is music, so the chakra colours become the **musical scale**: 12 notes, 7 naturals and 5 sharps/flats. Each hero's energy and level are expressed through their own note.
+- **Roxy is F-sharp** ("F-sharp this, F-sharp that").
+- 12 notes means 3 more heroes are needed (Jesse is open to suggestions). Who gets which note, and what happens to Rex's gold-white and Eddar's black, are still open. The chakra text below stays until the notes are assigned.
+
 ### 6.2b Chakra energy (Jesse, 2026-11-04)
 Each hero's special-ability energy lives in their own **chakra**, and its colour is theirs:
 - **Roxy: red.** Heat rises when she or her friends get hurt (as in §6.2).
@@ -261,6 +266,10 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
 - Roster seeds: Hush (Hush Knight, Muffler, Stillwalker, Hush Hound, Silence Bell), road gangs (Road Raider, Turbo Ogre, Chariot Wolf), Jackpot (Pit Boss Golem, Slot Mimic, Bouncer Troll), Reef (Neon Eel, Coral Golem, Siren Ray), Frostline (Ice Moth, Telescope Sentinel), Speedway (Overgrown Racer, Vine Engine), Rubric (Ink Wraith, Inquisitor, Scribe-Construct), Citadel (Void Choir, Unsung).
 
 ### 6.5 Difficulty
+- **Balancing method (Jesse, 2026-11-06).** Work backwards: for each fight, set a target number of turns on Normal and target win/lose rates for two players, then tune toward them.
+  - **Average play:** interrupts land (they're easy), 2 music presses per window, basic strategy.
+  - **Good play:** 3 presses per window, always the best ones, consistently logical strategy.
+  - Keep notes on what shortens each fight and on its death spirals.
 - **Too easy is the cardinal sin.** Normal encounters cost resources; bosses wipe parties that ignore mechanics at expected level.
 - Sim targets (§11.6): boss vs. greedy policy **30–55%** win; vs. mechanic-aware **80–95%**. Normal: greedy wins ~95% with 15–35% HP lost.
 - **Designed exceptions:** **Nocturne #2** is intentionally easy (power fantasy, ~95%+). **Nocturne Reborn** is the hardest fight in the game (target 25–45% first try for mechanic-aware play at expected level) — tuned so the party *can* win but must use everything they learned, especially because the player has leaned on Eddar.

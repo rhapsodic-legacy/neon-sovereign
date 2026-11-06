@@ -41,6 +41,7 @@ She arrives in town on a black light-cycle, in a glossy black bodysuit under a m
 
 ### SIR VANCE THUNDERHORN (54)
 A washed-up glam-metal paladin and former legend, with a towering silver mane, battered chrome armor and a flying-V guitar-axe. He can't hit the high note anymore. He's over the top, warm and hilarious. He's the first adult to look at Eddar and say, "Kid, you're the headliner."
+- **Body (Jesse, 2026-11-06, for the Unreal build).** No longer overweight. Playtest feedback asked why the men could have an overweight hero while every woman was a runway model. Fitting the 80s, Vance now has an action-hero, Rambo-style physique. Everything else stays the same, except his chrome breastplate opens at the front like a vest to show the muscle beneath.
 - **His quest: one last ballad.** Thunderhorn has spent fifteen years trying to write **the one** — a mega, soul-lifting power ballad that will make a stadium of strangers hold hands. He scribbles lyrics on napkins, armor plates, and other people's maps. He gathers it from the journey: a line from Roxy's fight, a chord from the Reef, a verse from watching Eddar and Sable on the deck. **The ballad is missing one word** at the peak of the chorus. He can't find it all game. (It's "love." He finds it at Eddar's death — see the Epilogue.) When he premieres the ballad at the Last Dance, he still doesn't know it, but each time he goes to sing the word, something visual fills the screen, such as two people kissing or other acts of love, so the viewer knows what it is.
 
 ### PRINCESS LYRA SOLARIS (23)
