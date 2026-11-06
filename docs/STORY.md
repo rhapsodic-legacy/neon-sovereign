@@ -371,7 +371,7 @@ Eddar is lying on the bluff, with the Hush gone and colour back in the world. Ev
 ---
 
 ## Open questions from the 4 Nov rewrite
-- **The Hush isn't an army** (Jesse, 2026-11-06): it's the colloquial term for the Silence, so no one "defects" from it. The Hush Commander (Act I boss), Hush knights (common enemies) and "a Hush army" (Act V) are written as soldiers. What do they become?
+- **The Hush isn't an army: resolved (Jesse, 2026-11-06).** "Hush knights" and "Hush commanders" are colloquial names for trigger-only undead spirits from Nocturne's archipelago, which sat too long in the Silence and forgot they were dead (DESIGN.md §6.5f). The archipelago stays unnamed. Eddar's "Hush army" in Act V and the Hush Commander boss (in the on-hold Act I draft) still need rewording to fit.
 - **Battle of the bands vs older beats: resolved (Jesse, 2026-11-06).** Velvet Kane is Vance's old band. The battle is on the outskirts of Solace Bay, in Coachella-style tents. Vance joins as described in Act I. Aubade only appears at the end of Act I and joins in Act II. "The party is five" is shelved; 4 works better. Still open: Act I's call to action out of Solace Bay (the road to Solara and the Gala were Claude's draft, now on hold).
 - **Party splitting** starts "in a later act (Act II or III)", while the first split happens at the end of Act I. Is the Act I split a one-off, with free splitting from Act II or III?
 - **Act I order:** the setting above has the battle of the bands held in Solace Bay during Act I, while the Act I goal still says the party travels to Solara. How do the two fit?

@@ -86,7 +86,7 @@ He's not lucky. He's the end of the world.
 | **Maestro Nocturne** (villain, ~50) | Mirror-chrome mask, black coat of crawling static, baton of black light; unmasked: scarred, tired, handsome | Elegant, musical metaphors, honest; never lies. | Act II, V (×2) bosses. |
 | **Mother Superior Carmine** (Rubric) | Ancient, scarlet hood, ink-black hands, a quill-staff | Gentle certainty; terrifying calm. | Act IV boss. |
 | **Jack Cutlass** (pirate captain) | Eyepatch with neon iris, airship captain's coat, cutlass with a tape-deck hilt | Swagger. | Act II rival/boss/ally. |
-| **Hush Commander** & Hush knights | Faceless white masks, grey plate, banners that absorb sound | Silent (text only). | Common enemies / mid-bosses. |
+| **"Hush knights" & "Hush commanders"** (colloquial names; Jesse, 2026-11-06) | Undead spirits from Nocturne's archipelago; terrifying to behold (look to be redesigned; old draft: faceless white masks, grey plate, banners that absorb sound) | Silent (text only). | Trigger-only undead: stupidly powerful for their area (like FFXI's undead), no great rewards; something to avoid. |
 
 **Supporting NPCs** (each line a micro-story; they change per act): Mama Dee (Pink Wyvern owner), Sister Agnes (St. Cadence matron), Grubb (Rex's toady), the Wildfires (Roxy's band: Spike, Lulu, "Drums"), Velvet Kane (Vance's old band), Martha (Waka Daka's ex-wife, now with her band's new drummer), Marisol "Anvil" Duarte and Kip Static (former hero suggestions, now NPCs; Mercer dropped, since the Hush isn't an army), Nitro Nan, King Helion Solaris, Abbess novices, Amplitude roadies.
 
@@ -328,6 +328,12 @@ Approved from the draft doc (https://claude.ai/artifact/Bgy8Yy1fRKRBx7GdEVMudS) 
 - **Hush attack, Rabid Madness:** interruptible. AoE Silence damage (scales with the Hush) to every hero, plus Poison and Berserk. Music presses open.
 - **Hush effect:** all attacks deal bonus Silence damage, scaling with the Hush.
 - Ecology: a nearby Prowler or Tross can scare them off.
+
+### 6.5f The undead: "Hush knights" (Jesse, 2026-11-06)
+- **"Hush knights" and "Hush commanders" are colloquial terms.** The Hush isn't an army; it's the colloquial term for the Silence.
+- **What they are:** undead spirits from Nocturne's archipelago that sat too long in the Silence and forgot they were dead. They're terrifying to behold, and people tell horror stories about what they do. The humorous origin keeps them light.
+- **How they behave (like FFXI's undead):** stupidly powerful for their area, but they only appear through triggers. They don't reward the player with amazing items; they're things the player wants to avoid.
+- **Nocturne's archipelago stays unnamed** for the whole journey, a mysterious place.
 
 ### 6.5c Solace Bay bestiary (Jesse, 2026-11-05)
 Musical monsters are creatures of legend nobody can explain; scary monsters live outside and someone (usually Eddar) knows what they are (STORY.md).
