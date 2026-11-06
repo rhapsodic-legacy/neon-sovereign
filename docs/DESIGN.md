@@ -404,6 +404,27 @@ Musical monsters are creatures of legend nobody can explain; scary monsters live
 - **Save:** arcade cabinets + autosave at scene boundaries; 3 slots + export/import.
 - **Quest log = the Ledger's back pages** ("To Do" in Eddar's hand); also feeds the AI player.
 
+### 7.1 Party splitting (Jesse, 2026-11-06)
+- From a later act (Act II or III) and often after that, the player can split the party into groups, FFVI-style. It helps fight back the Hush, opens up dialogue (Sable might say something different to Leagues if Aubade and Eddar aren't in the party), and has other benefits.
+- At certain story points the player is told **"Round up your party first."**
+- The first split is at the end of Act I, after the battle of the bands (STORY.md). Eddar breaks the fourth wall: "A separate save now will save many hairs from being pulled out later."
+
+### 7.2 Battle of the bands: rhythm play (Jesse, 2026-11-06)
+- Played like *Rock Band* or FFVII Remake/Rebirth's dance and march sequences: press buttons to the beat. About 3 to 4 rounds, each harder.
+- **Outcome** = notes hit + story prep + optional prep + world events that affect other contestants + unlocks (e.g. a mini-boss unlocks Lulu's Special Charm, which raises her score on on-time drum hits). The crowd decides; judges only stop cheating.
+
+| Round | Opponent | To win |
+|---|---|---|
+| 1 | Over-the-top metal band (name to be written) | Always won: they're disqualified after their speakers shock the judges |
+| 2 | The Booming Biceps | Easy: ≥50% of notes with story prep |
+| 3 | Psychedelic Titanium + Vance | 70–95% of notes, depending on prep (including optional prep) |
+| 4 | Leagues and the Sopranos (+ Vance) | 100% of notes, and all side prep; lowered by world events such as the Luca encounter |
+
+- Losing Round 2 or 3 skips to the beach and the Aftermath; the gate wait is 2 hours after a Round 2 loss, 1 hour after Round 3. If the player lost Round 3, Round 4 is watched (Psychedelic Titanium vs the Sopranos, the Sopranos always win) with humorous ways to interfere.
+- **Awards:** "Keeping Your Cool" (Rex holds back with Luca); winning the battle of the bands; winning with only the original band members.
+- **Encore / chapter select:** Rockstar heroes can join Roxy's band. A new song and parts open up, and with them even story-prep-only play wins at 90% of notes.
+- Win: Roxy's posters spread, people know her, and the Pink Wyvern gets a trophy and the first-playthrough photo. Loss: dialogue scaled by notes hit.
+
 ---
 
 ## 8. Graphics & Art Direction
@@ -447,6 +468,7 @@ FFVII+: idles, walk/run, wind-ups, hit reacts, KOs, unique victory poses (Eddar 
 - **"The Canticle"** — organ hymn in a minor key; inverted into Eddar's Dissonance theme.
 - **Nocturne's Symphony** — beautiful, broken; the silence between notes is part of it.
 - **"Always There"** — Roxy's vocal song for Eddar (epilogue, credits).
+**Battle of the bands (Jesse, 2026-11-06):** "We do what we want, so pay us big!" and "Some has-been thinks he can tell us what to do..." (Psychedelic Titanium with Vance), the Sopranos' soulful final song and "Keeping Your Word", Vance's old crew's heavy-metal theme for the Act I beach boss (in the spirit of "Otherworld" from FFX), reused for Eddar's round against Nocturne at the end.
 **Diegetic performances:** Roxy & the Wildfires sets (Prologue, refugee show Act IV, Amplitude stadium epilogue), Thunderhorn's comeback, the Cathedral organ, **Rex's Anthem** at the Amplitude Grand Joust, and **"One Word"** at the Last Dance.
 **Centrepiece songs (vocal, AI-produced, full length):**
 - **"One Word"** — Thunderhorn's last ballad; mega soul-lifting 80s power ballad. Version A (Act IV Last Dance): the peak of the chorus is hummed where the word should be. Version B (credits): complete, the word is "love". **The Last Dance cutscene is choreographed to Version A** (beat-mapped timeline).
