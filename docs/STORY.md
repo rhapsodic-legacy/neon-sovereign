@@ -75,12 +75,13 @@ Heir to the sky-capital Solara. She's sharp, poised and political. Out in the wo
 The first of the five new heroes. Real name **Jimmy Blowfeld**: an orphan who didn't like the name the orphanage gave him, and changed it to Waka Daka when he became a drummer. He tells everyone he'll smash 'em if they call him anything but his drummer name. His ex-wife Martha calls him Jim.
 - **Look.** Male, dark Latino, 6'3", really lanky. He looks crazed, with an anime-inspired spiky hairstyle streaked in various neon colours. Covered in white tattoos, lots of piercings. He drums bare-chested, in khakis ten sizes too large that would fall off him if not for a rope belt. Across his chest: **"Martha my Angle"** (not Angel; the tattoo artist couldn't spell).
 - **Drumming.** Wild and frantic, like Animal, the Muppets' drummer.
+- **His old band's poster** hangs in the Pink Wyvern, with Waka Daka front and centre (Jesse, 2026-11-06). Band name, my pick until Jesse says otherwise: **The Paradiddles** (a paradiddle is a basic drum rudiment).
 - **Backstory.** Martha was his band's lead vocalist and his life partner. He was a great drummer once, but he went down the Neon Booze route, which cost his band a lot of boos and flung rotten tomatoes. She gave him an ultimatum, and he couldn't keep away from the Neon Drink. She's now with the band's new drummer.
 - **How the player learns it.** From dialogue throughout the world, some of it story-related (including running into his old band, and his ex-wife). It can also be read in **his Journals**, which unlock hero points for him to spend on his Abilities.
 - **In the party.** He speaks mostly in nonsense. The party members largely feel sorry for him. Roxy recognises him from his glory days. He doesn't really compete for space and attention with the other heroes, and he's really quite funny.
 - **In battle.** He fights with his drumsticks and is really fast. He has no unique relationship ability with anyone, but he starts with a passive that prevents any debuff that would make him lose control (Sleep, Berserk and so on): he's already lost his mind, and can't lose it again.
-- **Arc: recovery and redemption.** By Act V he speaks like an English gentleman ("Bond, James Bond" sort of deal). He's the drummer in "the Last Act", where he's introduced as Jimmy Blowfeld. Martha is there as a guest, and at some point in the night she hugs him and gushes about how much he's changed. Some of this is resolved before the Last Dance, building up to that moment.
-- **Joins:** as the eighth character in Act I. On the first playthrough he isn't in Roxy's band for the battle of the bands, because he's lost to Neon Drink at that point. In Encore and chapter select, the English-gentleman version of him can play in it.
+- **Arc: recovery and redemption.** By Act V he speaks like an English gentleman ("Bond, James Bond" sort of deal). He's the drummer at the Last Dance, where he's introduced as Jimmy Blowfeld. Martha is there as a guest, and at some point in the night she hugs him and gushes about how much he's changed. Some of this is resolved before the Last Dance, building up to that moment.
+- **Joins:** as the eighth character in Act I, in the next town after Solace Bay (see Act I). On the first playthrough he isn't in Roxy's band for the battle of the bands, because he's lost to Neon Drink at that point. In Encore and chapter select, the English-gentleman version of him can play in it.
 - **Not Vance again.** Vance's arc is fading into the sunset and not wanting to let go; his song plays over the credits. Waka Daka's is having lost everything to Neon Drink. Vance can still drink it like most people. Waka gives it up.
 
 ### MAESTRO NOCTURNE, the Great Evil
@@ -143,7 +144,29 @@ Romance choices are made in camp scenes, side quests and key dialogue. **Bonds**
 
 ## ACT I — "Overture" (≈6 h)
 
-**Goal:** get the Hero of Legend to the capital, Solara, to receive the Canticle's blessing.
+**Goal:** not decided yet (Jesse, 2026-11-06): what call to action drives the heroes out of Solace Bay and into the world. The old goal (get the Hero of Legend to Solara for the Canticle's blessing) and the road beats further down were Claude's v3 draft, not Jesse's outline, and are on hold.
+
+**Sable joins: working script (Jesse, 2026-11-06).** Sable joins the party after the starting town; then they're in the open world, with another town as the destination.
+- After the fight, back near the Pink Wyvern, Sable appears, having just defeated a **Marsh Prowler**. As the party nears, she remarks that this town has heroes, so what the heck are other towns going to do? So many people are going to die. (Indeed, there are bodies about town.) She runs off, chasing another monster.
+- In the Pink Wyvern, Mama Dee and a few others are in the stage area, frightened, gathering drinks as they hole up upstairs (they're gathering alcohol to weather the siege of monsters). Mama Dee is scared, and tells them some lady in a mask saved them all. To Rex: "If you are the Hero of Legend... then do something."
+- Eddar: "That masked lady knows things. We need to find her."
+- They find her on the edge of town, and dialogue breaks out. She doesn't lie, but she doesn't tell them everything she knows. She does say: "If the legends are true... the whole world is about to be at war with more of those things..." (at Rex) "You're the Champion who can save them..." Rex is higher than the moon that people are calling him this big hero guy.
+- Rex: "Well... if we're going to save people, we need to go where people are!" Strangely sound advice.
+- Roxy doesn't want to go far, because the battle of the bands is coming soon. Dialogue carries on between fights. **The player learns about the Camp** (every good RPG should have a camp where heroes can talk more freely).
+- **Roxy wins the argument with Sable** about the greater good versus the greater glory of music. This keeps the player from exploring the whole world: they stay on the peninsula.
+
+**Waka Daka joins: working script (Jesse, 2026-11-06).**
+- Whichever town the players go to next, Waka Daka is in an alley, passed out, and wakes as they pass. He comes running after them. They think he wants change, that he's homeless, but he gives Roxy a few gold **Tine**: "You.. real good!.. Real good!.." (He names her band.) She replies with a compliment, knowing who he is (was).
+- He follows them around town for as long as they're there, making nonsense noises and banging his drumsticks. The player can ask him to "stay", or try to lose him by going into a shop with more than one entrance. Waka can't enter buildings; when he tries, there's a humorous, muffled "You there! I told you to get out of here!" He spends a few seconds away, then runs after them again.
+- **Leaving town, a cutscene.** Roxy laments that she really feels for Waka Daka. He was the best drummer this side of the (ocean: an esoteric, music-related name, to be chosen). "The tabloids said he lost his mind to Neon Booze. I didn't know he'd fallen this far..." Then he runs humorously around a corner at them, spouting nonsense and "You good! You good!.." Roxy looks at the group: "Can we keep him?.. I.. I coulda' been him, if only a few circumstances were different.. Pleeeease?"
+- **The vote.** Rex loves him; he finds the nonsense words hilarious. Sable thinks Waka Daka could jeopardise their bigger mission, and says no. Grubb finds him intensely annoying, between the loud nonsense words and the smell, and calls him "Dumpster Fire Trash" (ironic, since Grubb looks like he lives in a dumpster). Eddar is the tiebreaker, and in his prosaic manner: "If we leave him, he'll live out the rest of his short life in a gutter. Where we found him. If he joins us there is a chance, however small, that he'll amount to something more than that grim fate."
+- **The player chooses Eddar's vote:**
+  - A) Warm: yes, of course he can come. What kind of world are we saving if we can't start with someone who so fervently asks for our help?
+  - B) Neutral: "I do not care either way, but I do not pretend to be his master. If he wants to walk with us, I'm not stopping him."
+  - C) Humorous: "I'm abstaining from voting. Waka Daka, you can vote in my place. No means no. A nonsense word no one understands means yes."
+  - Whatever the choice, Waka Daka roars "Ber'shmaka emplerbsee!", bringing his drumsticks above his head. It fits all three.
+- **Rex and Waka Daka, thereafter.** Their dialogue is criminally funny: Waka says something in nonsense, and Rex responds as if he knows what Waka is saying (like Han and Chewbacca). The player is never sure that's what Waka is actually saying. In an optional scene in Act V, Jimmy Blowfeld says something like: "Ol' T-Rex never understood a word I said. Didn't stop him from tryin'..." In his nonsense state he calls Rex **"T-Rex"**: it means nothing in their world, but in ours we know it's a dinosaur.
+
 
 **Setting (Jesse, 2026-11-06).**
 - **Solace Bay sits at the tip of a peninsula**, and it is literally the first place the Hush hits: Nocturne comes from a large archipelago far out at sea.
@@ -201,7 +224,7 @@ Romance choices are made in camp scenes, side quests and key dialogue. **Bonds**
 - The screen fades to white as people behold each other. End of Act I. During the white screen, Eddar's voice, quietly: "If only I had such power..."
 - **The parallel with the final battle.** In Eddar's one-sided round against Nocturne at the end of the game, and the cutscene building up to it, the heavens swirl around his levitating body, and this same Otherworld-inspired theme plays. The player sees the parallel immediately: the music, the conjuring of the heavens. Eddar is verging on becoming someone like Nocturne.
 
-- Rex has to go. Sable gives him no choice, and the princess is in Solara. **Eddar goes because Rex is his only protection.** The Hush clearly want him, the thugs Rex flattened are waiting for Rex to leave town, and Sable quietly says, "You should come. I'll explain later." Roxy comes because the Wildfires have a booking in Solara and Rex is going.
+- *(On hold: Claude's v3 draft, not Jesse's outline; see the Goal above.)* Rex has to go. Sable gives him no choice, and the princess is in Solara. **Eddar goes because Rex is his only protection.** The Hush clearly want him, the thugs Rex flattened are waiting for Rex to leave town, and Sable quietly says, "You should come. I'll explain later." Roxy comes because the Wildfires have a booking in Solara and Rex is going.
 - **The road:**
   - **The Overdrive**, an ancient desert highway of nomad racing gangs. Rex wins a race, then loses the party's money betting on the next one. Boss: **Nitro Nan**, queen of the road.
   - **Jackpot**, a casino city in a canyon. Rex disappears for two days into its nightclubs. While he's carousing, the Hush take the canyon's lower district (the casino jingles slow and sag into the Dirge), and Eddar, Sable and Roxy save who they can. **Some people can't be saved.** It's the first time Eddar's power works on purpose: he pushes a whole Hush squad off a cliff edge with his mind, then throws up from the shock. Sable starts training him in secret, "breath before power", at night on the canyon rim.
@@ -332,8 +355,7 @@ Eddar is lying on the bluff, with the Hush gone and colour back in the world. Ev
 ---
 
 ## Open questions from the 4 Nov rewrite
-- **Battle of the bands vs older beats: resolved (Jesse, 2026-11-06).** Velvet Kane is Vance's old band. The battle is on the outskirts of Solace Bay, in Coachella-style tents. Vance joins as described in Act I. Aubade only appears at the end of Act I and joins in Act II. "The party is five" is shelved; 4 works better. Still open: how the old Act I road to Solara and the Gala climax fit around the new end of Act I.
-- **Waka Daka's Act I join point,** and the meaning of "the Last Act" (the Last Dance?).
+- **Battle of the bands vs older beats: resolved (Jesse, 2026-11-06).** Velvet Kane is Vance's old band. The battle is on the outskirts of Solace Bay, in Coachella-style tents. Vance joins as described in Act I. Aubade only appears at the end of Act I and joins in Act II. "The party is five" is shelved; 4 works better. Still open: Act I's call to action out of Solace Bay (the road to Solara and the Gala were Claude's draft, now on hold).
 - **Party splitting** starts "in a later act (Act II or III)", while the first split happens at the end of Act I. Is the Act I split a one-off, with free splitting from Act II or III?
 - **Act I order:** the setting above has the battle of the bands held in Solace Bay during Act I, while the Act I goal still says the party travels to Solara. How do the two fit?
 - **The Silent Citadel** (Nocturne's black cathedral) was the last dungeon before the final fight. Does it still lead to the bluff, or is it cut?
