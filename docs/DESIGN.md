@@ -88,7 +88,7 @@ He's not lucky. He's the end of the world.
 | **Jack Cutlass** (pirate captain) | Eyepatch with neon iris, airship captain's coat, cutlass with a tape-deck hilt | Swagger. | Act II rival/boss/ally. |
 | **Hush Commander** & Hush knights | Faceless white masks, grey plate, banners that absorb sound | Silent (text only). | Common enemies / mid-bosses. |
 
-**Supporting NPCs** (each line a micro-story; they change per act): Mama Dee (Pink Wyvern owner), Sister Agnes (St. Cadence matron), Grubb (Rex's toady), the Wildfires (Roxy's band: Spike, Lulu, "Drums"), Velvet Kane (Vance's old band), Martha (Waka Daka's ex-wife, now with her band's new drummer), Marisol "Anvil" Duarte, Kip Static and Mercer (former hero suggestions, now NPCs), Nitro Nan, King Helion Solaris, Abbess novices, Amplitude roadies.
+**Supporting NPCs** (each line a micro-story; they change per act): Mama Dee (Pink Wyvern owner), Sister Agnes (St. Cadence matron), Grubb (Rex's toady), the Wildfires (Roxy's band: Spike, Lulu, "Drums"), Velvet Kane (Vance's old band), Martha (Waka Daka's ex-wife, now with her band's new drummer), Marisol "Anvil" Duarte and Kip Static (former hero suggestions, now NPCs; Mercer dropped, since the Hush isn't an army), Nitro Nan, King Helion Solaris, Abbess novices, Amplitude roadies.
 
 ---
 
@@ -185,7 +185,7 @@ He's not lucky. He's the end of the world.
 ### 6.2a Heroes' notes replace chakras (Jesse, 2026-11-06)
 - Everything else in Neon Sovereign is music, so the chakra colours become the **musical scale**: 12 notes, 7 naturals and 5 sharps/flats. Each hero's energy and level are expressed through their own note.
 - **Roxy is F-sharp** ("F-sharp this, F-sharp that").
-- **The five new heroes (Jesse, 2026-11-06).** Kept themes: a **drummer** (**Waka Daka**, STORY.md) and a **pirate radio** hero (to come). My suggestions Marisol "Anvil" Duarte, Kip Static and Mercer become NPCs, not heroes. Jesse makes the judgement calls on looks and builds himself.
+- **The five new heroes (Jesse, 2026-11-06).** So far: **Waka Daka** (drummer), **the Radio Pirate** (name to be chosen) and **Birtha Leadbelcher** (STORY.md). Two to go. My suggestions Marisol "Anvil" Duarte, Kip Static and Mercer become NPCs, not heroes. Jesse makes the judgement calls on looks and builds himself.
 - **Battle party size is 4** (Jesse, 2026-11-06); "the party is five" is shelved.
 - **Rex is all the notes. Eddar is none of them** (Jesse, 2026-11-06). So the 12 notes go to 12 other heroes: the 7 existing (Roxy, Sable, Leagues, Grubb, Vance, Lyra, Aubade) plus **5 new heroes**, for **14 heroes in all**. Other note assignments are still open. The chakra text below stays until the notes are assigned.
 - **The final battle against Nocturne is a whole-cast affair** (Jesse, 2026-11-06; full sequence in STORY.md Act V). Round 1 is Eddar alone against Nocturne (not really a fight: he eclipses the Scion). After the sacrifice, three fights named after the first three movements of a symphony, each with 4 heroes the player chooses, while Rex shields the dying Eddar. The very last fight, **"Crescendo"** (the symphony's final part), is **Rex and Eddar** vs Nocturne, mirroring the tutorial, with roles reversed: Eddar absorbs Nocturne's Silence and dark damage, and Rex heals with his special moves.
