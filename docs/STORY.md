@@ -221,8 +221,8 @@ Eddar is lying in the cathedral as the Dirge dies away and colour comes back. Ev
   > *"Freedom is known by all, as the prophesies are ended upon one word; love."*
 - **The game ends.**
 
-## THE ENCORE (NG+)
-- **Eddar's new first line (Jesse, 2026-11-05).** In the two-second shot of him as mop boy, Eddar mouths one word: "Love." He says it as if he's just saying it. It makes no sense in context, but to the player it makes perfect sense: the end is where the beginning is.
+## "LOVE": THE FIRST WORD AND THE LAST
+- **Eddar's first line (Jesse, 2026-11-06; was Encore-only).** On every playthrough, in his two-second first shot (the mop boy, just in from the street, looking in at the bar), Eddar says one word, dispassionately, right at the camera: "Love." It makes no sense in the moment. By the end it makes perfect sense: love is both the first and the last word of the journey, and the end is where the beginning is.
 
 ---
 
@@ -238,7 +238,7 @@ Eddar is lying in the cathedral as the Dirge dies away and colour comes back. Ev
 ---
 
 ## Open questions from the 4 Nov rewrite
-- **The final battle (Jesse, 2026-11-06):** the whole cast of 14 splits into four parties, one always Rex and Eddar (DESIGN §6.2a). This needs placing against the current Act V order, where Eddar casts Da Capo and the real final battle is fought without him.
+- **The final battle (Jesse, 2026-11-06):** the whole cast of 14 splits into four parties, one always Rex and Eddar (DESIGN §6.2a). This needs placing against the current Act V order, where Eddar casts Da Capo and the real final battle is fought without him. Jesse wants the very last battle to mirror the first tutorial fight (Rex and Eddar together), as "love" is both the first and the last word; the order is still to be worked out.
 Jesse's betrayal (2026-11-04) replaces the old Act III betrayal (Lyra kidnapped and traded for the Verses) and the Lyra rescue from Nocturne's ship. The Last Dance moves from Act IV to Act V. These older beats need Jesse's call:
 - **Sable's secret** currently comes out by halves in Act III. Jesse's outline has her membership of the order revealed with Eddar's truth in Act IV. Does the Act III half-confession stay?
 - **How Lyra joins the party** was the rescue from Nocturne's ship, which is now cut.
