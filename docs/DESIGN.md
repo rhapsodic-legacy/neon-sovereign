@@ -184,7 +184,8 @@ He's not lucky. He's the end of the world.
 ### 6.2a Heroes' notes replace chakras (Jesse, 2026-11-06)
 - Everything else in Neon Sovereign is music, so the chakra colours become the **musical scale**: 12 notes, 7 naturals and 5 sharps/flats. Each hero's energy and level are expressed through their own note.
 - **Roxy is F-sharp** ("F-sharp this, F-sharp that").
-- 12 notes means 3 more heroes are needed (Jesse is open to suggestions). Who gets which note, and what happens to Rex's gold-white and Eddar's black, are still open. The chakra text below stays until the notes are assigned.
+- **Rex is all the notes. Eddar is none of them** (Jesse, 2026-11-06). So the 12 notes go to 12 other heroes: the 7 existing (Roxy, Sable, Leagues, Grubb, Vance, Lyra, Aubade) plus **5 new heroes**, for **14 heroes in all**. Other note assignments are still open. The chakra text below stays until the notes are assigned.
+- **The final battle against Nocturne is a whole-cast affair** (Jesse, 2026-11-06). The player splits the heroes into four parties as they see fit, except that one party is always just **Rex and Eddar**, like the first tutorial fight. The other three parties have 4 heroes each.
 
 ### 6.2b Chakra energy (Jesse, 2026-11-04)
 Each hero's special-ability energy lives in their own **chakra**, and its colour is theirs:

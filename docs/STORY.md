@@ -238,6 +238,7 @@ Eddar is lying in the cathedral as the Dirge dies away and colour comes back. Ev
 ---
 
 ## Open questions from the 4 Nov rewrite
+- **The final battle (Jesse, 2026-11-06):** the whole cast of 14 splits into four parties, one always Rex and Eddar (DESIGN §6.2a). This needs placing against the current Act V order, where Eddar casts Da Capo and the real final battle is fought without him.
 Jesse's betrayal (2026-11-04) replaces the old Act III betrayal (Lyra kidnapped and traded for the Verses) and the Lyra rescue from Nocturne's ship. The Last Dance moves from Act IV to Act V. These older beats need Jesse's call:
 - **Sable's secret** currently comes out by halves in Act III. Jesse's outline has her membership of the order revealed with Eddar's truth in Act IV. Does the Act III half-confession stay?
 - **How Lyra joins the party** was the rescue from Nocturne's ship, which is now cut.
