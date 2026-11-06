@@ -268,13 +268,7 @@ Romance choices are made in camp scenes, side quests and key dialogue. **Bonds**
 
 **Goal:** take back the Verses and save Solara from the Hush.
 
-- **Sable's secret comes out.** Eddar asks her where he was born. She tells him half: she's a Rubric sister, assigned to watch him since he was six, and ordered to "silence" him if he ever woke up. She tells him she lied in every report to keep him safe. He believes her, and it still breaks something. **She doesn't tell him what happened when he was six.** She can't make herself say it.
-- **The Siege of Solara.** Solara falls to the Hush. In a stunning set piece, Eddar holds a collapsing airship dock in the air with his mind while civilians escape, and he nearly dies doing it. Thunderhorn finally hits the high note to bring Eddar back from the edge, and it's the best moment of his life. That night he writes the ballad's second verse. Roxy fights beside Eddar the whole way, and starts to see him.
-- **Lyra joins the party.** On the escape, she reads a note in Eddar's handwriting and goes very quiet. She doesn't say anything yet.
-- **Why the Hero dies (Jesse, 2026-11-05).** The second scroll explains it as a balance. Draft wording, to be refined: *"There is no music in silence. There is no music in note. The World to be Saved requires the Scion defeated, and in the percussion of his cataclysmic destruction, the Hero too will be gone. And then the music will continue."*
-- **Act end:** the Rubric arrive with an armada of red-sailed ships to "reclaim the instrument." They mean Eddar. Sable turns her power on her own order.
-
-- **The bench: Rex and Three-Clear (Jesse, 2026-11-06; Act III).** Act III is the only time Eddar is acting "free", gelling with the party through his energy synergy. Rex and Three-Clear Fixer sit on a wooden bench; Eddar is nearby, snoozing against a tree.
+- **The bench: Rex and Three-Clear (Jesse, 2026-11-06; early in Act III).** Act III is the only time Eddar is acting "free", gelling with the party through his energy synergy. Rex and Three-Clear Fixer sit on a wooden bench; Eddar is nearby, snoozing against a tree.
   - Three-Clear, as if he'd been asked for advice: "I'm telling you, she would make you a happy man." (The camera pulls back to show he's talking to Rex.)
   - Rex, not meeting his gaze: "Uh, no. She eats lead for breakfast. I wouldn't even be an appetiser." (This is the only indication to the player of who they're talking about.)
   - Three-Clear smiles. "My man... she is 'hot'. Chrome under the midday sun hot."
@@ -287,6 +281,12 @@ Romance choices are made in camp scenes, side quests and key dialogue. **Bonds**
   - Rex shakes his head humorously, Three-Clear nods his humorously, each acting as if the other is the insane one.
   - Eddar speaks up: "The three of you can go on a date!" Three-Clear stands, smiling: "It's settled!" Rex stands too, smashing a fist into his palm: "I didn't say- Eddar, I'm gunna whoop your ass!"
   - Someone comes in and breaks up the scene. Scene end.
+
+- **Sable's secret comes out.** Eddar asks her where he was born. She tells him half: she's a Rubric sister, assigned to watch him since he was six, and ordered to "silence" him if he ever woke up. She tells him she lied in every report to keep him safe. He believes her, and it still breaks something. **She doesn't tell him what happened when he was six.** She can't make herself say it.
+- **The Siege of Solara.** Solara falls to the Hush. In a stunning set piece, Eddar holds a collapsing airship dock in the air with his mind while civilians escape, and he nearly dies doing it. Thunderhorn finally hits the high note to bring Eddar back from the edge, and it's the best moment of his life. That night he writes the ballad's second verse. Roxy fights beside Eddar the whole way, and starts to see him.
+- **Lyra joins the party.** On the escape, she reads a note in Eddar's handwriting and goes very quiet. She doesn't say anything yet.
+- **Why the Hero dies (Jesse, 2026-11-05).** The second scroll explains it as a balance. Draft wording, to be refined: *"There is no music in silence. There is no music in note. The World to be Saved requires the Scion defeated, and in the percussion of his cataclysmic destruction, the Hero too will be gone. And then the music will continue."*
+- **Act end:** the Rubric arrive with an armada of red-sailed ships to "reclaim the instrument." They mean Eddar. Sable turns her power on her own order.
 
 ## ACT IV — "Dissonance" (≈7 h)
 
