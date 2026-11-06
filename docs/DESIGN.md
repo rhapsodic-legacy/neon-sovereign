@@ -71,6 +71,10 @@ He's not lucky. He's the end of the world.
 
 ---
 
+### 2.4 Lost civilisations (Jesse, 2026-11-06)
+- The **Wildwood Speedway** in the jungle is a long-abandoned raceway from a previous civilisation, destroyed in the coming and going of the Silence. New people have retaken the area (with 80s elements somehow), and there can even be races on it.
+- **More artefacts of previous civilisations** sit about the world, to show the player, without telling, that the Canticle has swallowed whole civilisations, far more advanced than the current one. Example overheard dialogue: "Archaeologists have studied this raceway... but they can't determine its age. Its long-extinct builders used a material that's impervious to time; it could be tens of thousands of years old..." / "That is high technology... I wonder what caused the extinct builders... to go extinct?" / "The Canticle..."
+
 ## 3. Cast Bible
 > Silhouette rule: each party member identifiable as a black silhouette at 64 px.
 
