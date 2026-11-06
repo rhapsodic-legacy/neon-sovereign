@@ -127,7 +127,7 @@ He's not lucky. He's the end of the world.
 | Act II | Crescendo | 7 | Reef Leviathan, Jack Cutlass, Speedway Juggernaut, **Nocturne #1** (Frostline) |
 | Act III | Bridge | 7 | Siege of Solara set-piece, Hush Twins, Fortress-Ship Warden |
 | Act IV | Dissonance | 7 | Rubric Inquisitors, **Mother Superior Carmine**, Cantrel memory-boss (the Ghost of the Temple) |
-| Act V | Coda | 5 | Silent Citadel guardians, **Nocturne #2** (easy, Eddar-powered), **Nocturne Reborn** (hard, without Eddar) |
+| Act V | Coda | 5 | Silent Citadel guardians (to confirm), **Nocturne on the bluff**: Eddar alone (easy), three symphony movements (4 heroes each), then "Crescendo": Rex and Eddar (hard) |
 | **Main total** | | **33.5** | ~22 bosses |
 | Optional | Roxy's Tour (band side-arc), Thunderhorn's Comeback, Rex's Joust League, Cartridge leaderboards, Requests board, pirate cove, superbosses | +12 | |
 
@@ -185,7 +185,7 @@ He's not lucky. He's the end of the world.
 - Everything else in Neon Sovereign is music, so the chakra colours become the **musical scale**: 12 notes, 7 naturals and 5 sharps/flats. Each hero's energy and level are expressed through their own note.
 - **Roxy is F-sharp** ("F-sharp this, F-sharp that").
 - **Rex is all the notes. Eddar is none of them** (Jesse, 2026-11-06). So the 12 notes go to 12 other heroes: the 7 existing (Roxy, Sable, Leagues, Grubb, Vance, Lyra, Aubade) plus **5 new heroes**, for **14 heroes in all**. Other note assignments are still open. The chakra text below stays until the notes are assigned.
-- **The final battle against Nocturne is a whole-cast affair** (Jesse, 2026-11-06). The player splits the heroes into four parties as they see fit, except that one party is always just **Rex and Eddar**, like the first tutorial fight. The other three parties have 4 heroes each.
+- **The final battle against Nocturne is a whole-cast affair** (Jesse, 2026-11-06; full sequence in STORY.md Act V). Round 1 is Eddar alone against Nocturne (not really a fight: he eclipses the Scion). After the sacrifice, three fights named after the first three movements of a symphony, each with 4 heroes the player chooses, while Rex shields the dying Eddar. The very last fight, **"Crescendo"** (the symphony's final part), is **Rex and Eddar** vs Nocturne, mirroring the tutorial, with roles reversed: Eddar absorbs Nocturne's Silence and dark damage, and Rex heals with his special moves.
 
 ### 6.2b Chakra energy (Jesse, 2026-11-04)
 Each hero's special-ability energy lives in their own **chakra**, and its colour is theirs:
@@ -273,7 +273,7 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
   - Keep notes on what shortens each fight and on its death spirals.
 - **Too easy is the cardinal sin.** Normal encounters cost resources; bosses wipe parties that ignore mechanics at expected level.
 - Sim targets (§11.6): boss vs. greedy policy **30–55%** win; vs. mechanic-aware **80–95%**. Normal: greedy wins ~95% with 15–35% HP lost.
-- **Designed exceptions:** **Nocturne #2** is intentionally easy (power fantasy, ~95%+). **Nocturne Reborn** is the hardest fight in the game (target 25–45% first try for mechanic-aware play at expected level) — tuned so the party *can* win but must use everything they learned, especially because the player has leaned on Eddar.
+- **Designed exceptions:** Eddar's round against Nocturne is intentionally easy (power fantasy, ~95%+). The final Rex-and-Eddar fight is the hardest fight in the game (target 25–45% first try for mechanic-aware play at expected level) — tuned so the party *can* win but must use everything they learned, especially because the player has leaned on Eddar.
 - To keep the final fight fair: from Act II on, at least one boss per act is designed to be best solved *without* relying on Eddar (teaches the other kits), and the game nudges via Cartridge challenges that ban Eddar.
 - Modes: Story / Arcade (default) / Hardcore. Retry-from-boss-start always offered.
 
@@ -285,6 +285,7 @@ Each hero's special-ability energy lives in their own **chakra**, and its colour
   - **Taunt** forces its target and also puts Guard on the taunter, as Defend would.
   - **Big Brother:** if Rex takes a hit meant for Eddar, he counts as guarding. So Rex makes these fights much easier: he can just keep taunting.
 - **No "weaker because it's earlier" versions.** The Marsh Prowler is not magically weaker than the Badlands Prowler. Every member of a family grows stronger as the Hush takes more of the world. Later fights are harder because more creatures fight together, mixing turn-based and Solo-bar (timed) attacks and abilities, not because the same animal is simply boosted elsewhere.
+- **The Hush on the world map (Jesse, 2026-11-06).** Once the player has visited an area, the map darkens it as the Hush takes it. Freed areas never return to full colour, a visual record of the growing Silence. The Hush grows very slowly in Act I, until near its end.
 - **Hush clearing gates difficulty.** World and side-quest content that defeats the Hush makes the fights ahead easier. How much the player is expected to clear rises with difficulty:
   - **Unplugged (easy):** the player can skip all of it and still progress.
   - **Guitar Solo (normal):** skipping it is possible, but it plays like a self-imposed "low level challenge" (like clearing FFVII in under 50 levels). For a challenge less punishing than Headliner, clear at least **50%**.
